@@ -16,6 +16,26 @@
       type="text/css"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      .v_emergente {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        }
+        .v_emergente-content {
+          background: #fff;
+          max-width: 400px;
+          margin: 100px auto;
+          padding: 20px;
+          border-radius: 8px;
+          text-align: center;
+        }
+    </style>
   </head>
   <body>
     <div class="background"></div>
@@ -111,11 +131,19 @@
         </div>
         <div class="my-form__actions">
           <div class="my-form__signin">
-            <a href="registroPPP.html" title="Registrarse">Registrar</a>
+            <a nclick="openv_emergente()" type="button" title="Registrarse">Registrar</a>
           </div>
         </div>
       </form>
     </div>
+    <div class="v_emergente" id="myv_emergente">
+      <div class="v_emergente-content">
+          <h3>Registro</h3>
+          <img src="assets\11.png" alt="Img" height="100px">
+          <p>Elige una opción:</p>
+          <button onclick="redirectToInstitutional()">Registro con correo institucional</button>
+          <button onclick="redirectToOther()">Registro con otro correo</button>
+      </div>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
