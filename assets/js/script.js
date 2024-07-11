@@ -32,3 +32,7 @@ function openv_emergente() {
     // Redirigir a la página de registro con otro correo
     window.location.href = "registroppp.html";
   }
+
+function cerrar_ve() {
+    document.getElementById("myv_emergente").style.display = "none";
+}
