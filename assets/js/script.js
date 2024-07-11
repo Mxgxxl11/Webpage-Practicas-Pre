@@ -1,25 +1,18 @@
-/*
-let loginForm = document.querySelector(".my-form");
-let email = document.getElementById("email");
-let password = document.getElementById("password");
-let confirmPassword = document.getElementById("confirm-password")
+let verClave = document.getElementById("verclave");
+let clave = document.getElementById("password");
+let icono = document.getElementById("icono");
+let condicion = true;
 
-loginForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    
-    console.log('Email:', email.value);
-    console.log('Password:', password.value);
-});
-
-function onChange() {
-    if (confirmPassword.value === password.value) {
-        confirmPassword.setCustomValidity('');
+verClave.addEventListener("click", function() {
+    if (condicion) {
+        clave.type = "text";
+        icono.classList.remove("fa-eye");
+        icono.classList.add("fa-eye-slash");
+        condicion = false;
     } else {
-        confirmPassword.setCustomValidity('Passwords do not match!');
+        clave.type = "password";
+        icono.classList.remove("fa-eye-slash");
+        icono.classList.add("fa-eye");
+        condicion = true;
     }
-}
-
-password.addEventListener('change', onChange);
-confirmPassword.addEventListener('change', onChange);*/
-
-
+});

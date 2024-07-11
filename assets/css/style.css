@@ -247,3 +247,9 @@ Lo comento porque esto no es soportado por css actualmente :(
     text-decoration: underline;
 }
 
+.ver_clave{
+    position: absolute;
+    right: 11px;
+    bottom: 10px;
+}
+
