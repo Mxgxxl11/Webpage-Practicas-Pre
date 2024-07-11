@@ -1,0 +1,64 @@
+:root {
+    --primary: #625BFE;
+    --primary-hover: #7771f7;                
+    --text: #383740;
+    --text-lighter: #71707d;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Mulish, sans-serif;
+}
+.text-field input {
+    color: var(--text-lighter);
+    font-size: 1rem;
+    font-weight: 500;
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid var(--text-lighter);
+    height: 3.125rem;
+    color: var(--text);
+    letter-spacing: .03rem;
+    background-color: transparent;
+    outline: none;
+    transition: .25s;
+    border-radius: 0.5rem;
+    text-indent: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.text-field input:focus {
+    border: 1px solid var(--primary);
+}
+
+.text-field {
+    position: relative;
+}
+
+.text-field input::-webkit-input-placeholder {
+    color: var(--text-lighter);
+}
+
+.text-field svg {
+    position: absolute;
+    right: -0.125rem;
+    bottom: -0.25rem;
+    width: 1.875rem;
+    height: 1.875rem;
+    transform: translate(-50%,-50%);
+    transform-origin: center;
+    stroke: var(--text);
+}
+
+.text-field input:focus + svg {
+    stroke: var(--primary);
+}
+
+.text-field label {
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: .03rem;
+    z-index: 10;
+}

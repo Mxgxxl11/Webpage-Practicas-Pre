@@ -1,0 +1,100 @@
+<!-- Esta parte si va, si me corresponde-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/page3y5.css" />
+    <link rel="stylesheet" href="assets/css/mas_corto.css">
+  </head>
+
+  <body>
+    <form action="#" class="my-form" method="POST">
+      <div class="login-welcome-row">
+        <h1>Registro con correo institucional</h1>
+        <br />
+        <p>Ingresa los siguientes datos para validarlos</p>
+      </div>
+      <div class="input__wrapper">
+        <input
+          type="number"
+          id="codigo"
+          name="codigo"
+          class="input__field"
+          placeholder="Tu codigo institucional"
+          required
+        />
+        <label for="codigo" class="input__label">Codigo Institucional:</label>
+      </div>
+      <div class="text-field">
+        <label for="password">Password:
+            <input id="password" type="password" name="password" placeholder="Your Password" title="Minimum 6 characters at 
+                                            least 1 Alphabet and 1 Number"
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z">
+                </path>
+                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
+            </svg>
+        </label>
+    </div>
+    <div class="text-field">
+        <label for="confirm-password">Repeat Password:
+            <input id="confirm-password" type="password" name="password" placeholder="Repeat Password"
+                title="Minimum 6 characters at east 1 Alphabet and 1 Number"
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z">
+                </path>
+                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
+            </svg>
+        </label>
+    </div>
+      <div class="input__wrapper">
+        <select name="escuela" id="escuela-profesional" required>
+          <option value="Informatica" selected>Informática</option>
+          <option value="Electronica">Electrónica</option>
+          <option value="Mecatronica">Mecatrónica</option>
+          <option value="Telecomunicaciones">Telecomunicaciones</option>
+        </select>
+        <label for="escuela-profesional" class="input__label"> Escuela: </label>
+      </div>
+      <button
+        onclick="openv()"
+        type="submit"
+        class="my-form__button"
+        id="b_validar"
+      >
+        Validar
+      </button>
+    </form>
+  </body>
+  <script>
+    function openv() {
+      const codigoInput = document.getElementById("codigo");
+      let codigoValue = parseInt(codigoInput, 10);
+      if (codigoValue >= 2018000000 && codigoValue < 2024000000) {
+        // Redirige a la página deseada
+        window.location.href = "page1.html";
+      } else {
+        // Muestra un mensaje de error o realiza otra acción
+        alert("Por favor, ingresa tu código institucional.");
+      }
+    }
+  </script>
+</html>
