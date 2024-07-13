@@ -108,6 +108,6 @@ if (empty($_SESSION['codigo_institucional'])) {
   </div>
 </div>
 
-    <script src="assets/js/mesadepartes.js"></script>
+    <script src="assets/js/nose.js"></script>
   </body>
 </html>
