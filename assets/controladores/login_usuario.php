@@ -16,7 +16,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         $_SESSION['segundo_nombre'] = $datos->nombre2;
         $_SESSION['primer_apellido'] = $datos->apellido1;
         $_SESSION['segundo_apellido'] = $datos->apellido2;
-        header("location: ./../../../menuprincipal.php");
+        header("location: ./../../../mesadepartes.php");
         exit();
     }
 } else {

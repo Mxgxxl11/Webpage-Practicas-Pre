@@ -49,7 +49,7 @@ if ($ejecutar) {
     echo '
         <script>
             alert("Usuario almacenado exitosamente.");
-            window.location = "./../../menuprincipal.php";
+            window.location = "./../../login.html";
         </script>';
 } //Cambiar el window.location.
 else {
