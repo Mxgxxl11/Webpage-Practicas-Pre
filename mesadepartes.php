@@ -25,7 +25,7 @@ if (empty($_SESSION['codigo_institucional'])) {
       <h2>Mesa de partes FIEI P.P.P</h2>
     </div>
     <div>
-      <p><?php echo $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido']; ?></p>
+      <p><?php echo '(' . $_SESSION['codigo_institucional'] . ') ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido']; ?></p>
     </div>
     <div>
       <a href="assets/controladores/cerrar_sesion.php" class="logout-btn">Cerrar Sesión</a>
@@ -48,7 +48,7 @@ if (empty($_SESSION['codigo_institucional'])) {
           <div class="profile-fields">
             <div>
               <label for="name">Apellidos y nombres:</label>
-              <input type="text" id="name" name="name" value="" />
+              <input type="text" id="name" name="name" value="<?php echo $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido']; ?>" disabled />
               <div class="error-message" id="name-error"></div>
             </div>
             <div>
@@ -105,7 +105,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     </div>
   </div>
 
-  <script src="assets/js/nose.js"></script>
+  <script src="assets/js/mesadepartes.js"></script>
 </body>
 
 </html>

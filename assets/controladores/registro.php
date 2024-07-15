@@ -17,7 +17,7 @@ $Escuela = $_POST['escuela'];
 //para sacar la fecha de creacion de la cuenta
 $fecha_actual = date("Y-m-d");
 
-$query = "INSERT INTO usuarios(codigo_estudiante, contrasena, correo, idRoles, fecha_creacion, nombre1,
+$query = "INSERT INTO usuarios(codigo, contrasena, correo, idRoles, fecha_creacion, nombre1,
     nombre2, apellido1, apellido2, celular, direccion, idEscuela, id_tdoc, numDocumento)
     values ('$codigo','$password','$correo', 3, '$fecha_actual', '$primerNombre','$segundoNombre',
     '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc')";
@@ -32,12 +32,12 @@ if (mysqli_num_rows($verificarCorreo) > 0) { //
         ';
     exit(); //para salir del script actual y que no se ejecute el codigo de abajo.
 }
-$verificarCodigo = mysqli_query($conexion, "SELECT * FROM usuarios WHERE codigo_estudiante = '$codigo' ");
+$verificarCodigo = mysqli_query($conexion, "SELECT * FROM usuarios WHERE codigo = '$codigo' ");
 if (mysqli_num_rows($verificarCodigo) > 0) { //
     echo '
             <script>
                 alert("Codigo ya registrado, ingrese un codigo nuevo.");
-                window.location = "./login.html";
+                window.location = "./../../login.html";
             </script>
         ';
     exit(); //para salir del script actual y que no se ejecute el codigo de abajo.
