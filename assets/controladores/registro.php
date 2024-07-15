@@ -1,8 +1,10 @@
 <?php
 
 include 'bd.php';
+
 $codigo = $_POST['codigo'];
 $password = $_POST['password'];
+$password = hash('sha512', $password);
 $tipoDoc = $_POST['tipo_documento'];
 $numDoc = $_POST['numero_documento'];
 $primerNombre = $_POST['nombre1'];
@@ -37,12 +39,13 @@ if (mysqli_num_rows($verificarCodigo) > 0) { //
     echo '
             <script>
                 alert("Codigo ya registrado, ingrese un codigo nuevo.");
-                window.location = "./../../login.html";
+                window.location = "./../../registroPPP.html";
             </script>
         ';
     exit(); //para salir del script actual y que no se ejecute el codigo de abajo.
 }
 
+//Para cuando le demos a registrar
 $ejecutar = mysqli_query($conexion, $query); //primero ingresamos la base, y luego ingresamos a los campos de la base
 
 if ($ejecutar) {
@@ -51,13 +54,13 @@ if ($ejecutar) {
             alert("Usuario almacenado exitosamente.");
             window.location = "./../../login.html";
         </script>';
-} //Cambiar el window.location.
-else {
+} else {
     echo '
         <script>
             alert("Usuario no almacenado. Intentelo nuevamente.");
-            
+            window.location = "./../../registroPPP.html";
         </script>';
     echo "Error: " . mysqli_error($conexion);
 }
+
 mysqli_close($conexion);

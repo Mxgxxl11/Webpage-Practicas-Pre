@@ -4,11 +4,14 @@
     if (!$conexion) {
         die("Error de conexión: " . mysqli_connect_error());
     }
-   
+   /*
+    SOLO USAR ESTO SI ES QUE HAY ERRORES EN LA CONEXION A LA BD
+    SI NO, NO HAY MOTIVOS PARA USAR ESTO
+        
     if($conexion){
         echo 'Conectado exitosamente a la base de datos'; //el echo es como un alert en JavaScript, ademas imprime el texto en la pagina
     }
     else{
         echo 'No se ha podido conectar a la base de datos';
-    }
-?>
+    }*/
+    mysqli_close($conexion);

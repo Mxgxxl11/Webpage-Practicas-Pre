@@ -27,6 +27,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         
         exit();
     }
+
 } else {
     echo '
             <script>
@@ -36,3 +37,5 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         ';
     exit();
 }
+
+mysqli_close($conexion); //si hay algun error probar borrar esto
