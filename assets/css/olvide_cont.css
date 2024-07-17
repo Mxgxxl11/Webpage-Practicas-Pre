@@ -1,0 +1,54 @@
+
+body {
+    background: #f4b692;
+}
+.container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
+    font-family: Mulish, sans-serif;
+}
+h2 {
+    font-size: 50px;
+}
+p {
+    font-size: 25px;
+    color: #444;
+}
+input[type="text"] {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 18px;
+    width: 90%;
+}
+label[for="usuario"] {
+    font-size: 20px;
+}
+button {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+
+input[type="password"] {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 18px;
+    width: 90%;
+}
+
+
+
+
