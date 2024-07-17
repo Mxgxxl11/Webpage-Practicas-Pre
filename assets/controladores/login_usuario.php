@@ -4,6 +4,7 @@ include 'bd.php'; //para usar la conexion a la bd
 
 $correo = $_POST['Correo_Institucional'];
 $contrasena = $_POST['password'];
+$contrasena = hash('sha512', $contrasena);
 
 $query = "SELECT * FROM usuarios WHERE correo = '$correo' and contrasena= '$contrasena'";
 $resultado = mysqli_query($conexion, $query);
