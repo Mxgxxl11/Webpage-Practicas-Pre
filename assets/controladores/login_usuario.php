@@ -18,6 +18,9 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         $_SESSION['primer_apellido'] = $datos->apellido1;
         $_SESSION['segundo_apellido'] = $datos->apellido2;
         $_SESSION['idRoles'] = $datos-> idRoles;
+
+        $_SESSION['celular'] = $datos->celular;
+
         if($_SESSION['idRoles']==1){
             header("location: ./../../../menuprincipal.php");
         }else if($_SESSION['idRoles']==2){
