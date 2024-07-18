@@ -48,23 +48,27 @@ if (empty($_SESSION['codigo_institucional'])) {
           <div class="profile-fields">
             <div>
               <label for="name">Apellidos y nombres:</label>
-              <input type="text" id="name" name="name" value="<?php echo $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido']; ?>" disabled />
+              <echo input type="text" id="name" name="name" value="" /> 
               <div class="error-message" id="name-error"></div>
+              <?php $nombreUsuario = $_SESSION['primer_nombre']; echo '<input type="text" value="' . htmlspecialchars($nombreUsuario) . '" readonly>'; ?>
             </div>
             <div>
               <label for="codigo">Código:</label>
-              <input type="text" id="codigo" name="codigo" value="" />
+              <echo input type="text" id="codigo" name="codigo" value="" />
               <div class="error-message" id="codigo-error"></div>
+              <?php $codigo = $_SESSION['codigo_institucional']; echo '<input type="text" value="' . htmlspecialchars($codigo) . '" readonly>'; ?>
             </div>
             <div>
               <label for="email">Correo:</label>
-              <input type="email" id="email" name="email" value="" />
+              <echo input type="email" id="email" name="email" value="" />
               <div class="error-message" id="email-error"></div>
+              <?php $email = $_SESSION['Correo_Institucional']; echo '<input type="text" value="' . htmlspecialchars($email) . '" readonly>'; ?>
             </div>
             <div>
               <label for="phone">Celular:</label>
-              <input type="text" id="phone" name="phone" value="" />
+              <echo input type="number" id="phone" name="phone" value="" />
               <div class="error-message" id="phone-error"></div>
+              <?php $celular = $_SESSION['celular']; echo '<input type="number" value="' . htmlspecialchars($celular) . '">'; ?>
             </div>
           </div>
           <div class="form-buttons">
