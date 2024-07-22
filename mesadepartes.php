@@ -1,3 +1,4 @@
+<!-- MENU ESTUDIANTE-->
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {
@@ -6,6 +7,8 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
+
+$nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +28,7 @@ if (empty($_SESSION['codigo_institucional'])) {
       <h2>Mesa de partes FIEI P.P.P</h2>
     </div>
     <div>
-      <p><?php echo '(' . $_SESSION['codigo_institucional'] . ') ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido']; ?></p>
+      <p><?php echo '(' . $_SESSION['codigo_institucional'] . ') ' . $nombre_completo; ?></p>
     </div>
     <div>
       <a href="assets/controladores/cerrar_sesion.php" class="logout-btn">Cerrar Sesión</a>
@@ -43,32 +46,25 @@ if (empty($_SESSION['codigo_institucional'])) {
     </nav>
     <main class="main-content">
       <div id="profileContainer" style="display: none">
+        <!-- PARA VER DATOS DEL PERFIL-->
         <div class="profile-form">
           <button id="image-button" type="button" onclick="openModal()">Seleccionar Imagen</button>
           <div class="profile-fields">
             <div>
               <label for="name">Apellidos y nombres:</label>
-              <echo input type="text" id="name" name="name" value="" /> 
-              <div class="error-message" id="name-error"></div>
-              <?php $nombreUsuario = $_SESSION['primer_nombre']; echo '<input type="text" value="' . htmlspecialchars($nombreUsuario) . '" readonly>'; ?>
+              <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly />
             </div>
             <div>
               <label for="codigo">Código:</label>
-              <echo input type="text" id="codigo" name="codigo" value="" />
-              <div class="error-message" id="codigo-error"></div>
-              <?php $codigo = $_SESSION['codigo_institucional']; echo '<input type="text" value="' . htmlspecialchars($codigo) . '" readonly>'; ?>
+              <input type="text" id="codigo" name="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly />
             </div>
             <div>
               <label for="email">Correo:</label>
-              <echo input type="email" id="email" name="email" value="" />
-              <div class="error-message" id="email-error"></div>
-              <?php $email = $_SESSION['Correo_Institucional']; echo '<input type="text" value="' . htmlspecialchars($email) . '" readonly>'; ?>
+              <input type="email" id="email" name="email" value="<?php echo $_SESSION['Correo_Institucional']; ?>" readonly />
             </div>
             <div>
               <label for="phone">Celular:</label>
-              <echo input type="number" id="phone" name="phone" value="" />
-              <div class="error-message" id="phone-error"></div>
-              <?php $celular = $_SESSION['celular']; echo '<input type="number" value="' . htmlspecialchars($celular) . '">'; ?>
+              <input type="number" id="phone" name="phone" value="<?php echo $_SESSION['celular']; ?>" />
             </div>
           </div>
           <div class="form-buttons">
@@ -78,22 +74,33 @@ if (empty($_SESSION['codigo_institucional'])) {
             <button type="button" onclick="closeProfileForm()">Cerrar</button>
           </div>
         </div>
+        <!-- FIN DE VER PERFIL-->
       </div>
+      <!-- PARA INICIAR TRAMITE -->
       <div id="solicitudContainer" style="display: none">
         <div class="profile-form">
           <div class="welcome-message">
-            Bienvenido al inicio del proceso de solicitud
+            Bienvenido al modulo de atención de trámites
+            de Prácticas Pre Profesionales
+            <br>
+            <div class="logoFIEI">
+              <img src="assets/images/FIEI LOGO.png" alt="logo-FIEI">
+            </div>
           </div>
           <div class="form-buttons">
             <button type="button" onclick="closeSolicitudForm()">
               Cerrar
             </button>
+            <button type="button" onclick="loadIniciarSolicitud()">
+              Continuar
+            </button>
           </div>
         </div>
       </div>
+      <!-- FIN DE INICIO DE TRAMITE-->
     </main>
   </div>
-
+  <!-- PARA CARGAR, GUARDAR Y QUITAR IMAGEN DE PERFIL-->
   <div id="imageModal" class="modal">
     <div class="modal-content">
       <input type="file" id="fileInput" style="display: none" />
@@ -108,6 +115,7 @@ if (empty($_SESSION['codigo_institucional'])) {
       </div>
     </div>
   </div>
+  <!-- FIN CARGAR, GUARDAR Y QUITAR IMAGEN DE PERFIL-->
 
   <script src="assets/js/mesadepartes.js"></script>
 </body>

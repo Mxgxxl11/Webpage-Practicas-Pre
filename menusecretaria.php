@@ -1,3 +1,4 @@
+<!-- NO SE SI ELIMINAREMOS ESTE MENU O NO. LO HABLAMOS EN EL SPRINT 6 -->
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {

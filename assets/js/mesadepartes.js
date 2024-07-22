@@ -4,7 +4,8 @@ function toggleMenu() {
   }
   
   function loadProfileForm() {
-    resetForm();
+    /*
+    resetForm(); este funcion era la que hacia que desapareciera todo*/
     const profileContainer = document.getElementById('profileContainer');
     const solicitudContainer = document.getElementById('solicitudContainer');
   
@@ -13,12 +14,16 @@ function toggleMenu() {
   }
   
   function loadSolicitudForm() {
-    resetForm();
+    /*
+    resetForm();*/
     const profileContainer = document.getElementById('profileContainer');
     const solicitudContainer = document.getElementById('solicitudContainer');
   
     profileContainer.style.display = 'none';
     solicitudContainer.style.display = 'block';
+  }
+  function loadIniciarSolicitud(){
+    
   }
   
   function closeProfileForm() {

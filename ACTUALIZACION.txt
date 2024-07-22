@@ -1,0 +1,7 @@
+El error del container esta en el javascript: mesadepartes.js
+Solo he comentado las lineas en la que se llama a la función, pero no la borre.
+
+Error en mesadepartes.php: 
+el nombre en el campo apellidos y nombre sale con un espacio demás.
+Error en menuprincipal.php:
+el nombre en el campo apellidos y nombre sale con un espacio demás.

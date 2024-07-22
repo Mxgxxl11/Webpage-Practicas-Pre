@@ -2,25 +2,26 @@
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {
-    echo '<script>
+  echo '<script>
     alert("Para continuar debe iniciar sesión");
     window.location = "login.html"; 
     </script>';
 }
+$nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal</title>
-    <link rel="stylesheet" href="assets/css/mesadepartes.css" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Principal</title>
+  <link rel="stylesheet" href="assets/css/mesadepartes.css" />
 </head>
 
 <body>
-<header>
+  <header>
     <div style="display: flex; align-items: center">
       <button class="menu-btn" onclick="toggleMenu()">Ξ</button>
       <img src="assets/images/logo_unfv.jpg" alt="Logo" style="width: 130px; height: 70px; margin-right: 20px" />
@@ -50,27 +51,19 @@ if (empty($_SESSION['codigo_institucional'])) {
           <div class="profile-fields">
             <div>
               <label for="name">Apellidos y nombres:</label>
-              <echo input type="text" id="name" name="name" value="" /> 
-              <div class="error-message" id="name-error"></div>
-              <?php $nombreUsuario = $_SESSION['primer_nombre']; echo '<input type="text" value="' . htmlspecialchars($nombreUsuario) . '" readonly>'; ?>
+              <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly />
             </div>
             <div>
               <label for="codigo">Código:</label>
-              <echo input type="text" id="codigo" name="codigo" value="" />
-              <div class="error-message" id="codigo-error"></div>
-              <?php $codigo = $_SESSION['codigo_institucional']; echo '<input type="text" value="' . htmlspecialchars($codigo) . '" readonly>'; ?>
+              <input type="text" id="codigo" name="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly />
             </div>
             <div>
               <label for="email">Correo:</label>
-              <echo input type="email" id="email" name="email" value="" />
-              <div class="error-message" id="email-error"></div>
-              <?php $email = $_SESSION['Correo_Institucional']; echo '<input type="text" value="' . htmlspecialchars($email) . '" readonly>'; ?>
+              <input type="email" id="email" name="email" value="<?php echo $_SESSION['Correo_Institucional']; ?>" readonly />
             </div>
             <div>
               <label for="phone">Celular:</label>
-              <echo input type="number" id="phone" name="phone" value="" />
-              <div class="error-message" id="phone-error"></div>
-              <?php $celular = $_SESSION['celular']; echo '<input type="number" value="' . htmlspecialchars($celular) . '">'; ?>
+              <input type="number" id="phone" name="phone" value="<?php echo $_SESSION['celular']; ?>" />
             </div>
           </div>
           <div class="form-buttons">
