@@ -14,16 +14,19 @@ function toggleMenu() {
   }
   
   function loadSolicitudForm() {
-    /*
-    resetForm();*/
+    /*resetForm();*/
     const profileContainer = document.getElementById('profileContainer');
     const solicitudContainer = document.getElementById('solicitudContainer');
   
     profileContainer.style.display = 'none';
     solicitudContainer.style.display = 'block';
   }
-  function loadIniciarSolicitud(){
-    
+
+  function loadRegistroSolicitud(){
+    closeSolicitudForm();
+    const registroContainer = document.getElementById('Next-step');
+    registroContainer.style.display = 'block';
+
   }
   
   function closeProfileForm() {
