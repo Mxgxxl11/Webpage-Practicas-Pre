@@ -1,0 +1,215 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<style>  
+body {  
+  text-align: left;
+} 
+
+div.ambos {
+	display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+div.desc {
+	display: column;
+}
+
+div.gallery {  
+  border: 1px solid #ccc;  
+  border-radius: 15px;
+  overflow: hidden; 
+}  
+  
+.desc {  
+  padding: 15px;  
+}
+
+.desc {  
+  padding: 15px;  
+  background-color: #fff;  
+}
+
+
+.texto_derecho {  
+  margin: 5px 0;  
+  text-align: right;
+}
+
+.texto_izquierdo {  
+  margin: 5px 0;  
+  text-align: left;
+}
+
+#text1, #text3{
+  color: rgb(69, 68, 68);
+}
+
+#text2{
+  color: #C0392B;
+}
+
+#text1, #text2{
+  font-size: 15px;
+}
+
+#text3{
+  font-size: 30px;
+}
+
+#text4{
+  font-size: 13px;
+}
+
+#text5{
+  font-size: 11px;
+}
+
+#text4, #text5 {
+  color: #777;
+}
+
+.costo {  
+  font-size: 40px;  
+  font-weight: bold;  
+  color: #C0392B;  
+} 
+
+button {  
+  background-color: #C0392B;  
+  color: white;  
+  border: none;  
+  padding: 10px;  
+  border-radius: 5px;  
+  cursor: pointer;  
+  width: 100%;  
+  font-size: 16px;  
+}  
+
+button:hover {  
+	background-color: #A93226;  
+} 
+
+div.gallery:hover {  
+  border: 1px solid #777;  
+}  
+
+div.gallery img {  
+  width: 100%;  
+  height: 175px; 
+  display: block;
+  margin: 0;
+}    
+
+* {  
+  box-sizing: border-box;  
+}  
+
+.responsive {  
+  padding: 0 6px;  
+  float: left;  
+  width: 49.9999%;  
+  margin-top: 10px;  
+}  
+
+.responsive2 {  
+  padding: 0 6px;  
+  float: left;  
+  width: 99.999%;  
+  margin-top: 10px;  
+}  
+
+@media only screen and (max-width: 700px) {  
+  .responsive {  
+    width: 49.99999%;  
+    margin: 6px 0;  
+  }  
+}  
+
+@media only screen and (max-width: 500px) {  
+  .responsive {  
+    width: 100%;  
+  }  
+}  
+
+.clearfix:after {  
+  content: "";  
+  display: table;  
+  clear: both;  
+}  
+</style>  
+</head>  
+<body>   
+
+<div class="responsive"> 
+  <div class="gallery">
+  	<img src="https://polleriaslagranja.com/wp-content/uploads/2022/10/La-Granja-Real-Food-Chicken-1-Pollo-a-la-Brasa.png" alt="pollo a la brasa" width="600" height="400">
+    <div class="desc">
+      <div class="ambos">
+        <p class="texto_izquierdo" id="text3"><strong>Pollo a la Brasa</strong></p>  
+        <p class="texto_derecho" id="text2"><strong>Cena</strong></p>
+      </div>  
+      <p class="texto_izquierdo" id="text1"><strong>SAN ISIDRO</strong></p>  
+      <p class="texto_izquierdo" id="text4">Lunes a Domingo</p>  
+      <p class="texto_derecho precio" id="text5">PRECIO DESDE</p>
+      <p class="texto_derecho costo">S/50</p>
+      <button>¡Lo quiero!</button>
+    </div>
+  </div>  
+</div>  
+
+<div class="responsive">  
+  <div class="gallery">
+  	<img src="https://www.paulinacocina.net/wp-content/uploads/2021/12/arroz-chaufa-peruano-receta.jpg" alt="chaufa" width="600" height="400">
+    <div class="desc">
+      <div class="ambos">
+        <p class="texto_izquierdo" id="text3"><strong>Arroz Chaufa</strong></p>  
+        <p class="texto_derecho" id="text2"><strong>Almuerzo</strong></p>
+      </div>  
+      <p class="texto_izquierdo" id="text1"><strong>LINCE</strong></p>  
+      <p class="texto_izquierdo" id="text4">VIE/SAB</p>  
+      <p class="texto_derecho precio" id="text5">PRECIO DESDE</p>
+      <p class="texto_derecho costo">S/25</p>
+      <button>¡Lo quiero!</button>
+    </div>
+  </div>  
+</div>  
+
+<div class="responsive">  
+  <div class="gallery">
+      <img src="https://cdn0.recetasgratis.net/es/posts/7/4/1/ceviche_peruano_18147_600.webp" alt="lomo saltado" width="600" height="400"> 
+    <div class="desc">
+      <div class="ambos">
+        <p class="texto_izquierdo" id="text3"><strong>Ceviche</strong></p>  
+        <p class="texto_derecho" id="text2"><strong>Almuerzo</strong></p>
+      </div>  
+      <p class="texto_izquierdo" id="text1"><strong>MIRAFLORES</strong></p>  
+      <p class="texto_izquierdo" id="text4">Sabados y Domingos</p>  
+      <p class="texto_derecho precio" id="text5">PRECIO DESDE</p>
+      <p class="texto_derecho costo">S/24</p>
+      <button>¡Lo quiero!</button> 
+    </div>  
+  </div>  
+</div>   
+
+<div class="responsive">  
+  <div class="gallery">
+      <img src="https://blog.sanfernando.pe/wp-content/uploads/2023/06/featured-lomo-saltado-de-cerdo.webp" alt="lomo saltado" width="600" height="400"> 
+    <div class="desc">
+      <div class="ambos">
+        <p class="texto_izquierdo" id="text3"><strong>Lomo Saltado</strong></p>  
+        <p class="texto_derecho" id="text2"><strong>Almuerzo</strong></p>
+      </div>  
+      <p class="texto_izquierdo" id="text1"><strong>SAN ISIDRO</strong></p>  
+      <p class="texto_izquierdo" id="text4">Lunes a Domingo</p>  
+      <p class="texto_derecho precio" id="text5">PRECIO DESDE</p>
+      <p class="texto_derecho costo">S/30</p>
+      <button>¡Lo quiero!</button> 
+    </div>  
+  </div>  
+</div>       
+
+</body>  
+</html>

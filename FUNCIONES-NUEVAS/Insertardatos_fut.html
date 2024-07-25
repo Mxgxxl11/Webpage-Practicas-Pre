@@ -1,0 +1,80 @@
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Modificar PDF</title>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>  
+</head>  
+<body>  
+    <h1>Modificar PDF Existente</h1>  
+    <form id="myForm">  
+        <label for="doc1">Doc1:</label>  
+        <input type="text" id="doc1" name="doc1" required>
+        <label for="doc2">Doc2:</label>  
+        <input type="text" id="doc2" name="doc2" required>  
+        <label for="doc3">Doc3:</label>  
+        <input type="text" id="doc3" name="doc3" required>  
+        <label for="doc4">Doc4:</label>  
+        <input type="text" id="doc4" name="doc4" required>     
+        <button type="button" id="enviar">Enviar</button>  
+    </form>  
+
+    <script>  
+        document.getElementById('enviar').addEventListener('click', async function() {  
+            const doc1 = document.getElementById('doc1').value;
+            const doc2 = document.getElementById('doc2').value;
+            const doc3 = document.getElementById('doc3').value;
+            const doc4 = document.getElementById('doc4').value;
+
+            // Cargar el PDF existente  
+            const url = 'assets/pdf/FUT_SG_plantilla.pdf'; // Cambia esto a la ruta de tu PDF  
+            const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());  
+
+            // Cargar el PDF en PDF-lib  
+            const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);  
+            const page = pdfDoc.getPage(0); // Obtener la primera página  
+
+            // Agregar el texto en la posición deseada  
+            page.drawText(doc1, {  
+                x: 70, // Cambia esto a la posición X deseada  
+                y: 230, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            });  
+
+            page.drawText(doc2, {  
+                x: 70, // Cambia esto a la posición X deseada  
+                y: 215, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            });  
+
+            page.drawText(doc3, {  
+                x: 70, // Cambia esto a la posición X deseada  
+                y: 200, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            });  
+
+            page.drawText(doc4, {  
+                x: 70, // Cambia esto a la posición X deseada  
+                y: 185, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            });  
+
+            // Guardar el PDF modificado  
+            const pdfBytes = await pdfDoc.save();  
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });  
+            const urlBlob = URL.createObjectURL(blob);  
+
+            // Descargar el PDF modificado  
+            const a = document.createElement('a');  
+            a.href = urlBlob;  
+            a.download = 'fut_modificada.pdf';  
+            a.click();  
+        });  
+    </script>  
+</body>  
+</html>

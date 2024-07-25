@@ -1,0 +1,160 @@
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Modificar PDF</title>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>  
+</head>  
+<body>  
+    <h1>Modificar PDF Existente</h1>  
+    <form id="myForm">  
+        <label for="nombre">Nombres del Alumno:</label>  
+        <input type="text" id="nombres" name="nombres" required>  
+        <label for="nombre">Apellidos del Alumno:</label>  
+        <input type="text" id="apellidos" name="apellidos" required>  
+        <label for="nombre">Codigo del alumno</label>  
+        <input type="number" id="codigo" name="codigo" required>  
+        <label for="nombre">RUC de la empresa:</label>  
+        <input type="number" id="ruc" name="ruc" required>  
+        <label for="nombre">Nombre de la empresa:</label>  
+        <input type="text" id="nombre_emp" name="nombre_emp" required>  
+        <label for="nombre">Nombres del representante de la empresa:</label>  
+        <input type="text" id="representante" name="representante" required>  
+        <label for="nombre">Apellidos del representante de la empresa:</label>  
+        <input type="text" id="ap_representante" name="ap_representante" required>  
+        <label for="nombre">DNI del representante de la empresa:</label>  
+        <input type="number" id="dni" name="dni" required>  
+        <label for="nombre">Telefono del representante de la empresa:</label>  
+        <input type="number" id="telf" name="telf" required>  
+        <label for="nombre">Email del representante de la empresa:</label>  
+        <input type="email" id="email" name="email" required>  
+        <label for="nombre">Direccion de la empresa:</label>  
+        <input type="text" id="direccion" name="direccion" required>  
+        <label for="nombre">DPTO./ PROV./ DISTRITO:</label>  
+        <input type="text" id="dpto" name="dpto" required>  
+        <button type="button" id="enviar">Enviar</button>  
+    </form>  
+
+    <script>  
+        document.getElementById('enviar').addEventListener('click', async function() {  
+            const nombres = document.getElementById('nombres').value;  
+            const apellidos = document.getElementById('apellidos').value; 
+            const codigo = document.getElementById('codigo').value;
+            const ruc = document.getElementById('ruc').value;
+            const nombre_emp = document.getElementById('nombre_emp').value;
+            const representante = document.getElementById('representante').value;
+            const ap_representante = document.getElementById('ap_representante').value;
+            const dni = document.getElementById('dni').value;
+            const telf = document.getElementById('telf').value;
+            const email = document.getElementById('email').value;
+            const direccion = document.getElementById('direccion').value;
+            const dpto = document.getElementById('dpto').value;
+
+            // Cargar el PDF existente  
+            const url = 'assets/pdf/formato_1_ficha_datos_empresa.pdf'; // Cambia esto a la ruta de tu PDF  
+            const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());  
+
+            // Cargar el PDF en PDF-lib  
+            const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);  
+            const page = pdfDoc.getPage(0); // Obtener la primera página  
+
+            // Agregar el texto en la posición deseada  
+            page.drawText(nombres, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 647, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            });  
+
+            page.drawText(apellidos, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 625, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            });  
+
+            page.drawText(codigo, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 593, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(ruc, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 565, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(nombre_emp, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 533, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(representante, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 506, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(ap_representante, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 486, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(dni, {  
+                x: 315, // Cambia esto a la posición X deseada  
+                y: 440, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(telf, {  
+                x: 350, // Cambia esto a la posición X deseada  
+                y: 410, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(email, {  
+                x: 350, // Cambia esto a la posición X deseada  
+                y: 380, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(direccion, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 350, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            page.drawText(dpto, {  
+                x: 275, // Cambia esto a la posición X deseada  
+                y: 308, // Cambia esto a la posición Y deseada  
+                size: 12, // Tamaño de la fuente  
+                color: PDFLib.rgb(0, 0, 0), // Color del texto  
+            }); 
+
+            // Guardar el PDF modificado  
+            const pdfBytes = await pdfDoc.save();  
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });  
+            const urlBlob = URL.createObjectURL(blob);  
+
+            // Descargar el PDF modificado  
+            const a = document.createElement('a');  
+            a.href = urlBlob;  
+            a.download = 'solicitud_modificada.pdf';  
+            a.click();  
+        });  
+    </script>  
+</body>  
+</html>
