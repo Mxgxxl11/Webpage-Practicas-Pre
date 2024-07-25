@@ -239,3 +239,11 @@ function closeModal() {
 function openModal() {
     document.getElementById('imageModal').style.display = 'block';
 }
+
+
+function Aformulario() {  
+  document.getElementById('solicitudContainer').style.display = 'none';
+  
+  document.getElementById('nuevoContainer').style.display = 'block';
+}
+
