@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Modificar PDF</title>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>  
+    <style>
+        body{
+            display: flex;
+            justify-content: left;
+        }
+        #preview-container{
+            margin-left: 100px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>  
-<body>  
+<body>
+    <div>  
     <h1>Modificar PDF Existente</h1>  
     <form id="myForm">  
         <label for="doc1">Doc1:</label>  
@@ -19,6 +33,11 @@
         <input type="text" id="doc4" name="doc4" required>     
         <button type="button" id="enviar">Enviar</button>  
     </form>  
+    </div>
+    <div id="preview-container">
+        <h2>Previsualización del PDF</h2>
+        <iframe id="pdf-preview" width="100%" height="430px" style="border: 1px solid black;"></iframe>
+    </div>
 
     <script>  
         document.getElementById('enviar').addEventListener('click', async function() {  
@@ -68,6 +87,9 @@
             const pdfBytes = await pdfDoc.save();  
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });  
             const urlBlob = URL.createObjectURL(blob);  
+
+            //Previsualizar
+            document.getElementById('pdf-preview').setAttribute('src', urlBlob);
 
             // Descargar el PDF modificado  
             const a = document.createElement('a');  
