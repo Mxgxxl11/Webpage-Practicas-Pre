@@ -47,7 +47,8 @@
         <input type="text" id="direccion" name="direccion" required>  
         <label for="nombre">DPTO./ PROV./ DISTRITO:</label>  
         <input type="text" id="dpto" name="dpto" required>  
-        <button type="button" id="enviar">Enviar</button>  
+        <button type="button" id="guardar">Guardar</button>
+        <button type="button" id="descargar">Descargar</button>
     </form>  
     </div>
     <div id="preview-container">
@@ -56,7 +57,9 @@
     </div>
 
     <script>  
-        document.getElementById('enviar').addEventListener('click', async function() {  
+        let pdfBlobUrl = null;
+
+        document.getElementById('guardar').addEventListener('click', async function() {  
             const nombres = document.getElementById('nombres').value;  
             const apellidos = document.getElementById('apellidos').value; 
             const codigo = document.getElementById('codigo').value;
@@ -166,17 +169,23 @@
             // Guardar el PDF modificado  
             const pdfBytes = await pdfDoc.save();  
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });  
-            const urlBlob = URL.createObjectURL(blob);  
+            pdfBlobUrl = URL.createObjectURL(blob);  
 
             //Previsualizar
-            document.getElementById('pdf-preview').setAttribute('src', urlBlob);
-
+            document.getElementById('pdf-preview').setAttribute('src', pdfBlobUrl);
+        }); 
             // Descargar el PDF modificado  
-            const a = document.createElement('a');  
-            a.href = urlBlob;  
-            a.download = 'solicitud_modificada.pdf';  
-            a.click();  
-        });  
+        document.getElementById('descargar').addEventListener('click', function() {
+            if (pdfBlobUrl) {
+                // Descargar el PDF modificado
+                const a = document.createElement('a');
+                a.href = pdfBlobUrl;
+                a.download = 'fut_modificada.pdf';
+                a.click();
+            } else {
+                alert('Primero guarda el documento antes de intentar descargarlo.');
+            }
+        });
     </script>  
 </body>  
 </html>
