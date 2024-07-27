@@ -128,7 +128,6 @@
 <!-- INICIA SEGUNDO FORM-->
 
 <div id="nuevoContainer" style="display: none;">
-    
 
   <div class="container2">
         <h2>Primer Requisito: FORMULARIO ÚNICO DE TRÁMITE</h2>

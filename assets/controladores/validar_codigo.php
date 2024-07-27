@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'bd.php';
-// este codigo me sirve para validar el codigo y qe me direccione a la pestaña de reestablecer la contraseña
+// este codigo me sirve para validar el codigo y que me direccione a la pestaña de reestablecer la contraseña
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $codigo = $_POST['codigo'];
 
@@ -21,4 +21,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ';
     }
 }
-?>

@@ -28,7 +28,7 @@ function toggleMenu() {
     registroContainer.style.display = 'block';
 
   }
-  
+
   function closeProfileForm() {
     const profileContainer = document.getElementById('profileContainer');
     profileContainer.style.display = 'none';
@@ -37,6 +37,12 @@ function toggleMenu() {
   function closeSolicitudForm() {
     const solicitudContainer = document.getElementById('solicitudContainer');
     solicitudContainer.style.display = 'none';
+  }
+
+  function closeRegistroSolicitud(){
+    const registroSolicitud = document.getElementById('Next-step');
+    registroSolicitud.style.display = 'none';
+
   }
   
   function openModal() {

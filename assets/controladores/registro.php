@@ -18,11 +18,14 @@ $Escuela = $_POST['escuela'];
 
 //para sacar la fecha de creacion de la cuenta
 $fecha_actual = date("Y-m-d");
-
-$query = "INSERT INTO usuarios(codigo, contrasena, correo, idRoles, fecha_creacion, nombre1,
+//recordar que idRoles ahora esta en otra tabla
+$query = "INSERT INTO usuarios(codigo, contrasena, correo, fecha_creacion, nombre1,
     nombre2, apellido1, apellido2, celular, direccion, idEscuela, id_tdoc, numDocumento)
-    values ('$codigo','$password','$correo', 3, '$fecha_actual', '$primerNombre','$segundoNombre',
+    VALUES ('$codigo','$password','$correo', '$fecha_actual', '$primerNombre','$segundoNombre',
     '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc')";
+
+//guardando codigo y idRol en la tabla tipo_usuario
+$query2 = "INSERT INTO tipo_usuario(codigo, idRol) VALUES ('$codigo', 3)";
 
 $verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
 if (mysqli_num_rows($verificarCorreo) > 0) { //
@@ -47,8 +50,9 @@ if (mysqli_num_rows($verificarCodigo) > 0) { //
 
 //Para cuando le demos a registrar
 $ejecutar = mysqli_query($conexion, $query); //primero ingresamos la base, y luego ingresamos a los campos de la base
+$ejecutar2 = mysqli_query($conexion, $query2);
 
-if ($ejecutar) {
+if ($ejecutar and $ejecutar2) {
     echo '
         <script>
             alert("Usuario almacenado exitosamente.");
