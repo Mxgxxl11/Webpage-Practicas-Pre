@@ -11,6 +11,7 @@ $primerNombre = $_POST['nombre1'];
 $segundoNombre = $_POST['nombre2'];
 $primerApellido = $_POST['apellido1'];
 $segundoApellido = $_POST['apellido2'];
+$distrito = $_POST['distrito'];
 $direccion = $_POST['direccion'];
 $correo = $_POST['correo'];
 $celular = $_POST['celular'];
@@ -20,9 +21,9 @@ $Escuela = $_POST['escuela'];
 $fecha_actual = date("Y-m-d");
 //recordar que idRoles ahora esta en otra tabla
 $query = "INSERT INTO usuarios(codigo, contrasena, correo, fecha_creacion, nombre1,
-    nombre2, apellido1, apellido2, celular, direccion, idEscuela, id_tdoc, numDocumento)
+    nombre2, apellido1, apellido2, celular, direccion, idEscuela, id_tdoc, numDocumento, distrito)
     VALUES ('$codigo','$password','$correo', '$fecha_actual', '$primerNombre','$segundoNombre',
-    '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc')";
+    '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc', '$distrito')";
 
 //guardando codigo y idRol en la tabla tipo_usuario
 $query2 = "INSERT INTO tipo_usuario(codigo, idRol) VALUES ('$codigo', 3)";
@@ -49,7 +50,7 @@ if (mysqli_num_rows($verificarCodigo) > 0) { //
 }
 
 //Para cuando le demos a registrar
-$ejecutar = mysqli_query($conexion, $query); //primero ingresamos la base, y luego ingresamos a los campos de la base
+$ejecutar = mysqli_query($conexion, $query); // RECORDANDO: primero ingresamos la base, y luego ingresamos a los campos de la base
 $ejecutar2 = mysqli_query($conexion, $query2);
 
 if ($ejecutar and $ejecutar2) {
