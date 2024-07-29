@@ -10,6 +10,7 @@ body {
     background-color: #f4f4f4;
     overflow-x: hidden; 
 }
+/* HEADER */
 header {
     background-color: #FFCC00;
     color: black;
@@ -21,6 +22,8 @@ header {
     width: 100%;
     box-sizing: border-box;
 }
+
+/**/
 .menu-btn {
     background-color: #FFCC00;
     color: black;
@@ -29,27 +32,16 @@ header {
     cursor: pointer;
     font-size: 16px;
 }
-.logout-btn {
-    background-color: #060606;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-}
-.logout-btn:hover {
-    background-color: #FFCC00;
-}
+
 .container {
     display: flex;
     flex: 1;
     width: 100%;
     overflow-x: hidden; 
 }
+/* Para el sidebar*/
 .sidebar {
-    width: 250px;
+    width: 300px;
     background-color: #FFCC00;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -62,12 +54,78 @@ header {
     text-decoration: none;
     padding: 10px;
     font-size: 18px;
-    border-bottom: 2px solid #000;
+    /*border-bottom: 2px solid #000;*/
     margin-bottom: 10px;
 }
 .sidebar a:hover {
     background-color: #ffe066;
 }
+.sidebar__profile {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-direction: row;
+    padding: 0 1rem;
+    overflow-x: hidden;
+    min-height: 2.6125rem;
+  }
+  
+  .avatar__wrapper {
+    position: relative;
+    display: flex;
+  }
+  
+  .avatar {
+    display: block;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    /*cursor: pointer;*/
+    border-radius: 50%;
+  }
+  /*
+  .avatar:hover {
+    border: 3px solid rgb(0, 0, 0);
+  }*/
+  
+  .avatar__name {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    white-space: nowrap;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    text-align: left;
+  }
+  
+  .email {
+    font-size: 0.8rem;
+  }
+  .logout-btn {
+    /*background-color: #060606;*/
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.logout-btn:hover {
+    background-color: #FFCC00;
+}
+  .logout {
+    margin-left: auto;
+  }
+  
+  .logout svg {
+    color: red;
+  }
+  
+/* fin sidebar*/
 .main-content {
     flex: 1;
     padding: 20px;

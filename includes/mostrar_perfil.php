@@ -38,11 +38,7 @@
             <div class="form-buttons">
                 <button type="submit">Editar imagen perfil</button>
             </div>
-
         </form>
-
-        <input type="file" id="fileInput" style="display: none" />
-
         <div class="form-buttons">
             <button onclick="closeModal()" class="close-btn">Cerrar</button>
         </div>
