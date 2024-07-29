@@ -145,7 +145,8 @@ function toggleMenu() {
   
     alert('Perfil actualizado correctamente.');
   }
-  
+  /*
+  No la estamos usando
   function resetForm() {
     const nameInput = document.getElementById('name');
     const codigoInput = document.getElementById('codigo');
@@ -165,14 +166,16 @@ function toggleMenu() {
     codigoError.textContent = '';
     emailError.textContent = '';
     phoneError.textContent = '';
-  }
+  }*/
   
   
   let currentImage = null; 
-
+/*
+No la estamos usando
 function openFileInput() {
     document.getElementById('fileInput').click();
 }
+*/
 
 function handleFileSelect(event) {
   const file = event.target.files[0];
@@ -205,18 +208,18 @@ function handleFileSelect(event) {
 
 
 document.getElementById('fileInput').addEventListener('change', handleFileSelect);
-
+/*
 function uploadImage() {
     document.getElementById('fileInput').click();
-}
-
+}*/
+/*
 function removeImage() {
     const previewImage = document.getElementById('previewImage');
     previewImage.src = '';
     document.getElementById('imagePreview').style.display = 'none';
     currentImage = null;
-}
-
+}*/
+/*
 function saveImage() {
     if (currentImage) {
         alert('Imagen guardada');
@@ -225,8 +228,8 @@ function saveImage() {
     } else {
         alert('Cargue una imagen primero.');
     }
-}
-
+}*/
+/*
 function updateMainImageButton() {
     if (currentImage) {
         const mainImageButton = document.getElementById('image-button');
@@ -236,7 +239,7 @@ function updateMainImageButton() {
         };
         reader.readAsDataURL(currentImage);
     }
-}
+}*/
 
 function closeModal() {
     document.getElementById('imageModal').style.display = 'none';

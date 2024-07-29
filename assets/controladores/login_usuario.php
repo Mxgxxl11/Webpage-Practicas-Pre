@@ -20,10 +20,10 @@ if ((mysqli_num_rows($resultado) > 0) and (mysqli_num_rows($resultado2) > 0)) { 
         $_SESSION['segundo_nombre'] = $datos->nombre2;
         $_SESSION['primer_apellido'] = $datos->apellido1;
         $_SESSION['segundo_apellido'] = $datos->apellido2;
-        //RECUERDA: el idRol lo sacamos de otra tabla. 
-        $_SESSION['idRol'] = $datoRol->idRol;
-
+        $_SESSION['foto'] = $datos->foto;
         $_SESSION['celular'] = $datos->celular;
+        //RECUERDA: el idRol lo sacamos de otra tabla.
+        $_SESSION['idRol'] = $datoRol->idRol;
 
         if ($_SESSION['idRol'] == 1) {
             header("location: ./../../../menuprincipal.php");

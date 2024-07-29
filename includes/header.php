@@ -4,6 +4,7 @@
     <h2>Mesa de partes FIEI P.P.P</h2>
 </div>
 <div>
+    <img width="80" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
     <p><?php echo '(' . $_SESSION['codigo_institucional'] . ') ' . $nombre_completo; ?></p>
 </div>
 <div>

@@ -29,6 +29,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
     </div>
     <div>
       <p><?php echo '(' . $_SESSION['codigo_institucional'] . ') ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido']; ?></p>
+      <img width="80" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
     </div>
     <div>
       <a href="assets/controladores/cerrar_sesion.php" class="logout-btn">Cerrar Sesión</a>

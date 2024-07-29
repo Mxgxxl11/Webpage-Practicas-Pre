@@ -2,7 +2,11 @@
 <div class="profile-form">
     <button id="image-button" type="button" onclick="openModal()">Seleccionar Imagen</button>
     <div class="profile-fields">
+        <?php
+        $foto_perfil = $_SESSION['foto'];
+        ?>
         <div>
+            <img width="80" src="<?php echo $foto_perfil; ?>" alt="foto_perfil_usuario">
             <label for="name">Apellidos y nombres:</label>
             <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly />
         </div>
@@ -29,15 +33,18 @@
 <!-- Para la imagen del perfil-->
 <div id="imageModal" class="modal">
     <div class="modal-content">
+        <form action="../assets/controladores/imagen_perfil.php" enctype="multipart/form-data" method="POST">
+            <input type="file" name="foto">
+            <div class="form-buttons">
+                <button type="submit">Editar imagen perfil</button>
+            </div>
+
+        </form>
+
         <input type="file" id="fileInput" style="display: none" />
-        <button onclick="openFileInput()" class="form-buttons">Cargar imagen</button>
-        <button onclick="removeImage()">Quitar imagen</button>
-        <div id="imagePreview" style="display: none">
-            <img id="previewImage" src="#" alt="Vista previa de la imagen" />
-        </div>
+
         <div class="form-buttons">
             <button onclick="closeModal()" class="close-btn">Cerrar</button>
-            <button onclick="saveImage()">Guardar</button>
         </div>
     </div>
 </div>
