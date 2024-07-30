@@ -2,21 +2,33 @@
 <div class="profile-form">
 
     <button id="image-button" type="button" onclick="openModal()">
-    <img width="80" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
-</button>
+        <img width="80" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
+    </button>
     <div class="profile-fields">
 
         <div>
-            <label for="name">Apellidos y nombres:</label>
-            <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly />
+            <label for="nombre">Apellidos y nombres:</label>
+            <input type="text" id="nombre" value="<?php echo $nombre_completo; ?>" readonly />
         </div>
         <div>
             <label for="codigo">Código:</label>
-            <input type="text" id="codigo" name="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly />
+            <input type="text" id="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly />
+        </div>
+        <div>
+            <label for="documento">Documento:</label>
+            <input type="text" id="documento" value="<?php echo $_SESSION['documento']; ?>" readonly />
         </div>
         <div>
             <label for="email">Correo:</label>
-            <input type="email" id="email" name="email" value="<?php echo $_SESSION['Correo_Institucional']; ?>" readonly />
+            <input type="email" id="email" value="<?php echo $_SESSION['Correo_Institucional']; ?>" readonly />
+        </div>
+        <div>
+            <label for="distrito">Distrito:</label>
+            <input type="text" id="distrito" value="<?php echo $_SESSION['distrito']; ?>" />
+        </div>
+        <div>
+            <label for="direccion">Direccion:</label>
+            <input type="text" id="direccion" value="<?php echo $_SESSION['direccion']; ?>" />
         </div>
         <div>
             <label for="phone">Celular:</label>

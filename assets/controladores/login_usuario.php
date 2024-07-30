@@ -22,6 +22,9 @@ if ((mysqli_num_rows($resultado) > 0) and (mysqli_num_rows($resultado2) > 0)) { 
         $_SESSION['segundo_apellido'] = $datos->apellido2;
         $_SESSION['foto'] = $datos->foto;
         $_SESSION['celular'] = $datos->celular;
+        $_SESSION['distrito'] = $datos ->distrito;
+        $_SESSION['direccion'] = $datos ->direccion;
+        $_SESSION['documento'] = $datos ->numDocumento;
         //RECUERDA: el idRol lo sacamos de otra tabla.
         $_SESSION['idRol'] = $datoRol->idRol;
 
