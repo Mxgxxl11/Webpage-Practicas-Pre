@@ -27,6 +27,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
   <div class="container">
     <?php include './includes/sidebar.php'; ?>
     <main class="main-content">
+      <?php include './includes/bienvenida.php'; ?>
       <div id="profileContainer" style="display: none">
         <?php include './includes/mostrar_perfil.php'; ?>
       </div>

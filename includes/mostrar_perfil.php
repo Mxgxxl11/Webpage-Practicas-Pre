@@ -1,12 +1,12 @@
 <!-- Para mostrar datos del usuario-->
 <div class="profile-form">
-    <button id="image-button" type="button" onclick="openModal()">Seleccionar Imagen</button>
+
+    <button id="image-button" type="button" onclick="openModal()">
+    <img width="80" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
+</button>
     <div class="profile-fields">
-        <?php
-        $foto_perfil = $_SESSION['foto'];
-        ?>
+
         <div>
-            <img width="80" src="<?php echo $foto_perfil; ?>" alt="foto_perfil_usuario">
             <label for="name">Apellidos y nombres:</label>
             <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly />
         </div>

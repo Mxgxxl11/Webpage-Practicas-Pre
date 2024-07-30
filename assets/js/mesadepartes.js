@@ -2,22 +2,23 @@ function toggleMenu() {
     const sidebar = document.getElementById('sidebar');
     sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
   }
-  
+
+  //PARA CARGAR LOS MODALS DE LA PAGINA
   function loadProfileForm() {
     /*
     resetForm(); este funcion era la que hacia que desapareciera todo*/
+    closeBienvenidaContainer();
     const profileContainer = document.getElementById('profileContainer');
     const solicitudContainer = document.getElementById('solicitudContainer');
-  
     profileContainer.style.display = 'block';
     solicitudContainer.style.display = 'none';
   }
   
   function loadSolicitudForm() {
     /*resetForm();*/
+    closeBienvenidaContainer();
     const profileContainer = document.getElementById('profileContainer');
     const solicitudContainer = document.getElementById('solicitudContainer');
-  
     profileContainer.style.display = 'none';
     solicitudContainer.style.display = 'block';
   }
@@ -26,25 +27,54 @@ function toggleMenu() {
     closeSolicitudForm();
     const registroContainer = document.getElementById('Next-step');
     registroContainer.style.display = 'block';
+    closeBienvenidaContainer();
+  }
 
+  function loadSegundoForm(){
+    const segundoFormContainer = document.getElementById('nuevoContainer');
+    segundoFormContainer.style.display = 'block';
+  }
+
+  function loadBienvenidaContainer(){
+    const bienvenidaContainer = document.getElementById('bienvenidaContainer');
+    bienvenidaContainer.style.display = 'block';
+  }
+
+  function closeBienvenidaContainer(){
+    const bienvenidaContainer = document.getElementById('bienvenidaContainer');
+    bienvenidaContainer.style.display = 'none';
   }
 
   function closeProfileForm() {
     const profileContainer = document.getElementById('profileContainer');
     profileContainer.style.display = 'none';
+    loadBienvenidaContainer();
   }
   
   function closeSolicitudForm() {
     const solicitudContainer = document.getElementById('solicitudContainer');
     solicitudContainer.style.display = 'none';
+    loadBienvenidaContainer();
   }
 
   function closeRegistroSolicitud(){
+    
     const registroSolicitud = document.getElementById('Next-step');
     registroSolicitud.style.display = 'none';
-
+    loadSegundoForm();
   }
-  
+
+  function closeSegundoForm(){
+    const segundoFormContainer = document.getElementById('nuevoContainer');
+    segundoFormContainer.style.display = 'none';
+  }
+  /*
+  function Aformulario() {  
+    document.getElementById('solicitudContainer').style.display = 'none';
+    document.getElementById('nuevoContainer').style.display = 'block';
+  }*/
+  //FIN DE LA SECCION ANTERIOR
+
   function openModal() {
     document.getElementById('imageModal').style.display = 'block';
   }
@@ -65,7 +95,7 @@ function toggleMenu() {
     alert('Imagen guardada');
     closeModal();
   }
-  
+  //VALIDACIONES
   function validateName() {
     const nameInput = document.getElementById('name');
     const nameError = document.getElementById('name-error');
@@ -145,6 +175,7 @@ function toggleMenu() {
   
     alert('Perfil actualizado correctamente.');
   }
+//////////////////////////////////////////////
   /*
   No la estamos usando
   function resetForm() {
@@ -170,13 +201,13 @@ function toggleMenu() {
   
   
   let currentImage = null; 
+
 /*
-No la estamos usando
 function openFileInput() {
     document.getElementById('fileInput').click();
-}
-*/
+}*/
 
+/*
 function handleFileSelect(event) {
   const file = event.target.files[0];
   const imageButton = document.getElementById('image-button');
@@ -202,7 +233,7 @@ function handleFileSelect(event) {
       document.getElementById('imagePreview').style.display = 'none';
       currentImage = null;
   }
-}
+}*/
 
 
 
@@ -248,11 +279,3 @@ function closeModal() {
 function openModal() {
     document.getElementById('imageModal').style.display = 'block';
 }
-
-
-function Aformulario() {  
-  document.getElementById('solicitudContainer').style.display = 'none';
-  
-  document.getElementById('nuevoContainer').style.display = 'block';
-}
-

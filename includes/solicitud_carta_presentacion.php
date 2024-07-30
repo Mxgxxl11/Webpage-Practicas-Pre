@@ -16,6 +16,9 @@
             <button type="button" onclick="loadRegistroSolicitud()">
                 Continuar
             </button>
+            <button type="button" onclick="closeSolicitudForm()">
+                Cerrar
+            </button>
         </div>
     </div>
 </div>
@@ -116,20 +119,17 @@
                 </div>
 
                 <div class="form-buttons">
-            <button type="button" id="siguiente" onclick="Aformulario()">Siguiente</button>
-            </div>
+                    <button type="button" id="siguiente" onclick="closeRegistroSolicitud()">Siguiente</button>
+                </div>
         </form>
 
     </div>
 </div>
 
-
-
 <!-- INICIA SEGUNDO FORM-->
 
 <div id="nuevoContainer" style="display: none;">
-
-  <div class="container2">
+    <div class="container2">
         <h2>Primer Requisito: FORMULARIO ÚNICO DE TRÁMITE</h2>
         <div class="form-group">
             <label for="nombreDocumento">Nombre del Documento:</label>
@@ -222,49 +222,49 @@
             <select id="distrito">
                 <option value="">Seleccione un distrito</option>
 
-                        <option value="ANCON" default>ANCON</option>
-                        <option value="ATE">ATE</option>
-                        <option value="BARRANCO">BARRANCO</option>
-                        <option value="BREÑA">BREÑA</option>
-                        <option value="CARABAYLLO">CARABAYLLO</option>
-                        <option value="CHACLACAYO">CHACLACAYO</option>
-                        <option value="CHORRILLOS">CHORRILLOS</option>
-                        <option value="CIENEGUILLA">CIENEGUILLA</option>
-                        <option value="COMAS">COMAS</option>
-                        <option value="EL AGUSTINO">EL AGUSTINO</option>
-                        <option value="INDEPENDENCIA">INDEPENDENCIA</option>
-                        <option value="JESUS MARIA">JESUS MARIA</option>
-                        <option value="LA MOLINA">LA MOLINA</option>
-                        <option value="LA VICTORIA">LA VICTORIA</option>
-                        <option value="LIMA">LIMA</option>
-                        <option value="LINCE">LINCE</option>
-                        <option value="LOS OLIVOS">LOS OLIVOS</option>
-                        <option value="LURIGANCHO">LURIGANCHO</option>
-                        <option value="LURIN">LURIN</option>
-                        <option value="MAGDALENA DEL MAR">MAGDALENA DEL MAR</option>
-                        <option value="MIRAFLORES">MIRAFLORES</option>
-                        <option value="PACHACAMAC">PACHACAMAC</option>
-                        <option value="PUCUSANA">PUCUSANA</option>
-                        <option value="PUEBLO LIBRE">PUEBLO LIBRE</option>
-                        <option value="PUENTE PIEDRA">PUENTE PIEDRA</option>
-                        <option value="PUNTA HERMOSA">PUNTA HERMOSA</option>
-                        <option value="PUNTA NEGRA">PUNTA NEGRA</option>
-                        <option value="RIMAC">RIMAC</option>
-                        <option value="SAN BARTOLO">SAN BARTOLO</option>
-                        <option value="SAN BORJA">SAN BORJA</option>
-                        <option value="SAN ISIDRO">SAN ISIDRO</option>
-                        <option value="SAN JUAN DE LURIGANCHO">SAN JUAN DE LURIGANCHO</option>
-                        <option value="SAN JUAN DE MIRAFLORES">SAN JUAN DE MIRAFLORES</option>
-                        <option value="SAN LUIS">SAN LUIS</option>
-                        <option value="SAN MARTIN DE PORRES">SAN MARTIN DE PORRES</option>
-                        <option value="SAN MIGUEL">SAN MIGUEL</option>
-                        <option value="SANTA ANITA">SANTA ANITA</option>
-                        <option value="SANTA MARIA DEL MAR">SANTA MARIA DEL MAR</option>
-                        <option value="SANTA ROSA">SANTA ROSA</option>
-                        <option value="SANTIAGO DE SURCO">SANTIAGO DE SURCO</option>
-                        <option value="SURQUILLO">SURQUILLO</option>
-                        <option value="VILLA EL SALVADOR">VILLA EL SALVADOR</option>
-                        <option value="VILLA MARIA DEL TRIUNFO">VILLA MARIA DEL TRIUNFO</option>
+                <option value="ANCON" default>ANCON</option>
+                <option value="ATE">ATE</option>
+                <option value="BARRANCO">BARRANCO</option>
+                <option value="BREÑA">BREÑA</option>
+                <option value="CARABAYLLO">CARABAYLLO</option>
+                <option value="CHACLACAYO">CHACLACAYO</option>
+                <option value="CHORRILLOS">CHORRILLOS</option>
+                <option value="CIENEGUILLA">CIENEGUILLA</option>
+                <option value="COMAS">COMAS</option>
+                <option value="EL AGUSTINO">EL AGUSTINO</option>
+                <option value="INDEPENDENCIA">INDEPENDENCIA</option>
+                <option value="JESUS MARIA">JESUS MARIA</option>
+                <option value="LA MOLINA">LA MOLINA</option>
+                <option value="LA VICTORIA">LA VICTORIA</option>
+                <option value="LIMA">LIMA</option>
+                <option value="LINCE">LINCE</option>
+                <option value="LOS OLIVOS">LOS OLIVOS</option>
+                <option value="LURIGANCHO">LURIGANCHO</option>
+                <option value="LURIN">LURIN</option>
+                <option value="MAGDALENA DEL MAR">MAGDALENA DEL MAR</option>
+                <option value="MIRAFLORES">MIRAFLORES</option>
+                <option value="PACHACAMAC">PACHACAMAC</option>
+                <option value="PUCUSANA">PUCUSANA</option>
+                <option value="PUEBLO LIBRE">PUEBLO LIBRE</option>
+                <option value="PUENTE PIEDRA">PUENTE PIEDRA</option>
+                <option value="PUNTA HERMOSA">PUNTA HERMOSA</option>
+                <option value="PUNTA NEGRA">PUNTA NEGRA</option>
+                <option value="RIMAC">RIMAC</option>
+                <option value="SAN BARTOLO">SAN BARTOLO</option>
+                <option value="SAN BORJA">SAN BORJA</option>
+                <option value="SAN ISIDRO">SAN ISIDRO</option>
+                <option value="SAN JUAN DE LURIGANCHO">SAN JUAN DE LURIGANCHO</option>
+                <option value="SAN JUAN DE MIRAFLORES">SAN JUAN DE MIRAFLORES</option>
+                <option value="SAN LUIS">SAN LUIS</option>
+                <option value="SAN MARTIN DE PORRES">SAN MARTIN DE PORRES</option>
+                <option value="SAN MIGUEL">SAN MIGUEL</option>
+                <option value="SANTA ANITA">SANTA ANITA</option>
+                <option value="SANTA MARIA DEL MAR">SANTA MARIA DEL MAR</option>
+                <option value="SANTA ROSA">SANTA ROSA</option>
+                <option value="SANTIAGO DE SURCO">SANTIAGO DE SURCO</option>
+                <option value="SURQUILLO">SURQUILLO</option>
+                <option value="VILLA EL SALVADOR">VILLA EL SALVADOR</option>
+                <option value="VILLA MARIA DEL TRIUNFO">VILLA MARIA DEL TRIUNFO</option>
             </select>
         </div>
 
@@ -321,13 +321,12 @@
         <h2>DOCUMENTO</h2>
         <h3>AAAAAAAAAAAAAAAAAA</h3>
         <div class="form-group">
-            
-        <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
-           
+
+            <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
+
             <div class="buttons">
                 <button type="button">Descargar</button>
             </div>
         </div>
     </div>
-        </div>
-        
+</div>
