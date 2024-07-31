@@ -51,6 +51,12 @@ function loadBienvenidaContainer(){
   bienvenidaContainer.style.display = 'block';
 }
 
+function loadUpdateProfile(){
+  
+  document.getElementById('update-fields-profile').style.display = 'block';
+  document.getElementById('profileContainer').style.display = 'none';
+}
+
 function closeBienvenidaContainer(){
   //esta funcion cierra el apartado de bienvenida de la pag web
   const bienvenidaContainer = document.getElementById('bienvenidaContainer');

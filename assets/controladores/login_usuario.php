@@ -6,14 +6,21 @@ $correo = $_POST['Correo_Institucional'];
 $contrasena = $_POST['password'];
 $contrasena = hash('sha512', $contrasena);
 
-$query = "SELECT * FROM usuarios WHERE correo = '$correo' and contrasena= '$contrasena'";
+// Obtener la información del usuario junto con su rol
+$query = "SELECT u.*, t.idRol, t.codigo 
+          FROM usuarios u 
+          JOIN tipo_usuario t ON u.codigo = t.codigo 
+          WHERE u.correo = '$correo' AND u.contrasena = '$contrasena'";
+
 $resultado = mysqli_query($conexion, $query);
 
-$query2 = "SELECT idRol FROM tipo_usuario";
-$resultado2 = mysqli_query($conexion, $query2);
+if (!$resultado) {
+    // Si la consulta falla, muestra el error y termina la ejecución
+    die("Error en la consulta: " . mysqli_error($conexion));
+}
 
-if ((mysqli_num_rows($resultado) > 0) and (mysqli_num_rows($resultado2) > 0)) { //si encuentra un dato que esta en la BD nos dirige a una pagina de bienvenida
-    if ($datos = $resultado->fetch_object() and $datoRol = $resultado2->fetch_object()) {
+if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD nos dirige a una pagina de bienvenida
+    if ($datos = $resultado->fetch_object()) {
         $_SESSION['Correo_Institucional'] = $datos->correo; //para que no cualquiera pueda entrar a la siguiente pagina
         $_SESSION['codigo_institucional'] = $datos->codigo;
         $_SESSION['primer_nombre'] = $datos->nombre1;
@@ -22,18 +29,17 @@ if ((mysqli_num_rows($resultado) > 0) and (mysqli_num_rows($resultado2) > 0)) { 
         $_SESSION['segundo_apellido'] = $datos->apellido2;
         $_SESSION['foto'] = $datos->foto;
         $_SESSION['celular'] = $datos->celular;
-        $_SESSION['distrito'] = $datos ->distrito;
-        $_SESSION['direccion'] = $datos ->direccion;
-        $_SESSION['documento'] = $datos ->numDocumento;
-        //RECUERDA: el idRol lo sacamos de otra tabla.
-        $_SESSION['idRol'] = $datoRol->idRol;
+        $_SESSION['distrito'] = $datos->distrito;
+        $_SESSION['direccion'] = $datos->direccion;
+        $_SESSION['documento'] = $datos->numDocumento;
+        $_SESSION['idRol'] = $datos->idRol;
 
-        if ($_SESSION['idRol'] == 1) {
-            header("location: ./../../../menuprincipal.php");
+        if ($_SESSION['idRol'] == 3) {
+            header("location: ./../../../mesadepartes.php");
         } else if ($_SESSION['idRol'] == 2) {
             header("location: ./../../../menusecretaria.php");
-        } else if ($_SESSION['idRol'] == 3) {
-            header("location: ./../../../mesadepartes.php");
+        } else if ($_SESSION['idRol'] == 1) {
+            header("location: ./../../../menuprincipal.php");
         }
 
         exit();
@@ -47,5 +53,5 @@ if ((mysqli_num_rows($resultado) > 0) and (mysqli_num_rows($resultado2) > 0)) { 
         ';
     exit();
 }
-
-mysqli_close($conexion); //si hay algun error probar borrar esto
+mysqli_close($conexion);
+?>
