@@ -34,5 +34,4 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
   </div>
   <script src="assets/js/mesadepartes.js"></script>
 </body>
-
 </html>

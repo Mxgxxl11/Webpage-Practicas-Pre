@@ -138,6 +138,11 @@
             <div class="form-buttons">
                 <input type="submit" name="enviar" value="Actualizar" style="background-color:black; color:white;">
             </div>
+            <div class="form-buttons">
+                <button class="close-btn">
+                    Cerrar
+                </button>
+            </div>
         </div>
     </form>
 </div>
