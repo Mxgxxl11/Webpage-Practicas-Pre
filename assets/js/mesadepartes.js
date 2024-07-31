@@ -41,6 +41,7 @@ function loadRegistroSolicitud(){
 function loadSegundoForm(){
   //esta funcion carga el apartado del 2form (subida de futs)
   //de la carta de presentacion
+  closeRegistroSolicitud();
   const segundoFormContainer = document.getElementById('nuevoContainer');
   segundoFormContainer.style.display = 'block';
 }
@@ -52,7 +53,7 @@ function loadBienvenidaContainer(){
 }
 
 function loadUpdateProfile(){
-  
+  //esta funcion carga el apartado de actualizar datos del perfil
   document.getElementById('update-fields-profile').style.display = 'block';
   document.getElementById('profileContainer').style.display = 'none';
 }
