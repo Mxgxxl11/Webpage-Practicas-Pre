@@ -38,7 +38,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <p class="texto_izquierdo" id="text4">- Ficha de matricula 9 ciclo</p>
                         <p class="texto_izquierdo" id="text4">- Ficha de datos de la empresa</p>
                         <p class="texto_izquierdo" id="text4">- Comprobante de pago</p>
-                        <a href="carta_presentacion.php">Iniciar</a>
+                        <button onclick="iniciar_cp()">Iniciar</button>
                     </div>
                 </div>
             </div>
