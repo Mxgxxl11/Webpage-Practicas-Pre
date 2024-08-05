@@ -201,9 +201,12 @@ z-index: 999;
 
 }
 .modal-content {
+display: flex;
+flex-direction: column;
 position: relative;
 background: #fff;
 max-width: 400px;
+height: auto;
 margin: 100px auto;
 padding: 20px;
 border-radius: 8px;
@@ -218,7 +221,7 @@ margin: 20px 0;
 #image-button {
 display: block; 
 width: 100px;
-height: 100px;
+height: auto;
 background-size: cover;
 margin-left: auto;
 margin-right: auto;
@@ -327,4 +330,15 @@ background-color: #fff;
 color: #333;
 }
 
+#idk{
+    margin-top: 5px;
+}
 
+#imagePreviewContainer{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
