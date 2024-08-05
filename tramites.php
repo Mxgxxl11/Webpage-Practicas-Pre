@@ -26,7 +26,7 @@ if (empty($_SESSION['codigo_institucional'])) {
         <main class="main-content">
             <div class="responsive">
                 <div class="gallery">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="pollo a la brasa">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="carta_presentacion">
                     <div class="desc">
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>CARTA DE PRESENTACIÓN</strong></p>
@@ -44,11 +44,10 @@ if (empty($_SESSION['codigo_institucional'])) {
             </div>
             <div class="responsive">
                 <div class="gallery">
-                    <img src="https://cdn-icons-png.freepik.com/512/9746/9746449.png" alt="chaufa">
+                    <img src="https://cdn-icons-png.freepik.com/512/9746/9746449.png" alt="apertura_carpeta">
                     <div class="desc">
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>APERTURA DE CARPETA</strong></p>
-
                         </div>
                         <p class="texto_derecho" id="text2"><strong>Incompleto</strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Requisitos:</strong></p>
@@ -64,11 +63,10 @@ if (empty($_SESSION['codigo_institucional'])) {
 
             <div class="responsive">
                 <div class="gallery">
-                    <img src="https://img.freepik.com/vector-premium/icono-carpeta-archivo-almacenamiento-datos-color-documentos-computadora_53562-18585.jpg" alt="lomo saltado">
+                    <img src="https://img.freepik.com/vector-premium/icono-carpeta-archivo-almacenamiento-datos-color-documentos-computadora_53562-18585.jpg" alt="informes">
                     <div class="desc">
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>INFORMES</strong></p>
-
                         </div>
                         <p class="texto_derecho" id="text2"><strong>Incompleto</strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Documentos:</strong></p>
@@ -83,7 +81,7 @@ if (empty($_SESSION['codigo_institucional'])) {
 
             <div class="responsive">
                 <div class="gallery">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4420/4420106.png" alt="lomo saltado">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4420/4420106.png" alt="constancia">
                     <div class="desc">
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>CONSTANCIA</strong></p>
@@ -99,5 +97,4 @@ if (empty($_SESSION['codigo_institucional'])) {
     </div>
     <script src="assets/js/mesadepartes.js"></script>
 </body>
-
 </html>
