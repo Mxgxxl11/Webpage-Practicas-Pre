@@ -8,82 +8,74 @@ function toggleMenu() {
 }
 
 //PARA CARGAR LOS APARTADOS DE LA PÁGINA
-
+/*
 function loadProfileForm() {
   //esta función hace que se cargue el apartado de los datos del perfil
-  /*resetForm();*/
-  closeBienvenidaContainer();
+  //resetForm();
   const profileContainer = document.getElementById('profileContainer');
   const solicitudContainer = document.getElementById('solicitudContainer');
   profileContainer.style.display = 'block';
   solicitudContainer.style.display = 'none';
-}
+}*/
 
 function loadSolicitudForm() {
   //esta funcion carga el apartado de la carta de presentación (1er tramite)
-  /*resetForm();*/
-  closeBienvenidaContainer();
+  //resetForm();
   const profileContainer = document.getElementById('profileContainer');
   const solicitudContainer = document.getElementById('solicitudContainer');
   profileContainer.style.display = 'none';
   solicitudContainer.style.display = 'block';
 }
-
+/*
 function loadRegistroSolicitud(){
   //esta funcion carga el apartado del 1form(registro)
   //de la carta de presentacion
-  closeSolicitudForm();
   const registroContainer = document.getElementById('Next-step');
   registroContainer.style.display = 'block';
-  closeBienvenidaContainer();
-}
+}*/
 
 function loadSegundoForm(){
   //esta funcion carga el apartado del 2form (subida de futs)
   //de la carta de presentacion
-  closeRegistroSolicitud();
-  const segundoFormContainer = document.getElementById('nuevoContainer');
+  //closeRegistroSolicitud();
+  const segundoFormContainer = document.getElementById('segundo');
   segundoFormContainer.style.display = 'block';
 }
-
+/*
 function loadBienvenidaContainer(){
   //esta funcion carga el apartado de bienvenida a la pagina web
   const bienvenidaContainer = document.getElementById('bienvenidaContainer');
   bienvenidaContainer.style.display = 'block';
-}
+}*/
 
 function loadUpdateProfile(){
   //esta funcion carga el apartado de actualizar datos del perfil
   document.getElementById('update-fields-profile').style.display = 'block';
   document.getElementById('profileContainer').style.display = 'none';
 }
-
+/*
 function closeBienvenidaContainer(){
   //esta funcion cierra el apartado de bienvenida de la pag web
   const bienvenidaContainer = document.getElementById('bienvenidaContainer');
   bienvenidaContainer.style.display = 'none';
-}
+}*/
 
 function closeProfileForm() {
   //esta funcion cierra el apartado de la muestra de datos del perfil
-  const profileContainer = document.getElementById('profileContainer');
-  profileContainer.style.display = 'none';
-  loadBienvenidaContainer();
+  window.location.href = "./../../../mesadepartes.php";
 }
 
 function closeSolicitudForm() {
   //esta funcion cierra el apartado de bienvenida de la carta
   //de presentación
-  const solicitudContainer = document.getElementById('solicitudContainer');
-  solicitudContainer.style.display = 'none';
-  loadBienvenidaContainer();
+  window.location.href = "./../../../mesadepartes.php";
 }
 
 function closeRegistroSolicitud(){
   //este apartado cierra el 1form de la carta de presentación
-  const registroSolicitud = document.getElementById('Next-step');
-  registroSolicitud.style.display = 'none';
-  loadSegundoForm();
+  console.log("abriendo la ventana 'segundo...'")
+  document.getElementById('Next-step').style.display = 'none';
+  document.getElementById('segundo').style.display = 'block';
 }
 
 function closeSegundoForm(){

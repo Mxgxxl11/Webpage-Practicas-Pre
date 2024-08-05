@@ -2,8 +2,11 @@
     <button class="menu-btn" onclick="toggleMenu()">
         <img src="assets/images/sidebar.png" alt="logo_sidebar" style="width: 30px;">
     </button>
-    <img src="assets/images/FIEI_LOGO-removebg-preview.png" alt="Logo" style="width: 130px;" />
-    <h2 class="titulo-header">Mesa de partes Practicas Pre Profesionales</h2>
+    <a href="./../mesadepartes.php">
+        <img src="assets/images/FIEI_LOGO-removebg-preview.png" alt="Logo" style="width: 130px;" />
+    </a>
+
+    <h2 class="titulo-header">Bienvenido de nuevo <?php echo $_SESSION['primer_nombre']; ?>!</h2>
 
 </div>
 <div class="sidebar__profile">
