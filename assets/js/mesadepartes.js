@@ -48,6 +48,10 @@ function loadBienvenidaContainer(){
   bienvenidaContainer.style.display = 'block';
 }*/
 
+function backtoMenuAdmin(){
+  window.location.href = "./../../menuadmin.php";
+}
+
 function loadUpdateProfile(){
   //esta funcion carga el apartado de actualizar datos del perfil
   document.getElementById('update-fields-profile').style.display = 'block';
