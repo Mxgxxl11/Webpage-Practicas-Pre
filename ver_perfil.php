@@ -32,7 +32,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
                 <div class="profile-form">
                     <h1 style="text-align:center;">Mi perfil</h1>
                     <button id="image-button" type="button" onclick="openModal()">
-                        <img width="80" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
+                        <img width="80" height="auto" src="<?php echo $_SESSION['foto']; ?>" alt="foto_perfil_usuario">
                     </button>
                     <div class="profile-fields">
 
@@ -78,16 +78,16 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
                 <div id="imageModal" class="modal">
                     <div class="modal-content">
                         <form action="../assets/controladores/imagen_perfil.php" enctype="multipart/form-data" method="POST">
-                            <input type="file" name="foto">
-                            <div class="form-buttons">
-                                <button type="submit">Editar imagen perfil</button>
+                            <input type="file" name="foto" id="fileInput" accept="image/*" onchange="previewImage(event)">
+                            <div id="imagePreviewContainer" style="margin-top: 10px;">  
+                                <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;"/>  
+                            </div>
+                            <div id="idk" class="form-buttons">
+                                <button type="button" onclick="eliminarFoto()">Eliminar foto</button>
+                                <button type="submit">Editar imagen</button>
+                                <button type="button" onclick="closeModal()" class="close-btn">Cerrar</button>
                             </div>
                         </form>
-                        <div class="form-buttons">
-                            <button onclick="closeModal()" class="close-btn">
-                                Cerrar
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -153,6 +153,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
                                 <option value="VILLA MARIA DEL TRIUNFO">
                                     VILLA MARIA DEL TRIUNFO
                                 </option>
+                                <option value="VENTANILLA">VENTANILLA</option>
                             </select>
                         </div>
                         <div>
