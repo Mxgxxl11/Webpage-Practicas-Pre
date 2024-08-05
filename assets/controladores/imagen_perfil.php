@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'bd.php';
-
+$rol = $_SESSION['idRol'];
 // Ruta predeterminada de la foto de perfil en una constante
 define('FOTO_PREDETERMINADA', 'assets/fotos_perfil/perfil_pred.png');
 
@@ -40,20 +40,54 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
             if ($actualizar_foto) {
                 // Actualiza la variable de sesión con la nueva ruta de la foto
                 $_SESSION['foto'] = $ruta_foto_db;
-                echo '
+                if ($rol == 3) {
+                    echo '
                     <script>
                     alert("Imagen guardada exitosamente");
-                    window.location.href = "./../../../mesadepartes.php"; 
+                    window.location.href = "./../../ver_perfil.php"; 
                     </script>
                 ';
+                } else if ($rol == 2) {
+                    echo '
+                    <script>
+                    alert("Imagen guardada exitosamente");
+                    window.location.href = "./../../../menusecretaria.php"; 
+                    </script>
+                ';
+                } else if ($rol == 1) {
+                    echo '
+                    <script>
+                    alert("Imagen guardada exitosamente");
+                    window.location.href = "./../../perfil_admin.php"; 
+                    </script>
+                ';
+                }
             } else {
-                echo '
+                if ($rol == 3) {
+                    echo '
                     <script>
                     alert("Problemas al actualizar la imagen en la base de datos");
                     window.location.href = "./../../../mesadepartes.php"; 
                     </script>
                 ';
-                echo "Error: " . mysqli_error($conexion);
+                    echo "Error: " . mysqli_error($conexion);
+                } else if ($rol == 2) {
+                    echo '
+                    <script>
+                    alert("Problemas al actualizar la imagen en la base de datos");
+                    window.location.href = "./../../../menusecretaria.php"; 
+                    </script>
+                ';
+                    echo "Error: " . mysqli_error($conexion);
+                } else if ($rol == 1) {
+                    echo '
+                    <script>
+                    alert("Problemas al actualizar la imagen en la base de datos");
+                    window.location.href = "./../../../menuadmin.php"; 
+                    </script>
+                ';
+                    echo "Error: " . mysqli_error($conexion);
+                }
             }
         } else {
             echo '
@@ -65,11 +99,52 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
             echo "Error: No se pudo mover el archivo.";
         }
     } else {
-        echo "Formato de imagen no aceptado.";
+        if ($rol == 3) {
+            echo '
+            <script>
+            alert("Formato de imagen no aceptado");
+            window.location.href = "./../../ver_perfil.php"; 
+            </script>
+        ';
+        } else if ($rol == 2) {
+            echo '
+            <script>
+            alert("Formato de imagen no aceptado");
+            window.location.href = "./../../../menusecretaria.php"; 
+            </script>
+        ';
+        } else if ($rol == 1) {
+            echo '
+            <script>
+            alert("Formato de imagen no aceptado");
+            window.location.href = "./../../perfil_admin.php"; 
+            </script>
+        ';
+        }
     }
 } else {
-    echo "No se ha cargado ningún archivo o hubo un error en la carga.";
+    if ($rol == 3) {
+        echo '
+        <script>
+        alert("No se ha cargado ningún archivo o hubo un error en la carga");
+        window.location.href = "./../../ver_perfil.php"; 
+        </script>
+    ';
+    } else if ($rol == 2) {
+        echo '
+        <script>
+        alert("No se ha cargado ningún archivo o hubo un error en la carga");
+        window.location.href = "./../../../menusecretaria.php"; 
+        </script>
+    ';
+    } else if ($rol == 1) {
+        echo '
+        <script>
+        alert("No se ha cargado ningún archivo o hubo un error en la carga");
+        window.location.href = "./../../perfil_admin.php"; 
+        </script>
+    ';
+    }
 }
 
 mysqli_close($conexion);
-?>

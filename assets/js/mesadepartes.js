@@ -91,6 +91,9 @@ function openModal() {
 function closeModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
+function backtoMenuAdmin(){
+  window.location.href = "./../../menuadmin.php";
+}
 /*
 function uploadImage() {
   alert('Cargar imagen');

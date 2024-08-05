@@ -39,7 +39,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         } else if ($_SESSION['idRol'] == 2) {
             header("location: ./../../../menusecretaria.php");
         } else if ($_SESSION['idRol'] == 1) {
-            header("location: ./../../../menuprincipal.php");
+            header("location: ./../../../menuadmin.php");
         }
 
         exit();
@@ -54,4 +54,3 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
     exit();
 }
 mysqli_close($conexion);
-?>
