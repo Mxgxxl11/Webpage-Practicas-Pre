@@ -35,6 +35,7 @@ div.gallery {
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
+    width: 100%;
 }
 
 button {  
@@ -120,4 +121,3 @@ div.gallery img {
     width: 100%;  
   }  
 }  
-
