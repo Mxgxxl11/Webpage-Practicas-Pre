@@ -53,6 +53,26 @@ function loadUpdateProfile(){
   document.getElementById('update-fields-profile').style.display = 'block';
   document.getElementById('profileContainer').style.display = 'none';
 }
+
+function eliminarFoto() {  
+  if (confirm("¿Estás seguro de que quieres eliminar la foto?")) {  
+      // Crea un formulario para enviar la petición de eliminación  
+      var form = new FormData();  
+      form.append('accion', 'eliminar');  
+
+      // Enviar la solicitud AJAX  
+      fetch('../assets/controladores/imagen_perfil.php', {  
+          method: 'POST',  
+          body: form  
+      })  
+      .then(response => response.text())  
+      .then(data => {  
+          alert(data);  // Muestra la respuesta del servidor  
+          window.location.reload();  // Recarga la página para ver los cambios  
+      })  
+      .catch(error => console.error('Error:', error));  
+  }  
+}
 /*
 function closeBienvenidaContainer(){
   //esta funcion cierra el apartado de bienvenida de la pag web
@@ -91,9 +111,6 @@ function openModal() {
 function closeModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
-function backtoMenuAdmin(){
-  window.location.href = "./../../menuadmin.php";
-}
 /*
 function uploadImage() {
   alert('Cargar imagen');
@@ -108,12 +125,28 @@ function saveImage() {
   closeModal();
 }*/
 
-function closeModal() {
-  document.getElementById('imageModal').style.display = 'none';
+
+function iniciar_cp() {
+  window.location.href = 'carta_presentacion.php';
 }
 
-function openModal() {
-  document.getElementById('imageModal').style.display = 'block';
+function previewImage(event) {  
+  const file = event.target.files[0];  
+  const imagePreview = document.getElementById('imagePreview');  
+  
+  if (file) {  
+      const reader = new FileReader();  
+      
+      reader.onload = function(e) {  
+          imagePreview.src = e.target.result;  
+          imagePreview.style.display = 'block';  // Mostrar la imagen  
+      };  
+      
+      reader.readAsDataURL(file); // Leer el archivo como URL de datos  
+  } else {  
+      imagePreview.src = '';  
+      imagePreview.style.display = 'none'; // Ocultar la imagen si no hay archivo  
+  }  
 }
 
 /*
@@ -293,4 +326,3 @@ function updateMainImageButton() {
         reader.readAsDataURL(currentImage);
     }
 }*/
-
