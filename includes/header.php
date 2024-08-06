@@ -1,5 +1,5 @@
 <?php
-$rol = $_SESSION['idRol'];
+$rol = $_SESSION['id_rol'];
 ?>
 
 <div style="display: flex; align-items: center">
