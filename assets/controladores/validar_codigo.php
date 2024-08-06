@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $codigo = $_POST['codigo'];
 
     // Verificar que el código existe en la base de datos
-    $query = "SELECT * FROM usuarios WHERE codigo = '$codigo'";
+    $query = "SELECT * FROM usuario WHERE codigo = '$codigo'";
     $resultado = mysqli_query($conexion, $query);
 
     if (mysqli_num_rows($resultado) > 0) {
