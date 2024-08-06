@@ -2,15 +2,15 @@
 session_start(); //para iniciar sesion
 include 'bd.php'; //para usar la conexion a la bd
 
-$correo = $_POST['Correo_Institucional'];
+$correo = $_POST['correo'];
 $contrasena = $_POST['password'];
 $contrasena = hash('sha512', $contrasena);
 
 // Obtener la información del usuario junto con su rol
-$query = "SELECT u.*, t.idRol, t.codigo 
-          FROM usuarios u 
-          JOIN tipo_usuario t ON u.codigo = t.codigo 
-          WHERE u.correo = '$correo' AND u.contrasena = '$contrasena'";
+$query = "SELECT u.*, a.id_rol, a.id_usuario
+          FROM usuario u
+          JOIN acceso a ON u.codigo = a.id_usuario
+          WHERE (u.correo = '$correo' AND u.contraseña = '$contrasena')";
 
 $resultado = mysqli_query($conexion, $query);
 
@@ -31,14 +31,15 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         $_SESSION['celular'] = $datos->celular;
         $_SESSION['distrito'] = $datos->distrito;
         $_SESSION['direccion'] = $datos->direccion;
+        $_SESSION['departamento'] = $datos->nro_departamento;
         $_SESSION['documento'] = $datos->numDocumento;
-        $_SESSION['idRol'] = $datos->idRol;
+        $_SESSION['id_rol'] = $datos->id_rol;
 
-        if ($_SESSION['idRol'] == 3) {
+        if ($_SESSION['id_rol'] == 3) {
             header("location: ./../../../mesadepartes.php");
-        } else if ($_SESSION['idRol'] == 2) {
+        } else if ($_SESSION['id_rol'] == 2) {
             header("location: ./../../../menusecretaria.php");
-        } else if ($_SESSION['idRol'] == 1) {
+        } else if ($_SESSION['id_rol'] == 1) {
             header("location: ./../../../menuadmin.php");
         }
 
