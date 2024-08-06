@@ -3,7 +3,7 @@ $rol = $_SESSION['id_rol'];
 ?>
 
 <div style="display: flex; align-items: center">
-    <button class="menu-btn" onclick="toggleMenu()">
+    <button id="logosidebar" class="menu-btn" onclick="toggleMenu()">
         <img src="assets/images/sidebar.png" alt="logo_sidebar" style="width: 30px;">
     </button>
     <a href="<?php echo $rol == 1 ? './../../../menuadmin.php' : './../../../mesadepartes.php'; ?>">
