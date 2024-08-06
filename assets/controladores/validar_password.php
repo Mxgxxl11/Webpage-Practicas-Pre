@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nueva_contrasena_hashed = hash('sha512', $nueva_contrasena);
 
     // Actualizar la contraseña en la base de datos
-    $cambiar_contrasena = "UPDATE usuarios SET contrasena = '$nueva_contrasena_hashed' WHERE codigo = '$codigo'";
+    $cambiar_contrasena = "UPDATE usuario SET contraseña = '$nueva_contrasena_hashed' WHERE codigo = '$codigo'";
     $validar_contrasena = mysqli_query($conexion, $cambiar_contrasena);
 
     if ($validar_contrasena) {
