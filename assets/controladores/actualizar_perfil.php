@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'bd.php';
-$rol = $_SESSION['idRol'];
+$rol = $_SESSION['id_rol'];
 if (isset($_POST['enviar'])) {
     $codigo = $_SESSION['codigo_institucional'];
 
@@ -12,7 +12,7 @@ if (isset($_POST['enviar'])) {
     $upd_celular = $_POST['celular'];
 
     // Construir la consulta de actualización dinámicamente
-    $actualizar_datos = "UPDATE usuarios SET ";
+    $actualizar_datos = "UPDATE usuario SET ";
     $campos_a_actualizar = [];
 
     if (!empty($upd_correo)) {
