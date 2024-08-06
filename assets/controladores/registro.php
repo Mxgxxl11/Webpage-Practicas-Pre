@@ -13,6 +13,7 @@ $primerApellido = $_POST['apellido1'];
 $segundoApellido = $_POST['apellido2'];
 $distrito = $_POST['distrito'];
 $direccion = $_POST['direccion'];
+$dpto = $_POST['dpto'];
 $correo = $_POST['correo'];
 $celular = $_POST['celular'];
 $Escuela = $_POST['escuela'];
@@ -20,25 +21,24 @@ $Escuela = $_POST['escuela'];
 //para sacar la fecha de creacion de la cuenta
 $fecha_actual = date("Y-m-d");
 //recordar que idRoles ahora esta en otra tabla
-$query = "INSERT INTO usuarios(codigo, contrasena, correo, fecha_creacion, nombre1,
-    nombre2, apellido1, apellido2, celular, direccion, idEscuela, id_tdoc, numDocumento, distrito)
+$query = "INSERT INTO usuario(codigo, contraseña, correo, fecha_creacion, nombre1,
+    nombre2, apellido1, apellido2, celular, direccion, id_escuela, id_tipodoc, numDocumento, distrito, nro_departamento)
     VALUES ('$codigo','$password','$correo', '$fecha_actual', '$primerNombre','$segundoNombre',
-    '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc', '$distrito')";
+    '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc', '$distrito', '$dpto')";
 
 //guardando codigo y idRol en la tabla tipo_usuario
-$query2 = "INSERT INTO tipo_usuario(codigo, idRol) VALUES ('$codigo', 3)";
+$query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', 3)";
 
-$verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuarios WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
+$verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuario WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
 if (mysqli_num_rows($verificarCorreo) > 0) { //
     echo '
             <script>
                 alert("Correo ya registrado, ingrese un correo válido.");
-                window.location = "./login.html";
             </script>
         ';
     exit(); //para salir del script actual y que no se ejecute el codigo de abajo.
 }
-$verificarCodigo = mysqli_query($conexion, "SELECT * FROM usuarios WHERE codigo = '$codigo' ");
+$verificarCodigo = mysqli_query($conexion, "SELECT * FROM usuario WHERE codigo = '$codigo' ");
 if (mysqli_num_rows($verificarCodigo) > 0) { //
     echo '
             <script>
