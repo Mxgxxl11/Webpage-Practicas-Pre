@@ -6,6 +6,8 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
+$nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,81 +28,37 @@ if (empty($_SESSION['codigo_institucional'])) {
         <main class="main-content">
             <!-- INICIA FORM DE REGISTRO-->
             <div class="profile-form" id="Next-step">
-                <form action="#" method="POST">
+                <form action="assets/controladores/registro_cp.php" method="POST" enctype="multipart/form-data">
                     <div class="profile-fields">
                         <div>
                             <label for="codigo">Código:</label>
-                            <input type="text" id="codigo" name="codigo" value="" />
+                            <input type="text" id="codigo" name="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly/>
                             <div class="error-message" id="codigo-error"></div>
                         </div>
                         <div>
                             <label for="name">Apellidos y nombres:</label>
-                            <input type="text" id="name" name="name" value="" />
+                            <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly/>
                             <div class="error-message" id="name-error"></div>
                         </div>
                         <div>
-                            <label for="distritos">Distrito:</label>
-                            <select name="opciones" id="distritos">
-                                <option value="ANCON" default>ANCON</option>
-                                <option value="ATE">ATE</option>
-                                <option value="BARRANCO">BARRANCO</option>
-                                <option value="BREÑA">BREÑA</option>
-                                <option value="CARABAYLLO">CARABAYLLO</option>
-                                <option value="CHACLACAYO">CHACLACAYO</option>
-                                <option value="CHORRILLOS">CHORRILLOS</option>
-                                <option value="CIENEGUILLA">CIENEGUILLA</option>
-                                <option value="COMAS">COMAS</option>
-                                <option value="EL AGUSTINO">EL AGUSTINO</option>
-                                <option value="INDEPENDENCIA">INDEPENDENCIA</option>
-                                <option value="JESUS MARIA">JESUS MARIA</option>
-                                <option value="LA MOLINA">LA MOLINA</option>
-                                <option value="LA VICTORIA">LA VICTORIA</option>
-                                <option value="LIMA">LIMA</option>
-                                <option value="LINCE">LINCE</option>
-                                <option value="LOS OLIVOS">LOS OLIVOS</option>
-                                <option value="LURIGANCHO">LURIGANCHO</option>
-                                <option value="LURIN">LURIN</option>
-                                <option value="MAGDALENA DEL MAR">MAGDALENA DEL MAR</option>
-                                <option value="MIRAFLORES">MIRAFLORES</option>
-                                <option value="PACHACAMAC">PACHACAMAC</option>
-                                <option value="PUCUSANA">PUCUSANA</option>
-                                <option value="PUEBLO LIBRE">PUEBLO LIBRE</option>
-                                <option value="PUENTE PIEDRA">PUENTE PIEDRA</option>
-                                <option value="PUNTA HERMOSA">PUNTA HERMOSA</option>
-                                <option value="PUNTA NEGRA">PUNTA NEGRA</option>
-                                <option value="RIMAC">RIMAC</option>
-                                <option value="SAN BARTOLO">SAN BARTOLO</option>
-                                <option value="SAN BORJA">SAN BORJA</option>
-                                <option value="SAN ISIDRO">SAN ISIDRO</option>
-                                <option value="SAN JUAN DE LURIGANCHO">SAN JUAN DE LURIGANCHO</option>
-                                <option value="SAN JUAN DE MIRAFLORES">SAN JUAN DE MIRAFLORES</option>
-                                <option value="SAN LUIS">SAN LUIS</option>
-                                <option value="SAN MARTIN DE PORRES">SAN MARTIN DE PORRES</option>
-                                <option value="SAN MIGUEL">SAN MIGUEL</option>
-                                <option value="SANTA ANITA">SANTA ANITA</option>
-                                <option value="SANTA MARIA DEL MAR">SANTA MARIA DEL MAR</option>
-                                <option value="SANTA ROSA">SANTA ROSA</option>
-                                <option value="SANTIAGO DE SURCO">SANTIAGO DE SURCO</option>
-                                <option value="SURQUILLO">SURQUILLO</option>
-                                <option value="VILLA EL SALVADOR">VILLA EL SALVADOR</option>
-                                <option value="VILLA MARIA DEL TRIUNFO">VILLA MARIA DEL TRIUNFO</option>
-                            </select>
+                            <label for="distrito">Distrito:</label>
+                            <input type="text" id="distrito" value="<?php echo $_SESSION['distrito']; ?>" readonly />
                         </div>
                         <div>
                             <label for="p-curricular">Plan curricular:</label>
-                            <input type="text" id="p-curricular" name="pcurricular" />
+                            <input type="text" id="p-curricular" name="p-curricular" required/>
                         </div>
                         <div>
                             <label for="base">Base:</label>
-                            <input type="text" id="base" name="base" />
+                            <input type="text" id="base" name="base" required/>
                         </div>
                         <div>
                             <label for="semestre">Semestre:</label>
-                            <input type="text" id="semestre" name="semestre" />
+                            <input type="text" id="semestre" name="semestre" required/>
                         </div>
                         <div>
                             <label for="seccion">Sección:</label>
-                            <input type="text" id="seccion" name="seccion" />
+                            <input type="text" id="seccion" name="seccion" required/>
                         </div>
                         <label for="condicion">Condición:</label>
                         <select id="condicion" name="condicion" required>
@@ -108,15 +66,14 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <option value="2">Egresado</option>
                         </select>
                         <div>
-                            <label for="">Fecha de hoy:</label>
-                            <input type="date">
-                        </div>
-                        <div>
                             <label for="firma">Subir firma:</label>
-                            <input id="firma" type="file" value="enviar firma">
+                            <input type="file" name="firma" id="firma" accept="image/*" onchange="previewImage(event)" required>
+                            <div id="imagePreviewContainer" style="margin-top: 10px;">  
+                                <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;"/>  
+                            </div>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" onclick="closeRegistroSolicitud()">Siguiente</button>
+                            <button type="submit">Siguiente</button>
                         </div>
                     </div>
                 </form>
