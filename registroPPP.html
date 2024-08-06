@@ -1,4 +1,3 @@
-<!--No esta en uso por el momento esta página-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -113,8 +112,8 @@
             />
           </div>
           <div class="entrada">
-            <label for="distritos">Distrito:</label>
-            <select name="distrito" id="distritos">
+            <label for="distrito">Distrito:</label>
+            <select name="distrito" id="distrito">
               <option value="" selected disabled>Seleccione un distrito</option>
               <option value="ANCON">ANCON</option>
               <option value="ATE">ATE</option>
@@ -161,6 +160,7 @@
               <option value="SANTA ROSA">SANTA ROSA</option>
               <option value="SANTIAGO DE SURCO">SANTIAGO DE SURCO</option>
               <option value="SURQUILLO">SURQUILLO</option>
+              <option value="VENTANILLA">VENTANILLA</option>
               <option value="VILLA EL SALVADOR">VILLA EL SALVADOR</option>
               <option value="VILLA MARIA DEL TRIUNFO">
                 VILLA MARIA DEL TRIUNFO
@@ -178,7 +178,16 @@
             />
           </div>
           <div class="entrada">
-            <label for="correo">Correo Electrónico:</label>
+            <label for="dpto">Nro Departamento:</label>
+            <input
+              type="number"
+              id="dpto"
+              name="dpto"
+              autocomplete="off"
+            />
+          </div>
+          <div class="entrada">
+            <label for="correo">Correo Electronico:</label>
             <input
               type="email"
               id="correo"
