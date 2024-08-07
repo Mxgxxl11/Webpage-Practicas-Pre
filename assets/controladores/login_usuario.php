@@ -46,7 +46,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
           JOIN escuelas e ON u.id_escuela = e.id_escuela
           JOIN acceso a ON u.codigo = a.id_usuario
           JOIN alumno al ON u.codigo = al.id_usuario
-          WHERE u.codigo = $_SESSION[codigo_institucional];";
+          WHERE u.codigo = $_SESSION[codigo_institucional]";
 
         $resultado3 = mysqli_query($conexion, $query3);
         $datos3 = $resultado3->fetch_object();
