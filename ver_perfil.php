@@ -1,4 +1,5 @@
 <?php
+//VER PERFIL DEL PORTAL ESTUDIANTE
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>

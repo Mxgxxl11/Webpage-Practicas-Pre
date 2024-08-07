@@ -1,5 +1,5 @@
 <?php
-//REGISTRO DE ALUMNOS 
+//REGISTRO DE ADMINS EN EL PORTAL DE ADMINISTRADORES 
 include 'bd.php';
 
 $codigo = $_POST['codigo'];
@@ -27,13 +27,14 @@ $query = "INSERT INTO usuario(codigo, contraseña, correo, fecha_creacion, nombr
     '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc', '$distrito', '$dpto')";
 
 //guardando codigo y idRol en la tabla tipo_usuario
-$query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', 3)";
+$query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', 1)";
 
 $verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuario WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
 if (mysqli_num_rows($verificarCorreo) > 0) { //
     echo '
             <script>
                 alert("Correo ya registrado, ingrese un correo válido.");
+                window.location = "./../../agregar_usuario.php";
             </script>
         ';
     exit(); //para salir del script actual y que no se ejecute el codigo de abajo.
@@ -43,7 +44,7 @@ if (mysqli_num_rows($verificarCodigo) > 0) { //
     echo '
             <script>
                 alert("Codigo ya registrado, ingrese un codigo nuevo.");
-                window.location = "./../../registroPPP.html";
+                window.location = "./../../agregar_usuario.php";
             </script>
         ';
     exit(); //para salir del script actual y que no se ejecute el codigo de abajo.
@@ -57,13 +58,13 @@ if ($ejecutar and $ejecutar2) {
     echo '
         <script>
             alert("Usuario almacenado exitosamente.");
-            window.location = "./../../login.html";
+            window.location = "./../../agregar_usuario.php";
         </script>';
 } else {
     echo '
         <script>
             alert("Usuario no almacenado. Intentelo nuevamente.");
-            window.location = "./../../registroPPP.html";
+            window.location = "./../../agregar_usuario.php";
         </script>';
     echo "Error: " . mysqli_error($conexion);
 }

@@ -1,35 +1,35 @@
 <?php
 session_start();
 include 'bd.php';
-$rol = $_SESSION['idRol'];
+$rol = $_SESSION['id_rol'];
 // Ruta predeterminada de la foto de perfil en una constante
 define('FOTO_PREDETERMINADA', 'assets/fotos_perfil/perfil_pred.png');
 
-if (isset($_POST['accion']) && $_POST['accion'] == 'eliminar') {  
-    $codigo = $_SESSION['codigo_institucional'];  
+if (isset($_POST['accion']) && $_POST['accion'] == 'eliminar') {
+    $codigo = $_SESSION['codigo_institucional'];
     $ruta_actual = __DIR__ . '/../../' . $_SESSION['foto']; // Ruta absoluta de la foto actual  
 
     // Verifica si la foto actual no es la foto predeterminada  
-    if ($ruta_actual != __DIR__ . '/../../' . FOTO_PREDETERMINADA) {  
-        if (unlink($ruta_actual)) {  
+    if ($ruta_actual != __DIR__ . '/../../' . FOTO_PREDETERMINADA) {
+        if (unlink($ruta_actual)) {
             // Actualiza la base de datos para establecer la foto como predeterminada  
-            $ruta_foto_db = mysqli_real_escape_string($conexion, FOTO_PREDETERMINADA);  
-            $query2 = "UPDATE usuarios SET foto='$ruta_foto_db' WHERE codigo ='$codigo'";  
-            if (mysqli_query($conexion, $query2)) {  
+            $ruta_foto_db = mysqli_real_escape_string($conexion, FOTO_PREDETERMINADA);
+            $query2 = "UPDATE usuario SET foto='$ruta_foto_db' WHERE codigo ='$codigo'";
+            if (mysqli_query($conexion, $query2)) {
                 // Actualiza la variable de sesión  
-                $_SESSION['foto'] = $ruta_foto_db;  
-                echo "Foto eliminada exitosamente.";  
-            } else {  
-                echo "Problemas al actualizar la imagen en la base de datos.";  
-            }  
-        } else {  
-            echo "No se pudo eliminar la foto.";  
-        }  
-    } else {  
-        echo "No se puede eliminar la foto predeterminada.";  
-    }  
-    mysqli_close($conexion);  
-    exit;  
+                $_SESSION['foto'] = $ruta_foto_db;
+                echo "Foto eliminada exitosamente.";
+            } else {
+                echo "Problemas al actualizar la imagen en la base de datos." . mysqli_error($conexion);;
+            }
+        } else {
+            echo "No se pudo eliminar la foto.";
+        }
+    } else {
+        echo "No se puede eliminar la foto predeterminada.";
+    }
+    mysqli_close($conexion);
+    exit;
 }
 
 // Verifica si el archivo se ha cargado correctamente
@@ -61,7 +61,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] == UPLOAD_ERR_OK) {
         if (move_uploaded_file($foto, $ruta_foto)) {
             // Actualiza la ruta de la imagen en la base de datos
             $ruta_foto_db = mysqli_real_escape_string($conexion, 'assets/fotos_perfil/' . $codigo . '.' . $tipo_imagen);
-            $query2 = "UPDATE usuarios SET foto='$ruta_foto_db' WHERE codigo ='$codigo'";
+            $query2 = "UPDATE usuario SET foto='$ruta_foto_db' WHERE codigo ='$codigo'";
             $actualizar_foto = mysqli_query($conexion, $query2);
 
             if ($actualizar_foto) {
