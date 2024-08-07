@@ -7,7 +7,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     </script>';
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
-
+$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
         <?php include './includes/sidebar.php'; ?>
         <main class="main-content">
             <!-- INICIA FORM DE REGISTRO-->
-            <div class="profile-form" id="Next-step">
+            <div class="profile-form" id="Next-step" style="<?php echo $mostrarDiv === '2' ? 'display:none;' : ''; ?>">
                 <form action="assets/controladores/registro_cp.php" method="POST" enctype="multipart/form-data">
                     <div class="profile-fields">
                         <div>
@@ -80,7 +80,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
             </div>
             <br>
             <!-- INICIA SEGUNDO FORM-->
-            <div id="segundo" style="display: none;">
+            <div id="segundo" style="<?php echo $mostrarDiv === '2' ? 'display:block;' : 'display:none;'; ?>">
                 <div class="container2">
                     <h2>Primer Requisito: FORMULARIO ÚNICO DE TRÁMITE</h2>
                     <div class="form-group">
@@ -214,6 +214,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
                             <option value="SANTA ROSA">SANTA ROSA</option>
                             <option value="SANTIAGO DE SURCO">SANTIAGO DE SURCO</option>
                             <option value="SURQUILLO">SURQUILLO</option>
+                            <option value="VENTANILLA">VENTANILLA</option>
                             <option value="VILLA EL SALVADOR">VILLA EL SALVADOR</option>
                             <option value="VILLA MARIA DEL TRIUNFO">VILLA MARIA DEL TRIUNFO</option>
                         </select>
