@@ -7,6 +7,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     </script>';
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
+$nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesa de partes</title>
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +38,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                             <div class="error-message" id="codigo-error"></div>
                         </div>
                         <div>
-                            <label for="name">Apellidos y nombres:</label>
+                            <label for="name">Nombres y Apellidos:</label>
                             <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly/>
                             <div class="error-message" id="name-error"></div>
                         </div>
@@ -81,6 +83,29 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
             <br>
             <!-- INICIA SEGUNDO FORM-->
             <div id="segundo" style="<?php echo $mostrarDiv === '2' ? 'display:block;' : 'display:none;'; ?>">
+                <!-- DATOS PARA LLENAR EL FUT-->
+                <input type="text" id="dependencia" value="DECANO DE LA FIEI" style="display: none;">
+                <input type="text" id="nro_tramite" value="Solicitud de Carta Presentación" style="display: none;">
+                <input type="text" id="datos_solicitante" value="X" style="display: none;">
+                <input type="text" id="nombre_fut" value="<?php echo $nombre_fut; ?>" style="display: none;">
+                <input type="text" id="facultad" value="Facultad de Ingeniería Electrónica e Informática" style="display: none;">
+                <input type="text" id="escuela_profesional" value="<?php echo $_SESSION['escuela_profesional']; ?>" style="display: none;">
+                <input type="text" id="codigo_ins" value="<?php echo $_SESSION['codigo_institucional']; ?>" style="display: none;">
+                <input type="text" id="dni" value="<?php echo $_SESSION['documento']; ?>" style="display: none;">
+                <input type="text" id="direccion" value="<?php echo $_SESSION['direccion']; ?>" style="display: none;">
+                <input type="text" id="nro_dpto" value="<?php echo $_SESSION['departamento']; ?>" style="display: none;">
+                <input type="text" id="distrito" value="<?php echo $_SESSION['distrito']; ?>" style="display: none;">
+                <input type="text" id="celular" value="<?php echo $_SESSION['celular']; ?>" style="display: none;">
+                <input type="text" id="correo" value="<?php echo $_SESSION['Correo_Institucional']; ?>" style="display: none;">
+                <input type="text" id="fundamentacion" value="SOLICITO CARTA DE PRESENTACIÓN" style="display: none;">
+                <input type="text" id="doc1" value="FUT" style="display: none;">
+                <input type="text" id="doc2" value="Record Academico" style="display: none;">
+                <input type="text" id="doc3" value="Ficha de matricula (9no ciclo)" style="display: none;">
+                <input type="text" id="doc4" value="Ficha de datos de la empresa" style="display: none;">
+                <input type="text" id="doc5" value="Comprobante de pago" style="display: none;">
+                <input id="firma" value="<?php echo $_SESSION['firma']; ?>" style="display: none;">
+                <input type="text" id="folios" value="" style="display: none;">
+                <!-- DATOS PARA LLENAR EL FUT-->
                 <div class="container2">
                     <h2>Primer Requisito: FORMULARIO ÚNICO DE TRÁMITE</h2>
                     <div class="form-group">
@@ -94,9 +119,11 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <div class="form-group">
                         <label for="archivo1">Archivo:</label>
                         <div class="buttons">
-                            <button type="button" class="btn-small">Previsualizar Documento</button>
-                            <button type="button" class="btn-small">Eliminar</button>
+                            <button id="pre" type="button" class="btn-small">Previsualizar Documento</button>
                         </div>
+                    </div>
+                    <div id="preview-container">
+                        <iframe id="pdf-preview" width="100%" height="430px" style="border: 1px solid black;"></iframe>
                     </div>
                 </div>
                 <div class="container2">

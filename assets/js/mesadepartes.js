@@ -153,6 +153,208 @@ function previewImage(event) {
   }  
 }
 
+// Para previsualizar el FUT 
+
+let pdfBlobUrl = null;
+
+document.getElementById('pre').addEventListener('click', async function() {
+const text1 = document.getElementById('dependencia').value;
+const text2 = document.getElementById('nro_tramite').value;
+const text3 = document.getElementById('datos_solicitante').value;
+const text4 = document.getElementById('nombre_fut').value;
+const text5 = document.getElementById('facultad').value;
+const text6 = document.getElementById('escuela_profesional').value;
+const text7 = document.getElementById('codigo_ins').value;
+const text8 = document.getElementById('dni').value;
+const text9 = document.getElementById('direccion').value;
+const text10 = document.getElementById('nro_dpto').value;
+const text11 = document.getElementById('distrito').value;
+const text12 = document.getElementById('celular').value;
+const text13 = document.getElementById('correo').value;
+const text14 = document.getElementById('fundamentacion').value;
+const text15 = document.getElementById('doc1').value;
+const text16 = document.getElementById('doc2').value;
+const text17 = document.getElementById('doc3').value;
+const text18 = document.getElementById('doc4').value;
+const text19 = document.getElementById('doc5').value;
+const text20 = document.getElementById('firma').value;
+const text21 = document.getElementById('folios').value;
+const text22 = document.getElementById('fechaRegistro').value;
+
+// Cargar el PDF existente
+const url = 'assets/pdf/FUT_SG_plantilla.pdf'; // Cambia esto a la ruta de tu PDF
+const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+
+// Cargar el PDF en PDF-lib
+const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+const page = pdfDoc.getPage(0); // Obtener la primera página
+
+// Agregar el texto en la posición deseada
+page.drawText(text1, {
+x: 75, // Cambia esto a la posición X deseada
+y: 647, // Cambia esto a la posición Y deseada
+size: 12, // Tamaño de la fuente
+color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text2, {
+  x: 380, // Cambia esto a la posición X deseada
+  y: 645, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text3, {
+  x: 122, // Cambia esto a la posición X deseada
+  y: 580, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text4, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 540, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text5, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 500, // Cambia esto a la posición Y deseada
+  size: 8, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text6, {
+  x: 250, // Cambia esto a la posición X deseada
+  y: 500, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text7, {
+  x: 462, // Cambia esto a la posición X deseada
+  y: 500, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text8, {
+  x: 72, // Cambia esto a la posición X deseada
+  y: 445, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text9, {
+  x: 172, // Cambia esto a la posición X deseada
+  y: 445, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text10, {
+  x: 425, // Cambia esto a la posición X deseada
+  y: 445, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text11, {
+  x: 464, // Cambia esto a la posición X deseada
+  y: 445, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text12, {
+  x: 172, // Cambia e2sto a la posición X deseada
+  y: 405, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text13, {
+  x: 300, // Cambia esto a la posición X deseada
+  y: 405, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text14, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 355, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text15, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 232, // Cambia esto a la posición Y deseada
+  size: 11, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text16, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 217, // Cambia esto a la posición Y deseada
+  size: 11, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text17, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 202, // Cambia esto a la posición Y deseada
+  size: 11, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text18, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 187, // Cambia esto a la posición Y deseada
+  size: 11, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text19, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 172, // Cambia esto a la posición Y deseada
+  size: 11, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text20, {
+  x: 390, // Cambia esto a la posición X deseada
+  y: 115, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text21, {
+  x: 460, // Cambia esto a la posición X deseada
+  y: 230, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+page.drawText(text22, {
+  x: 70, // Cambia esto a la posición X deseada
+  y: 115, // Cambia esto a la posición Y deseada
+  size: 12, // Tamaño de la fuente
+  color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+// Guardar el PDF moqdificado
+const pdfBytes = await pdfDoc.save();
+const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+pdfBlobUrl = URL.createObjectURL(blob);
+
+// Previsualizar
+document.getElementById('pdf-preview').setAttribute('src', pdfBlobUrl);
+});
+
+// Para previsualizar el FUT
+
 /*
   function Aformulario() {  
     document.getElementById('solicitudContainer').style.display = 'none';
