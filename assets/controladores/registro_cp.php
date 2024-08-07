@@ -32,6 +32,8 @@ if (mysqli_num_rows($verificarCodigo) == 0) {
     exit();  
 }  
 
+$verificarCodigo2 = mysqli_query($conexion, "SELECT * FROM alumno WHERE id_usuario = '$codigo'");   
+
 // Obtener el id_rol basado en el código  
 $result = mysqli_query($conexion, "SELECT id_rol FROM acceso WHERE id_usuario = '$codigo'");  
 $row = mysqli_fetch_assoc($result);  
@@ -48,17 +50,37 @@ if (!$stmt) {
     exit();  
 }  
 
+$query2 = "INSERT INTO paso_cp (id_usuario, paso)   
+          VALUES ($codigo, 2)";
+$stmt2 = mysqli_prepare($conexion, $query2);
+if (!$stmt2) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+} 
+$ejecutar2 = mysqli_stmt_execute($stmt2); 
+
 // Establecer los tipos de datos y enlazar los parámetros  
 mysqli_stmt_bind_param($stmt, "isssssb", $codigo, $planCurricular, $base, $semestre, $seccion, $estado, $firmaBlob);  
 
 // Ejecutar la consulta  
 $ejecutar = mysqli_stmt_execute($stmt);  
+if (!$ejecutar2){
+    echo '  
+        <script>  
+            alert("Datos del alumno ya almacenados."); 
+        </script>';  
+}
 
-if ($ejecutar) {  
+if ($ejecutar && $ejecutar2) {  
+    // Inicia o reutiliza la sesión  
+    session_start();  
+    // Establece una sesión para mostrar el segundo div  
+    $_SESSION['paso_cp'] = '2'; // Cambia esto según el div que desees mostrar  
+
     echo '  
         <script>  
             alert("Datos almacenados exitosamente.");  
-            window.location = "carta_presentación.php"; // Ajusta la redirección según sea necesario  
+            window.location = "./../../carta_presentacion.php";
         </script>';  
 } else {  
     echo '  
