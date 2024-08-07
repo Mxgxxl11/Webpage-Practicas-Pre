@@ -12,15 +12,20 @@ $query = "SELECT u.*, a.id_rol, a.id_usuario
           JOIN acceso a ON u.codigo = a.id_usuario
           WHERE (u.correo = '$correo' AND u.contraseña = '$contrasena')";
 
-$resultado = mysqli_query($conexion, $query);
+$query2 = "SELECT paso
+          FROM usuario u
+          JOIN paso_cp p ON u.codigo = p.id_usuario";
 
-if (!$resultado) {
+$resultado = mysqli_query($conexion, $query);
+$resultado2 = mysqli_query($conexion, $query2);
+
+if (!$resultado || !$resultado2) {
     // Si la consulta falla, muestra el error y termina la ejecución
     die("Error en la consulta: " . mysqli_error($conexion));
 }
 
 if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD nos dirige a una pagina de bienvenida
-    if ($datos = $resultado->fetch_object()) {
+    if (($datos = $resultado->fetch_object()) && ($datos2 = $resultado2->fetch_object())) {
         $_SESSION['Correo_Institucional'] = $datos->correo; //para que no cualquiera pueda entrar a la siguiente pagina
         $_SESSION['codigo_institucional'] = $datos->codigo;
         $_SESSION['primer_nombre'] = $datos->nombre1;
@@ -34,6 +39,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         $_SESSION['departamento'] = $datos->nro_departamento;
         $_SESSION['documento'] = $datos->numDocumento;
         $_SESSION['id_rol'] = $datos->id_rol;
+        $_SESSION['paso_cp'] = $datos2->paso;
 
         if ($_SESSION['id_rol'] == 3) {
             header("location: ./../../../mesadepartes.php");
