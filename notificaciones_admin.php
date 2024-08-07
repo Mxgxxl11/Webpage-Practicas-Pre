@@ -12,12 +12,10 @@ if (empty($_SESSION['codigo_institucional'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Team Table</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" type='text/css'>
-    <link rel="stylesheet" href="assets/css/mesadepartes.css">
+    <title>Administradores</title>
+    <link rel="stylesheet" href="assets/css/mesadepartes.css" />
     <link rel="stylesheet" href="assets/css/detalles.css">
 </head>
 
@@ -26,7 +24,7 @@ if (empty($_SESSION['codigo_institucional'])) {
         <?php include './includes/header.php'; ?>
     </header>
     <div class="container">
-        <?php include './includes/sidebar.php'; ?>
+        <?php include './includes/sidebar-admin.php' ?>
         <article class="table-widget">
             <div class="caption">
                 <h2>

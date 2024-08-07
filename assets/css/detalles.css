@@ -14,13 +14,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: var(--background);
+    /*background: var(--background);*/
 }
 
 .table-widget {
+    margin: 0 auto; 
+    max-width: 100%;
+    /*width: 100%;*/
     border-radius: 1rem;
     background: var(--table-background);
     padding: 1.5rem;
+    
     text-align: left;
     overflow-x: auto;
     user-select: none;
