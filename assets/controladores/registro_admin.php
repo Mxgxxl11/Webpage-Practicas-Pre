@@ -28,6 +28,7 @@ $query = "INSERT INTO usuario(codigo, contraseña, correo, fecha_creacion, nombr
 
 //guardando codigo y idRol en la tabla tipo_usuario
 $query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', '$rol')";
+$query3 = "INSERT INTO docente(id_usuario) VALUES ('$codigo')";
 
 $verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuario WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
 if (mysqli_num_rows($verificarCorreo) > 0) { //
@@ -53,13 +54,24 @@ if (mysqli_num_rows($verificarCodigo) > 0) { //
 //Para cuando le demos a registrar
 $ejecutar = mysqli_query($conexion, $query); // RECORDANDO: primero ingresamos la base, y luego ingresamos a los campos de la base
 $ejecutar2 = mysqli_query($conexion, $query2);
+$ejecutar3 = mysqli_query($conexion, $query3);
 
 if ($ejecutar and $ejecutar2) {
-    echo '
-        <script>
-            alert("Usuario almacenado exitosamente.");
-            window.location = "./../../agregar_usuario.php";
-        </script>';
+    if ($rol == 2) {
+        if ($ejecutar3) {
+            echo '
+            <script>
+                alert("Docente almacenado exitosamente.");
+                window.location = "./../../agregar_usuario.php";
+            </script>';
+        }
+    } else {
+        echo '
+                    <script>
+                        alert("Administrador almacenado exitosamente.");
+                        window.location = "./../../agregar_usuario.php";
+                    </script>';
+    }
 } else {
     echo '
         <script>
