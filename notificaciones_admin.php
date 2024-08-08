@@ -1,11 +1,21 @@
+<!-- Esta pag muestra por el momento solo los admins que estan registrados en el sistema
+sin embargo deberia mostrar las notificaciones de los estados de los tramites -->
 <?php
 session_start();
+include './assets/controladores/bd.php';
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
     window.location = "login.html"; 
     </script>';
 }
+//esta consulta solo llamará a los admins (cambiar el a.id_rol a lo que quieras llamar)
+$consulta = "SELECT a.id_usuario,r.nombre_rol,u.nombre1, u.correo,u.fecha_creacion  
+FROM usuario u
+JOIN acceso a ON u.codigo = a.id_usuario
+JOIN roles r ON a.id_rol = r.id_rol
+WHERE a.id_rol=1;";
+$ejecucion = mysqli_query($conexion, $consulta);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +38,9 @@ if (empty($_SESSION['codigo_institucional'])) {
         <article class="table-widget">
             <div class="caption">
                 <h2>
-                    Team Members
+                    Trayendo todos los usuarios
                 </h2>
+                <!--
                 <button class="export-btn" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-export" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -37,143 +48,54 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3" />
                     </svg>
                     Export
-                </button>
+                </button>-->
             </div>
             <table>
                 <thead>
                     <tr>
                         <th>
-                            Descripcion
+                            Nombre
                         </th>
                         <th>
-                            Estado
+                            Rol
                         </th>
                         <th>
-                            Fecha de subida
+                            Correo
                         </th>
-                        <th>Tags</th>
+                        <th>
+                            Fecha de registro
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="team-member-rows">
-                    <tr>
-                        <td class="team-member-profile">
-                            <img src="assets/drew.jpg" alt="${teamMember.name}">
-                            <div class="profile-info">
-                                <div class="profile-info__name">
-                                    Drew Cano
+                    <?php
+
+                    while ($filas = mysqli_fetch_assoc($ejecucion)) {
+                    ?>
+                        <tr>
+                            <td>
+                                <div class="profile-info">
+                                    <?php echo $filas['nombre1'] ?>
                                 </div>
-                                <div class=profile-info__alias>
-                                    @drew
+                            </td>
+                            <td>
+                                <div class="profile-info">
+                                    <?php echo $filas['nombre_rol'] ?>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="status">
-                                <div class="status__circle status--active"></div>
-                                active
-                            </div>
-                        </td>
-                        <td>drew.crano@example.com</td>
-                        <td>
-                            <div class="tags">
-                                <div class="tag tag--marketing">
-                                    Marketing
+                            </td>
+                            <td>
+                                <?php echo $filas['correo']; ?>
+                            </td>
+                            <td>
+                                <div class="profile-info">
+                                    <?php echo $filas['fecha_creacion']; ?>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="team-member-profile">
-                            <img src="assets/natalia.jpg" alt="Natalia Alexandra">
-                            <div class="profile-info">
-                                <div class="profile-info__name">
-                                    Natalia Alexandra
-                                </div>
-                                <div class=profile-info__alias>
-                                    @natalia
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="status ">
-                                <div class="status__circle status--inactive"></div>
-                                inactive
-                            </div>
-                        </td>
-                        <td>natalia@example.com</td>
-                        <td>
-                            <div class="tags">
-                                <div class="tag tag--dev">
-                                    Dev
-                                </div>
-                                <div class="tag tag--marketing">
-                                    Marketing
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="team-member-profile">
-                            <img src="assets/liliya.jpg" alt="Lilia Taylor">
-                            <div class="profile-info">
-                                <div class="profile-info__name">
-                                    Lilia Taylor
-                                </div>
-                                <div class=profile-info__alias>
-                                    @lilia
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="status">
-                                <div class="status__circle status--active"></div>
-                                active
-                            </div>
-                        </td>
-                        <td>lilia.taylor@example.com</td>
-                        <td>
-                            <div class="tags">
-                                <div class="tag tag--design">
-                                    Design
-                                </div>
-                                <div class="tag tag--marketing">
-                                    Marketing
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="team-member-profile">
-                            <img src="assets/james.jpg" alt="James Alexander">
-                            <div class="profile-info">
-                                <div class="profile-info__name">
-                                    James Alexander
-                                </div>
-                                <div class=profile-info__alias>
-                                    @james
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="status">
-                                <div class="status__circle status--offline"></div>
-                                offline
-                            </div>
-                        </td>
-                        <td>james@example.com</td>
-                        <td>
-                            <div class="tags">
-                                <div class="tag tag--dev">
-                                    Dev
-                                </div>
-                                <div class="tag tag--QA">
-                                    QA
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
+            <?php mysqli_close($conexion) ?>
         </article>
     </div>
     <script src="assets/js/mesadepartes.js"></script>

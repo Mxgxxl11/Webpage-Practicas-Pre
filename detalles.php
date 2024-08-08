@@ -1,3 +1,4 @@
+<!-- DETALLES PORTAL ALUMNO-->
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {

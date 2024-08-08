@@ -93,8 +93,19 @@ if (empty($_SESSION['codigo_institucional'])) {
         <?php include './includes/sidebar-admin.php' ?>
         <main class="main-content">
             <div class="profile-form">
-                <h1>REGISTRO ADMINISTRADORES</h1>
+                <h1>REGISTRO ROLES</h1>
                 <form action="assets/controladores/registro_admin.php" method="post">
+                    <div class="entrada">
+                        <label for="rol">Rol del usuario:</label>
+                        <select id="rol" name="rol" required>
+                            <option value="" selected disabled>
+                                Seleccione un rol
+                            </option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Docente</option>
+                        </select>
+                    </div>
+                    <br>
                     <div class="form-grid">
                         <div class="entrada">
                             <label for="codigo">Codigo Usuario Villarreal:</label>

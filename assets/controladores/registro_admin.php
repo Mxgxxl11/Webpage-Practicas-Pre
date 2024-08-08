@@ -1,7 +1,7 @@
 <?php
 //REGISTRO DE ADMINS EN EL PORTAL DE ADMINISTRADORES 
 include 'bd.php';
-
+$rol = $_POST['rol'];
 $codigo = $_POST['codigo'];
 $password = $_POST['password'];
 $password = hash('sha512', $password);
@@ -27,7 +27,7 @@ $query = "INSERT INTO usuario(codigo, contraseña, correo, fecha_creacion, nombr
     '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc', '$distrito', '$dpto')";
 
 //guardando codigo y idRol en la tabla tipo_usuario
-$query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', 1)";
+$query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', '$rol')";
 
 $verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuario WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
 if (mysqli_num_rows($verificarCorreo) > 0) { //
