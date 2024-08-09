@@ -130,9 +130,28 @@ function saveImage() {
 }*/
 
 
+//Botones de tramite
 function iniciar_cp() {
   window.location.href = 'carta_presentacion.php';
 }
+
+
+function apertura_carpeta(){
+  window.location.href = 'apertura_carpeta.php';
+
+}
+
+function abrir_informes(){
+  window.location.href = 'informes.php';
+
+}
+
+
+function abrir_constancia(){
+  window.location.href = 'constancia.php';
+
+}
+
 
 function previewImage(event) {  
   const file = event.target.files[0];  
@@ -156,6 +175,9 @@ function previewImage(event) {
 // Para previsualizar el FUT 
 
 let pdfBlobUrl = null;
+let pdfBlobUrl2 = null;
+let tempPdfDoc = null;
+let tempPdfDoc2 = null;
 
 document.getElementById('pre').addEventListener('click', async function() {
 const text1 = document.getElementById('dependencia').value;
@@ -346,6 +368,7 @@ page.drawText(text22, {
 
 // Guardar el PDF moqdificado
 const pdfBytes = await pdfDoc.save();
+tempPdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
 pdfBlobUrl = URL.createObjectURL(blob);
 
@@ -353,7 +376,123 @@ pdfBlobUrl = URL.createObjectURL(blob);
 document.getElementById('pdf-preview').setAttribute('src', pdfBlobUrl);
 });
 
-// Para previsualizar el FUT
+// MENSAJE DE CONFIRMACION DE ENVIO DE DATOS DE LA EMPRESA
+document.getElementById('empresaForm').addEventListener('submit', function(event) {
+  event.preventDefault(); 
+
+  var formData = new FormData(this); 
+
+  fetch('assets/controladores/registro_empresa.php', {
+      method: 'POST',
+      body: formData
+  })
+  .then(response => response.text())
+  .then(data => {
+      alert("Datos guardados exitosamente.");
+      console.log(data); 
+  })
+  .catch(error => {
+      alert("Error al guardar los datos. Inténtelo nuevamente.");
+      console.error('Error:', error);
+  });
+});
+
+// Previsualizacion Ficha de Empresa
+
+document.getElementById('Previsualizacion').addEventListener('click', async function() {
+  const form = document.getElementById('empresaForm');
+  const formData = new FormData(form);
+
+  const nombrecompleto = document.getElementById('nombre_fut').value;
+  const codigo = document.getElementById('codigo_ins').value;
+  const nombre_empresa = document.getElementById('nombreEmpresa').value;
+  const ruc_empresa = formData.get('ruc_empresa');
+  const celular_repre = formData.get('celular_repre');
+  const email_repre = formData.get('email_repre');
+  const provincia_empre = formData.get('provincia_empre');
+  const distrito_empre = formData.get('distrito_empre');
+  const representante = formData.get('representante');
+  const dni_repre = formData.get('dni_repre');
+  const direccion_empre = formData.get('direccion_empre');
+  const departamento_empre = formData.get('departamento_empre');
+  const direccion = provincia_empre + ' / ' + departamento_empre + ' / ' + distrito_empre;
+
+  const url = '/assets/pdf/formato_1_ficha_datos_empresa.pdf'; // Ruta del PDF
+
+  try {
+      const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+
+      const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+      const page = pdfDoc.getPage(0); // Obtener la primera página
+
+      page.drawText(nombrecompleto, { x: 275, y: 647, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(codigo, { x: 275, y: 593, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(nombre_empresa, { x: 275, y: 533, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(ruc_empresa, { x: 275, y: 565, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(celular_repre, { x: 350, y: 410, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(email_repre, { x: 350, y: 380, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(direccion, { x: 275, y: 308, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(representante, { x: 275, y: 506, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(dni_repre, { x: 315, y: 440, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(direccion_empre, { x: 275, y: 350, size: 12, color: PDFLib.rgb(0, 0, 0) });
+
+      const pdfBytes2 = await pdfDoc.save();
+      tempPdfDoc2 = await PDFLib.PDFDocument.load(pdfBytes2);
+      const blob = new Blob([pdfBytes2], { type: 'application/pdf' });
+      pdfBlobUrl2 = URL.createObjectURL(blob);
+
+      document.getElementById('pdf-preview2').setAttribute('src', pdfBlobUrl2);
+  } catch (error) {
+    console.error('Error al generar el PDF:', error);
+  }
+});
+
+document.getElementById('DocFinal').addEventListener('click', async () => {  
+  const pdfFiles = [];  
+  const inputs = [document.getElementById('archivo2'), document.getElementById('archivo3'), document.getElementById('archivo4')];  
+
+  if (tempPdfDoc) {  
+    pdfFiles.push(tempPdfDoc);  
+  }   
+
+  if (tempPdfDoc2) {  
+    pdfFiles.push(tempPdfDoc2);  
+  }   
+
+  for (const input of inputs) {  
+      if (input.files.length > 0) {  
+          pdfFiles.push(input.files[0]);  
+      }  
+  }  
+
+  if (pdfFiles.length < 4) {  
+      alert('Falta subir un archivo.');  
+      return;  
+  }  
+
+  const pdfDoc = await PDFLib.PDFDocument.create();  
+
+  for (const pdfFile of pdfFiles) {  
+      const pdfBytes = pdfFile instanceof File ? await pdfFile.arrayBuffer() : await pdfFile.save();
+      const tempDoc = await PDFLib.PDFDocument.load(pdfBytes);  
+      const copiedPages = await pdfDoc.copyPages(tempDoc, tempDoc.getPageIndices());  
+      copiedPages.forEach((page) => pdfDoc.addPage(page));  
+  }  
+
+  const mergedPdfBytes = await pdfDoc.save();  
+  const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });  
+  const url = URL.createObjectURL(blob);  
+  const a = document.createElement('a');  
+  a.href = url;  
+  a.download = 'CartaPresentación.pdf';  
+  document.body.appendChild(a);  
+  a.click();  
+  document.body.removeChild(a);  
+  URL.revokeObjectURL(url);  
+});  
+
+
+
 
 /*
   function Aformulario() {  
