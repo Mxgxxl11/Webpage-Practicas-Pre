@@ -1,5 +1,5 @@
 <?php
-//REGISTRO DE ALUMNOS 
+
 include 'bd.php';
 
 $codigo = $_POST['codigo'];
@@ -28,6 +28,7 @@ $query = "INSERT INTO usuario(codigo, contraseña, correo, fecha_creacion, nombr
 
 //guardando codigo y idRol en la tabla tipo_usuario
 $query2 = "INSERT INTO acceso(id_usuario, id_rol) VALUES ('$codigo', 3)";
+$query3 = "INSERT INTO paso_cp(paso, id_usuario) VALUES (1, '$codigo')";
 
 $verificarCorreo = mysqli_query($conexion, "SELECT * FROM usuario WHERE correo = '$correo' "); //le estoy pidiendo que me verifique los correos que sean iguales
 if (mysqli_num_rows($verificarCorreo) > 0) { //
@@ -52,8 +53,9 @@ if (mysqli_num_rows($verificarCodigo) > 0) { //
 //Para cuando le demos a registrar
 $ejecutar = mysqli_query($conexion, $query); // RECORDANDO: primero ingresamos la base, y luego ingresamos a los campos de la base
 $ejecutar2 = mysqli_query($conexion, $query2);
+$ejecutar3 = mysqli_query($conexion, $query3);
 
-if ($ejecutar and $ejecutar2) {
+if ($ejecutar and $ejecutar2 and $ejecutar3) {
     echo '
         <script>
             alert("Usuario almacenado exitosamente.");
