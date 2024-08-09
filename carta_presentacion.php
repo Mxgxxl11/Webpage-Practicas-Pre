@@ -103,7 +103,6 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <input type="text" id="doc3" value="Ficha de matricula (9no ciclo)" style="display: none;">
                 <input type="text" id="doc4" value="Ficha de datos de la empresa" style="display: none;">
                 <input type="text" id="doc5" value="Comprobante de pago" style="display: none;">
-                <input id="firma" value="<?php echo $_SESSION['firma']; ?>" style="display: none;">
                 <input type="text" id="folios" value="" style="display: none;">
                 <!-- DATOS PARA LLENAR EL FUT-->
                 <div class="container2">
