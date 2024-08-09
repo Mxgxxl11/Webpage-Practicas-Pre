@@ -9,7 +9,10 @@ if (empty($_SESSION['codigo_institucional'])) {
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
+$empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_guardada'] : '';
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,20 +136,13 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                     <div class="form-group">
                         <label for="fechaRecord">Fecha de Record de Notas de OCRAC:</label>
-                        <input type="date" id="fechaRecord" class="date-picker">
+                        <input type="date" id="fechaRecord" class="date-picker" required>
                     </div>
                     <div class="form-group">
                         <label for="archivo2">Archivo:</label>
-                        <input id="archivo2" type="file" value="enviar record">
-
-                        <div class="buttons">
-                            <button type="button" class="btn-small">Eliminar</button>
-                        </div>
+                        <input accept="aplication/pdf" id="archivo2" type="file" value="enviar record">
                     </div>
-                    <div class="form-group">
-                        <label for="descripcionArchivo2">Descripción:</label>
-                        <input type="text" id="descripcionArchivo2" placeholder="Adjuntar el archivo en formato pdf">
-                    </div>
+                  
                 </div>
 
                 <div class="container2">
@@ -157,118 +153,74 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                     <div class="form-group">
                         <label for="archivo3">Archivo:</label>
-                        <input id="archivo3" type="file" value="enviar ficha">
-
-                        <div class="buttons">
-                            <button type="button" class="btn-small">Eliminar</button>
-                        </div>
+                        <input accept="aplication/pdf" id="archivo3" type="file" value="enviar ficha">
                     </div>
-                    <div class="form-group">
-                        <label for="descripcionArchivo3">Descripción:</label>
-                        <input type="text" id="descripcionArchivo3" placeholder="Adjuntar el archivo en formato pdf" readonly>
-                    </div>
+                    
                 </div>
 
-                <div class="container2">
-                    <h2>Cuarto Requisito: DATOS DE LA EMPRESA</h2>
-                    <div class="form-group">
-                        <label for="nombreEmpresa">Nombre:</label>
-                        <input type="text" id="nombreEmpresa" placeholder="Nombre de la empresa">
-                    </div>
-                    <div class="form-group">
-                        <label for="rucEmpresa">RUC:</label>
-                        <input type="text" id="rucEmpresa" placeholder="RUC de la empresa">
-                    </div>
-                    <div class="form-group">
-                        <label for="celularRepresentante">Celular del Representante:</label>
-                        <input type="text" id="celularRepresentante" placeholder="Celular del representante">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailRepresentante">Email del Representante:</label>
-                        <input type="email" id="emailRepresentante" placeholder="Email del representante">
-                    </div>
-                    <div class="form-group">
-                        <label for="provincia">Provincia:</label>
-                        <select id="provincia">
-                            <option value="">Seleccione una provincia</option>
-                            <!-- Tocara poner todo  -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="distrito">Distrito:</label>
-                        <select id="distrito">
-                            <option value="">Seleccione un distrito</option>
 
-                            <option value="ANCON" default>ANCON</option>
-                            <option value="ATE">ATE</option>
-                            <option value="BARRANCO">BARRANCO</option>
-                            <option value="BREÑA">BREÑA</option>
-                            <option value="CARABAYLLO">CARABAYLLO</option>
-                            <option value="CHACLACAYO">CHACLACAYO</option>
-                            <option value="CHORRILLOS">CHORRILLOS</option>
-                            <option value="CIENEGUILLA">CIENEGUILLA</option>
-                            <option value="COMAS">COMAS</option>
-                            <option value="EL AGUSTINO">EL AGUSTINO</option>
-                            <option value="INDEPENDENCIA">INDEPENDENCIA</option>
-                            <option value="JESUS MARIA">JESUS MARIA</option>
-                            <option value="LA MOLINA">LA MOLINA</option>
-                            <option value="LA VICTORIA">LA VICTORIA</option>
-                            <option value="LIMA">LIMA</option>
-                            <option value="LINCE">LINCE</option>
-                            <option value="LOS OLIVOS">LOS OLIVOS</option>
-                            <option value="LURIGANCHO">LURIGANCHO</option>
-                            <option value="LURIN">LURIN</option>
-                            <option value="M. del MAR">MAGDALENA DEL MAR</option>
-                            <option value="MIRAFLORES">MIRAFLORES</option>
-                            <option value="PACHACAMAC">PACHACAMAC</option>
-                            <option value="PUCUSANA">PUCUSANA</option>
-                            <option value="PUEBLO LIBRE">PUEBLO LIBRE</option>
-                            <option value="PUENTE PIEDRA">PUENTE PIEDRA</option>
-                            <option value="Punta Hermosa">PUNTA HERMOSA</option>
-                            <option value="PUNTA NEGRA">PUNTA NEGRA</option>
-                            <option value="RIMAC">RIMAC</option>
-                            <option value="SAN BARTOLO">SAN BARTOLO</option>
-                            <option value="SAN BORJA">SAN BORJA</option>
-                            <option value="SAN ISIDRO">SAN ISIDRO</option>
-                            <option value="SJL">SAN JUAN DE LURIGANCHO</option>
-                            <option value="SJM">SAN JUAN DE MIRAFLORES</option>
-                            <option value="SAN LUIS">SAN LUIS</option>
-                            <option value="SMP">SAN MARTIN DE PORRES</option>
-                            <option value="SAN MIGUEL">SAN MIGUEL</option>
-                            <option value="SANTA ANITA">SANTA ANITA</option>
-                            <option value="S.M. del Mar">SANTA MARIA DEL MAR</option>
-                            <option value="SANTA ROSA">SANTA ROSA</option>
-                            <option value="S. de Surco">SANTIAGO DE SURCO</option>
-                            <option value="SURQUILLO">SURQUILLO</option>
-                            <option value="VENTANILLA">VENTANILLA</option>
-                            <option value="V.E.Salvador">VILLA EL SALVADOR</option>
-                            <option value="VMT">VILLA MARIA DEL TRIUNFO</option>
-                        </select>
-                    </div>
+    <!-- DATOS DE LA EMPRESA    ---------------------------->              
+      <form id="empresaForm" method="POST" enctype="multipart/form-data">
+    <div class="container2">
+        <h2>Cuarto Requisito: DATOS DE LA EMPRESA</h2>
+        <div class="form-group">
+            <label for="nombreEmpresa">Nombre:</label>
+            <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder="Nombre de la empresa" required>
+        </div>
+        <div class="form-group">
+            <label for="rucEmpresa">RUC:</label>
+            <input type="text" id="rucEmpresa" name="ruc_empresa" placeholder="RUC de la empresa" required>
+        </div>
+        <div class="form-group">
+            <label for="celularRepresentante">Celular del Representante:</label>
+            <input type="text" id="celularRepresentante" name="celular_repre" placeholder="Celular del representante" required>
+        </div>
+        <div class="form-group">
+            <label for="emailRepresentante">Email del Representante:</label>
+            <input type="email" id="emailRepresentante" name="email_repre" placeholder="Email del representante" required>
+        </div>
+        <div class="form-group">
+            <label for="provinciaEmpresa">Provincia:</label>
+            <input type="text" id="provinciaEmpresa" name="provincia_empre" placeholder="Provincia" required>
+        </div>
+        <div class="form-group">
+            <label for="departamentoRepresentante">Departamento:</label>
+            <input type="text" id="departamentoRepresentante" name="departamento_empre" placeholder="Departamento" required>
+        </div>
+        <div class="form-group">
+            <label for="DistritoEmpresa">Distrito:</label>
+            <input type="text" id="DistritoEmpresa" name="distrito_empre" placeholder="Distrito" required>
+        </div>
 
-                    <h3>DATOS DEL REPRESENTANTE DE LA EMPRESA</h3>
-                    <div class="form-group">
-                        <label for="nombreRepresentante">Nombre del Representante:</label>
-                        <input type="text" id="nombreRepresentante" placeholder="Nombre del representante">
+        <h3>DATOS DEL REPRESENTANTE DE LA EMPRESA</h3>
+        <div class="form-group">
+            <label for="nombreRepresentante">Nombre del Representante:</label>
+            <input type="text" id="nombreRepresentante" name="representante" placeholder="Nombre del representante" required>
+        </div>
+        <div class="form-group">
+            <label for="dniRepresentante">DNI del Representante:</label>
+            <input type="text" id="dniRepresentante" name="dni_repre" placeholder="DNI del representante" required>
+        </div>
+        <div class="form-group">
+            <label for="direccionRepresentante">Dirección del Representante:</label>
+            <input type="text" id="direccionRepresentante" name="direccion_empre" placeholder="Dirección del representante" required>
+        </div>
+       
+        <div class="form-group">
+            <div class="buttons">
+                <button type="submit" class="btn-small">Guardar</button>
+                <button id="ModificarDoc" type="button " class="btn-small">Modificar</button>
+                <button id="Previsualizacion" type="button" class="btn-small">Previsualizar</button>
+            </div>
+            
+        </div>
+        <div id="preview-container">
+                        <iframe id="pdf-preview2" width="100%" height="430px" style="border: 1px solid black;"></iframe>
                     </div>
-                    <div class="form-group">
-                        <label for="dniRepresentante">DNI del Representante:</label>
-                        <input type="text" id="dniRepresentante" placeholder="DNI del representante">
-                    </div>
-                    <div class="form-group">
-                        <label for="direccionRepresentante">Dirección del Representante:</label>
-                        <input type="text" id="direccionRepresentante" placeholder="Dirección del representante">
-                    </div>
-                    <div class="form-group">
-                        <label for="departamentoRepresentante">Departamento:</label>
-                        <input type="text" id="departamentoRepresentante" placeholder="Departamento">
-                    </div>
+           </div>
+          </form>
+              <!---------------------------------  -------------------------------------------->              
 
-                    <div class="form-group buttons">
-                        <button type="button">Guardar</button>
-                        <button type="button">Modificar</button>
-                    </div>
-                </div>
 
                 <div class="container2">
                     <h2>Quinto Requisito: COMPROBANTE DE PAGO</h2>
@@ -278,21 +230,18 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                     <div class="form-group">
                         <label for="numeroLiquidacion">Número de Liquidación:</label>
-                        <input type="text" id="numeroLiquidacion" placeholder="Ingrese el número de liquidación">
+                        <input type="text" id="numeroLiquidacion" placeholder="Ingrese el número de liquidación" required>
                     </div>
                     <div class="form-group">
                         <label for="archivo4">Archivo:</label>
-                        <input id="archivo4" type="file" value="enviar comprobante">
+                        <input accept="aplication/pdf" id="archivo4" type="file" value="enviar comprobante">
 
                         <div class="buttons">
 
                             <button type="button" class="btn-small">Eliminar</button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="descripcionArchivo4">Descripción:</label>
-                        <input type="text" id="descripcionArchivo4" placeholder="Adjuntar el comprobante de pago en formato pdf" readonly>
-                    </div>
+                   
                 </div>
 
                 <div class="container2">
@@ -300,17 +249,16 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <div class="form-group">
 
                         <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
+                        <div class="form-group">
+            <div class="buttons">
+                <button id="DocFinal" type="button" class="btn-small">Descargar Documento</button>
+            </div>
 
-                        <div class="buttons">
-                            <button type="button">Descargar</button>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="form-buttons">
-                <button onclick="closeProfileForm()" class="close-btn">
-                    Cerrar
-                </button>
+                <button onclick="closeProfileForm()" class="close-btn"> Cerrar</button>
             </div>
         </main>
     </div>
