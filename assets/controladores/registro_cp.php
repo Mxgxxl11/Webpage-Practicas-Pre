@@ -10,17 +10,7 @@ $semestre = $_POST['semestre'];
 $seccion = $_POST['seccion'];  
 $estado = $_POST['condicion']; 
 $firma = $_FILES['firma']['tmp_name']; // Para subir la firma como imagen  
-
-// Validar si el archivo de la firma fue subido  
-if (is_uploaded_file($firma)) {  
-    $firmaBlob = file_get_contents($firma); // Leer el contenido del archivo  
-} else {  
-    echo '  
-        <script>  
-            alert("Error al subir la firma."); 
-        </script>';  
-    exit();  
-}  
+$firmaBlob = file_get_contents($firma);
 
 // Verificar si el código de usuario ya está registrado  
 $verificarCodigo = mysqli_query($conexion, "SELECT * FROM usuario WHERE codigo = '$codigo'");  
@@ -50,9 +40,9 @@ if (!$stmt) {
     exit();  
 }  
 
-$query2 = "INSERT INTO paso_cp (id_usuario, paso)   
-          VALUES ($codigo, 2)";
+$query2 = "UPDATE paso_cp SET paso = 2 WHERE id_usuario = '$codigo'";
 $stmt2 = mysqli_prepare($conexion, $query2);
+
 if (!$stmt2) {  
     echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
     exit();  
