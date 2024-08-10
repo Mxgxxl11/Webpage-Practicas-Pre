@@ -527,8 +527,31 @@ document.getElementById('DocFinal').addEventListener('click', async () => {
 
 });  
 
+$(document).ready(function() {  
+  $('#DocFinal').click(function() {  
+      // Obtener los valores de los inputs  
+      var fechaRegistro = $('#fechaRegistro').val();  
+      var fechaRecord = $('#fechaRecord').val();  
+      var numLiquidacion = $('#numLiquidacion').val();  
 
-
+      // Enviar los datos a un script PHP usando AJAX  
+      $.ajax({  
+          url: 'assets/controladores/registro_cp2.php',  
+          type: 'POST',  
+          data: {  
+              fechaRegistro: fechaRegistro,  
+              fechaRecord: fechaRecord,  
+              numLiquidacion: numLiquidacion  
+          },  
+          success: function(response) {  
+              alert(response); // Mensaje de éxito  
+          },  
+          error: function() {  
+              alert('Error al guardar los datos');  
+          }  
+      });  
+  });  
+});
 
 /*
   function Aformulario() {  
