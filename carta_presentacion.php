@@ -33,7 +33,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
         <?php include './includes/sidebar.php'; ?>
         <main class="main-content">
             <!-- INICIA FORM DE REGISTRO-->
-            <div class="profile-form" id="Next-step" style="<?php echo $mostrarDiv === '2' ? 'display:none;' : ''; ?>">
+            <div class="profile-form" id="Next-step" style="<?php echo $mostrarDiv === '1' ? 'display:block;' : 'display:none'; ?>">
                 <form action="assets/controladores/registro_cp.php" method="POST" enctype="multipart/form-data">
                     <div class="profile-fields">
                         <div>
@@ -262,7 +262,9 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                 <button onclick="closeProfileForm()" class="close-btn"> Cerrar</button>
             </div>
             <br>
-            <div class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;'; ?>">
+            
+        </main>
+        <div id="complete" class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                 <div class="form-buttons">
@@ -271,7 +273,6 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     </button>
                 </div>
             </div>
-        </main>
     </div>
     <script src="assets/js/mesadepartes.js"></script>
 </body>
