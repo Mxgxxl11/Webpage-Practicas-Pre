@@ -342,3 +342,7 @@ color: #333;
     justify-content: center;
     justify-items: center;
 }
+
+#complete{
+    margin: 10px 10px 10px 0px;
+}
