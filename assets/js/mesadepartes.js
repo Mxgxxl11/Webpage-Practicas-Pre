@@ -544,7 +544,8 @@ $(document).ready(function() {
               numLiquidacion: numLiquidacion  
           },  
           success: function(response) {  
-              alert(response); // Mensaje de éxito  
+              alert(response);
+              window.location = "./../../carta_presentacion.php"; 
           },  
           error: function() {  
               alert('Error al guardar los datos');  
