@@ -22,6 +22,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
     <title>Mesa de partes</title>
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
 </head>
 
 <body>
@@ -250,9 +251,9 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
 
                         <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                         <div class="form-group">
-            <div class="buttons">
-                <button id="DocFinal" type="button" class="btn-small">Descargar Documento</button>
-            </div>
+                    <div class="buttons">
+                        <button id="DocFinal" type="button" class="btn-small">Descargar Documento</button>
+                </div>
 
                     </div>
                 </div>
@@ -260,9 +261,18 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
             <div class="form-buttons">
                 <button onclick="closeProfileForm()" class="close-btn"> Cerrar</button>
             </div>
+            <br>
+            <div class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;'; ?>">
+                <h2>Proceso ya completado</h2>
+                <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
+                <div class="form-buttons">
+                    <button onclick="closeProfileForm()" class="close-btn">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
         </main>
     </div>
     <script src="assets/js/mesadepartes.js"></script>
 </body>
-
 </html>
