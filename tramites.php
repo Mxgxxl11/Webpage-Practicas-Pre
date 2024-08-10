@@ -6,6 +6,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
+$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>CARTA DE PRESENTACIÓN</strong></p>
                         </div>
-                        <p class="texto_derecho" id="text2"><strong>Incompleto</strong></p>
+                        <p class="texto_derecho" id="text2"><strong>"<?php echo $mostrarDiv === '3' ? 'Completo' : 'Incompleto'; ?>"</strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Requisitos:</strong></p>
                         <p class="texto_izquierdo" id="text4">- Formulario FUT</p>
                         <p class="texto_izquierdo" id="text4">- Record Acádemico</p>
@@ -56,7 +57,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <p class="texto_izquierdo" id="text4">- Carta de presentación recepcionada por la empresa</p>
                         <p class="texto_izquierdo" id="text4">- Carta de aceptación de la empresa</p>
                         <p class="texto_izquierdo" id="text4">- Ficha de inscripción</p>
-                        <button>Iniciar</button>
+                        <button onclick=" apertura_carpeta()">Iniciar</button>
                     </div>
                 </div>
             </div>
@@ -74,7 +75,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <p class="texto_izquierdo" id="text4">- Segundo Informe (60 dias)</p>
                         <p class="texto_izquierdo" id="text4">- Tercer Informe (90 dias)</p>
                         <p class="texto_izquierdo" id="text4">- Informe Final</p>
-                        <button>Iniciar</button>
+                        <button onclick="abrir_informes()">Iniciar</button>
                     </div>
                 </div>
             </div>
@@ -89,7 +90,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <p class="texto_derecho" id="text2"><strong>Incompleto</strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Documentos:</strong></p>
                         <p class="texto_izquierdo" id="text4">- Constancia de Practicas Pre Profesionales</p>
-                        <button>Iniciar</button>
+                        <button onclick="abrir_constancia()">Iniciar</button>
                     </div>
                 </div>
             </div>
