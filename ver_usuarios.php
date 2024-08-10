@@ -122,14 +122,14 @@ if (empty($_SESSION['codigo_institucional'])) {
                                 FROM usuario u
                                 JOIN acceso a ON u.codigo = a.id_usuario
                                 JOIN roles r ON a.id_rol = r.id_rol
-                                WHERE r.nombre_rol='$rol'";
+                                WHERE r.nombre_rol like '%" . $rol . "%'";
                             }
                             if (!empty($rol) and !empty($codigo)) {
                                 $busqueda = "SELECT a.id_usuario,r.nombre_rol,u.codigo,u.nombre1,u.apellido1, u.correo,u.fecha_creacion  
                                 FROM usuario u
                                 JOIN acceso a ON u.codigo = a.id_usuario
                                 JOIN roles r ON a.id_rol = r.id_rol
-                                WHERE u.codigo like '%" . $codigo . "%' and r.nombre_rol='$rol'";
+                                WHERE u.codigo like '%" . $codigo . "%' and r.nombre_rol like '%" . $rol . "%'";
                             }
                         }
                         $ejec = mysqli_query($conexion, $busqueda);
