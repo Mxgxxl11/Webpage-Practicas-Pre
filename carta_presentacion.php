@@ -70,15 +70,8 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                             <option value="1">Estudiante</option>
                             <option value="2">Egresado</option>
                         </select>
-                        <div>
-                            <label for="firma">Subir firma:</label>
-                            <input type="file" name="firma" id="firma" accept="image/*" onchange="previewImage(event)" required>
-                            <div id="imagePreviewContainer" style="margin-top: 10px;">  
-                                <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;"/>  
-                            </div>
-                        </div>
                         <div class="form-buttons">
-                            <button type="submit">Siguiente</button>
+                            <button style="margin-top: 10px;" type="submit">Siguiente</button>
                         </div>
                     </div>
                 </form>
@@ -115,13 +108,20 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <input type="text" id="nombreDocumento" value="FUT" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="fechaRegistro">Fecha de Registro:</label>
-                        <input type="date" id="fechaRegistro" class="date-picker">
+                        <label for="fechaRegistro">Fecha de Registro (Hoy):</label>
+                        <input type="date" name="fechaRegistro" id="fechaRegistro" class="date-picker">
                     </div>
+                    <div class="form-group">
+                            <label for="firma">Subir firma:</label>
+                            <input type="file" name="firma" id="firma" accept="image/*" onchange="previewImage(event)" required>
+                            <div id="imagePreviewContainer">  
+                                <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;"/>  
+                            </div>
+                        </div>
                     <div class="form-group">
                         <label for="archivo1">Archivo:</label>
                         <div class="buttons">
-                            <button id="pre" type="button" class="btn-small">Previsualizar Documento</button>
+                            <button id="pre" type="button" class="btn-small" style="background-color: red;">Cargar Información en el FUT</button>
                         </div>
                     </div>
                     <div id="preview-container">
@@ -136,7 +136,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     </div>
                     <div class="form-group">
                         <label for="fechaRecord">Fecha de Record de Notas de OCRAC:</label>
-                        <input type="date" id="fechaRecord" class="date-picker" required>
+                        <input type="date" name="fechaRecord" id="fechaRecord" class="date-picker" required>
                     </div>
                     <div class="form-group">
                         <label for="archivo2">Archivo:</label>
@@ -229,8 +229,8 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <input type="text" id="nombreComprobante" value="Comprobante de Pago" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="numeroLiquidacion">Número de Liquidación:</label>
-                        <input type="text" id="numeroLiquidacion" placeholder="Ingrese el número de liquidación" required>
+                        <label for="numLiquidacion">Número de Liquidación:</label>
+                        <input type="text" name="numLiquidacion" id="numLiquidacion" placeholder="Ingrese el número de liquidación" required>
                     </div>
                     <div class="form-group">
                         <label for="archivo4">Archivo:</label>
