@@ -1,5 +1,3 @@
-<!-- Esta pag muestra por el momento solo los admins que estan registrados en el sistema
-sin embargo deberia mostrar las notificaciones de los estados de los tramites -->
 <?php
 session_start();
 include './assets/controladores/bd.php';
@@ -9,7 +7,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
-
+//aun no esta lista esta pagina
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +46,7 @@ if (empty($_SESSION['codigo_institucional'])) {
         <article class="table-widget">
             <div class="caption">
                 <h2>
-                    TODOS LOS USUARIOS REGISTRADOS
+                    CARPETA ALUMNOS INFORMÁTICA
                 </h2>
             </div>
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
@@ -88,13 +86,13 @@ if (empty($_SESSION['codigo_institucional'])) {
                             Nombre
                         </th>
                         <th>
-                            Rol
+                            Escuela
                         </th>
                         <th>
-                            Correo
+                            Semestre
                         </th>
                         <th>
-                            Fecha de registro
+                            Seccion
                         </th>
                     </tr>
                 </thead>
@@ -148,11 +146,11 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     </td>
                                     <td>
                                         <div class="profile-info">
-                                            <?php echo $filas['nombre_rol'] ?>
+                                            <?php echo $filas['semestre'] ?>
                                         </div>
                                     </td>
                                     <td>
-                                        <?php echo $filas['correo']; ?>
+                                        <?php echo $filas['seccion']; ?>
                                     </td>
                                     <td>
                                         <div class="profile-info" style="text-align:center;">
@@ -165,10 +163,13 @@ if (empty($_SESSION['codigo_institucional'])) {
                     } else {
                         //aca para mostrar todos los registros
                         //esta consulta solo llamará a los admins (cambiar el a.id_rol a lo que quieras llamar)
-                        $consulta = "SELECT a.id_usuario,r.nombre_rol,u.codigo,u.nombre1,u.apellido1, u.correo,u.fecha_creacion  
+                        $consulta = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
+                                    al.seccion
                                     FROM usuario u
                                     JOIN acceso a ON u.codigo = a.id_usuario
-                                    JOIN roles r ON a.id_rol = r.id_rol";
+                                    JOIN escuelas e ON e.id_escuela = u.id_escuela
+                                    JOIN alumno al ON al.id_usuario = u.codigo
+                                    where a.id_rol=3";
                         $ejecucion = mysqli_query($conexion, $consulta);
                         while ($filas = mysqli_fetch_assoc($ejecucion)) { ?>
                             <tr>
@@ -183,18 +184,17 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="profile-info">
-                                        <?php echo $filas['nombre_rol'] ?>
+                                <div class="profile-info">
+                                        <?php echo $filas['escuela']; ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <?php echo $filas['correo']; ?>
+                                    <?php echo $filas['semestre']; ?>
                                 </td>
                                 <td>
-                                    <div class="profile-info" style="text-align:center;">
-                                        <?php echo $filas['fecha_creacion']; ?>
-                                    </div>
+                                    <?php echo $filas['seccion']; ?>
                                 </td>
+                                
                             </tr>
                     <?php }
                     } ?>
