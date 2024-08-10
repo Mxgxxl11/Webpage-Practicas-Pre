@@ -8,9 +8,7 @@ $planCurricular = $_POST['p-curricular'];
 $base = $_POST['base'];  
 $semestre = $_POST['semestre'];  
 $seccion = $_POST['seccion'];  
-$estado = $_POST['condicion']; 
-$firma = $_FILES['firma']['tmp_name']; // Para subir la firma como imagen  
-$firmaBlob = file_get_contents($firma);
+$estado = $_POST['condicion'];
 
 // Verificar si el código de usuario ya está registrado  
 $verificarCodigo = mysqli_query($conexion, "SELECT * FROM usuario WHERE codigo = '$codigo'");  
@@ -30,8 +28,8 @@ $row = mysqli_fetch_assoc($result);
 $id_rol = $row['id_rol']; // Asegúrate de que el nombre de campo es correcto  
 
 // Inserción en la tabla alumno  
-$query = "INSERT INTO alumno (id_usuario, plan_curricular, base, semestre, seccion, estado, imagen_firma)   
-          VALUES (?, ?, ?, ?, ?, ?, ?)";  
+$query = "INSERT INTO alumno (id_usuario, plan_curricular, base, semestre, seccion, estado)   
+          VALUES (?, ?, ?, ?, ?, ?)";  
 
 // Preparar la consulta  
 $stmt = mysqli_prepare($conexion, $query);  
@@ -50,7 +48,7 @@ if (!$stmt2) {
 $ejecutar2 = mysqli_stmt_execute($stmt2); 
 
 // Establecer los tipos de datos y enlazar los parámetros  
-mysqli_stmt_bind_param($stmt, "isssssb", $codigo, $planCurricular, $base, $semestre, $seccion, $estado, $firmaBlob);  
+mysqli_stmt_bind_param($stmt, "isssss", $codigo, $planCurricular, $base, $semestre, $seccion, $estado);  
 
 // Ejecutar la consulta  
 $ejecutar = mysqli_stmt_execute($stmt);  
