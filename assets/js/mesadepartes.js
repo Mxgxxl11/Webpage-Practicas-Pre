@@ -202,6 +202,18 @@ const text19 = document.getElementById('doc5').value;
 const text20 = document.getElementById('firma').value;
 const text21 = document.getElementById('folios').value;
 const text22 = document.getElementById('fechaRegistro').value;
+const fileInput = document.getElementById('firma');
+const file = fileInput.files[0];
+
+if (!text22){
+  alert('Seleccionar la fecha de hoy');
+  return;
+}
+
+if (!file) {
+  alert('Por favor, selecciona una imagen primero.');
+  return;
+}
 
 // Cargar el PDF existente
 const url = 'assets/pdf/FUT_SG_plantilla.pdf'; // Cambia esto a la ruta de tu PDF
@@ -285,7 +297,7 @@ page.drawText(text10, {
 page.drawText(text11, {
   x: 464, // Cambia esto a la posición X deseada
   y: 445, // Cambia esto a la posición Y deseada
-  size: 12, // Tamaño de la fuente
+  size: 10, // Tamaño de la fuente
   color: PDFLib.rgb(0, 0, 0), // Color del texto
 });
 
@@ -364,6 +376,28 @@ page.drawText(text22, {
   y: 115, // Cambia esto a la posición Y deseada
   size: 12, // Tamaño de la fuente
   color: PDFLib.rgb(0, 0, 0), // Color del texto
+});
+
+const imgBytes = await file.arrayBuffer();
+  let image;  
+  const fileType = file.type; // Obtenemos el tipo de archivo  
+
+  if (fileType === 'image/jpeg') {  
+    image = await pdfDoc.embedJpg(imgBytes); // Utilizar embedJpg si es un `.jpg`  
+  } else if (fileType === 'image/png') {  
+    image = await pdfDoc.embedPng(imgBytes); // Utilizar embedPng si es un `.png`  
+  } else if (fileType === 'image/jpg') {  
+    image = await pdfDoc.embedJpg(imgBytes);
+  } else {  
+    alert('Por favor, selecciona una imagen en formato JPG o PNG.');  
+    return;  
+  } 
+
+page.drawImage(image, {
+x: 390,
+y: 92,
+width: 150,
+height: 50
 });
 
 // Guardar el PDF moqdificado
@@ -448,6 +482,7 @@ document.getElementById('Previsualizacion').addEventListener('click', async func
 });
 
 document.getElementById('DocFinal').addEventListener('click', async () => {  
+
   const pdfFiles = [];  
   const inputs = [document.getElementById('archivo2'), document.getElementById('archivo3'), document.getElementById('archivo4')];  
 
@@ -465,7 +500,7 @@ document.getElementById('DocFinal').addEventListener('click', async () => {
       }  
   }  
 
-  if (pdfFiles.length < 4) {  
+  if (pdfFiles.length < 5) {  
       alert('Falta subir un archivo.');  
       return;  
   }  
@@ -489,6 +524,7 @@ document.getElementById('DocFinal').addEventListener('click', async () => {
   a.click();  
   document.body.removeChild(a);  
   URL.revokeObjectURL(url);  
+
 });  
 
 
