@@ -32,7 +32,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>CARTA DE PRESENTACIÓN</strong></p>
                         </div>
-                        <p class="texto_derecho" id="text2"><strong>"<?php echo $mostrarDiv === '3' ? 'Completo' : 'Incompleto'; ?>"</strong></p>
+                        <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv === '3' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Requisitos:</strong></p>
                         <p class="texto_izquierdo" id="text4">- Formulario FUT</p>
                         <p class="texto_izquierdo" id="text4">- Record Acádemico</p>
