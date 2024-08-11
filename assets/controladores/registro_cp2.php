@@ -2,13 +2,14 @@
 include 'bd.php'; 
 session_start();  
 $codigo = $_SESSION['codigo_institucional']; 
+$apellidos = $_SESSION['primer_apellido'] . '_' . $_SESSION['segundo_apellido'];
 $fechaRegistro = $_POST['fechaRegistro'];
 $fechaRecord = $_POST['fechaRecord'];
 $numLiquidacion = $_POST['numLiquidacion'];
-$nombre_carpeta = "prueba";
 $id_tipoSolicitud = 1;
-$estado = "prueba";
-$nt = 1111;
+$estado = "Iniciado";
+$nombre_carpeta = "carpeta";
+$nt = 0;
 
 // Obtener el id_rol basado en el código  
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
@@ -31,6 +32,17 @@ $ejecutar_cp = mysqli_stmt_execute($stmt_cp);
 $result2 = mysqli_query($conexion, "SELECT id_carpeta FROM carpeta_virtual WHERE id_alumno = '$id_alumno'");  
 $row = mysqli_fetch_assoc($result2);  
 $id_carpeta = $row['id_carpeta'];
+
+$nombre_carpeta_ofi = date('Y') . '_' . $id_carpeta . '-' . $apellidos;
+
+$update = "UPDATE carpeta_virtual SET nombre_carpeta = '$nombre_carpeta_ofi' WHERE id_carpeta = '$id_carpeta'";
+$stmt_u = mysqli_prepare($conexion, $update);
+
+if (!$stmt_u) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+} 
+$ejecutar_u = mysqli_stmt_execute($stmt_u); 
 
 // Preparar la consulta  
 $query = "INSERT INTO solicitud (id_alumno, id_carpeta, id_tipoSolicitud, fecha_solicitud, estado, fecha_recordAcademico, numero_liquidacion, nt_solicitud)
@@ -57,7 +69,7 @@ if (!$stmt2) {
 } 
 $ejecutar2 = mysqli_stmt_execute($stmt2); 
 
-if ($ejecutar and $ejecutar2 and $ejecutar_cp) {  
+if ($ejecutar and $ejecutar2 and $ejecutar_cp and $ejecutar_u) {  
 
     $_SESSION['paso_cp'] = '3'; // Cambia esto según el div que desees mostrar  
 
