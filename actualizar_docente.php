@@ -89,20 +89,35 @@ include './assets/controladores/bd.php';
                 mysqli_close($conexion);
             } else {
                 // Para recuperar los datos y mostrarlos
-                $id_docente = $_GET['id_docente'];
+                $id_docente = $_GET['id_docente'] ?? null; // Si no existe, se le asigna null
                 $codigo_alm = $_GET['CODIGO_ALUMNO'];
-                $consulta = "SELECT u.codigo AS 'CODIGO_ALUMNO',
-                CONCAT(u.nombre1, ' ', u.nombre2, ' ', u.apellido1, ' ', u.apellido2) AS 'NOMBRE_ALUMNO', 
-                e.escuela, a.seccion, a.id_docente, 
-                (SELECT GROUP_CONCAT(CONCAT(us.nombre1, ' ', us.apellido1) SEPARATOR ', ')
-                 FROM usuario us 
-                 JOIN docente dn ON dn.id_usuario = us.codigo 
-                 WHERE dn.id_docente = a.id_docente) AS 'NOMBRE_DOCENTE' 
-                 FROM usuario u 
-                 JOIN escuelas e ON e.id_escuela = u.id_escuela 
-                 JOIN alumno a ON a.id_usuario = u.codigo 
-                 JOIN acceso ac ON ac.id_usuario = u.codigo 
-                            WHERE a.id_docente = '$id_docente' and u.codigo ='$codigo_alm';";
+
+                if (is_null($id_docente)) {
+                    // Si el docente es nulo, continúa normalmente
+                    // El formulario debería manejar la asignación de un nuevo docente
+                    $consulta = "SELECT u.codigo AS 'CODIGO_ALUMNO',
+    CONCAT(u.nombre1, ' ', u.nombre2, ' ', u.apellido1, ' ', u.apellido2) AS 'NOMBRE_ALUMNO', 
+    e.escuela, a.seccion, a.id_docente, 
+    '' AS 'NOMBRE_DOCENTE' 
+    FROM usuario u 
+    JOIN escuelas e ON e.id_escuela = u.id_escuela 
+    JOIN alumno a ON a.id_usuario = u.codigo 
+    JOIN acceso ac ON ac.id_usuario = u.codigo 
+    WHERE u.codigo = '$codigo_alm';";
+                } else {
+                    $consulta = "SELECT u.codigo AS 'CODIGO_ALUMNO',
+    CONCAT(u.nombre1, ' ', u.nombre2, ' ', u.apellido1, ' ', u.apellido2) AS 'NOMBRE_ALUMNO', 
+    e.escuela, a.seccion, a.id_docente, 
+    (SELECT GROUP_CONCAT(CONCAT(us.nombre1, ' ', us.apellido1) SEPARATOR ', ')
+     FROM usuario us 
+     JOIN docente dn ON dn.id_usuario = us.codigo 
+     WHERE dn.id_docente = a.id_docente) AS 'NOMBRE_DOCENTE' 
+     FROM usuario u 
+     JOIN escuelas e ON e.id_escuela = u.id_escuela 
+     JOIN alumno a ON a.id_usuario = u.codigo 
+     JOIN acceso ac ON ac.id_usuario = u.codigo 
+     WHERE a.id_docente = '$id_docente' and u.codigo ='$codigo_alm';";
+                }
 
                 $ejecutar = mysqli_query($conexion, $consulta);
                 if (!$ejecutar) {
@@ -112,8 +127,8 @@ include './assets/controladores/bd.php';
                 $fila = mysqli_fetch_assoc($ejecutar);
                 $codigo_alumno = $fila['CODIGO_ALUMNO'];
                 $nombre_alumno = $fila['NOMBRE_ALUMNO'];
-                $id_docente_actual = $fila['id_docente'];
-                $nombre_docente_actual = $fila['NOMBRE_DOCENTE'];
+                $id_docente_actual = $fila['id_docente'] ?? null;
+                $nombre_docente_actual = $fila['NOMBRE_DOCENTE'] ?? null;
 
                 // Consulta para obtener los docentes
                 $sql = "SELECT CONCAT(u.nombre1,' ', u.apellido1) AS 'NOMBRE_DOCENTE', d.id_docente

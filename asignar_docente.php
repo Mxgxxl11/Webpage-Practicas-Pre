@@ -155,6 +155,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                                  OR us.apellido1 LIKE '%" . $nombre . "%');";
                             }
                             if (!empty($codigo) and !empty($nombre)) {
+                                //para buscar tanto con la variable codigo como con la variable nombre
                                 $busqueda = "SELECT u.codigo AS 'CODIGO_ALUMNO',
                                 CONCAT(u.nombre1, ' ', u.nombre2, ' ', u.apellido1, ' ', u.apellido2) AS 'NOMBRE_ALUMNO', 
                                 e.escuela, a.seccion, a.id_docente, 
@@ -166,7 +167,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                                  JOIN escuelas e ON e.id_escuela = u.id_escuela 
                                  JOIN alumno a ON a.id_usuario = u.codigo 
                                  JOIN acceso ac ON ac.id_usuario = u.codigo
-                                WHERE u.codigo like '%" . $codigo . "%' and u.nombre1 LIKE '%" . $nombre . "%'
+                                 WHERE u.codigo like '%" . $codigo . "%' and u.nombre1 LIKE '%" . $nombre . "%'
                                  OR u.nombre2 LIKE '%" . $nombre . "%'
                                  OR u.apellido1 LIKE '%" . $nombre . "%'
                                  OR u.apellido2 LIKE '%" . $nombre . "%'
@@ -201,16 +202,22 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     </td>
                                     <td>
                                         <?php
-                                        echo $filas['id_docente'];
+                                        echo $filas['id_docente'] ?? 'No asignado';
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $filas['NOMBRE_DOCENTE'] ?>
+                                        <?php echo $filas['NOMBRE_DOCENTE'] ?? 'No asignado' ?>
                                     </td>
                                     <td>
                                         <div class="tags">
                                             <div class=' tag tag--marketing'>
-                                                <?php echo "<a style='text-decoration:none; color:black;' href='./actualizar_docente.php?id_docente=" . $filas['id_docente'] . "'>ACTUALIZAR</a>"
+                                                <?php
+                                                // Redirigir a actualizar_docente.php si id_docente es null
+                                                if (is_null($filas['id_docente'])) {
+                                                    echo "<a style='text-decoration:none; color:red;' href='./actualizar_docente.php?CODIGO_ALUMNO=" . $filas['CODIGO_ALUMNO'] . "'>ASIGNAR DOCENTE</a>";
+                                                } else {
+                                                    echo "<a style='text-decoration:none; color:black;' href='./actualizar_docente.php?id_docente=" . $filas['id_docente'] . "&CODIGO_ALUMNO=" . $filas['CODIGO_ALUMNO'] . "'>ACTUALIZAR</a>";
+                                                }
                                                 ?>
                                             </div>
                                         </div>
@@ -257,16 +264,22 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     </td>
                                     <td>
                                         <?php
-                                        echo $filas['id_docente'];
+                                        echo $filas['id_docente'] ?? 'No asignado';
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $filas['NOMBRE_DOCENTE'] ?>
+                                        <?php echo $filas['NOMBRE_DOCENTE'] ?? 'No asignado' ?>
                                     </td>
                                     <td>
                                         <div class="tags">
                                             <div class=' tag tag--marketing'>
-                                                <?php echo "<a style='text-decoration:none; color:black;' href='./actualizar_docente.php?id_docente=" . $filas['id_docente'] . "&CODIGO_ALUMNO=" . $filas['CODIGO_ALUMNO'] . "'>ACTUALIZAR</a>"
+                                                <?php
+                                                // Redirigir a actualizar_docente.php si id_docente es null
+                                                if (is_null($filas['id_docente'])) {
+                                                    echo "<a style='text-decoration:none; color:red;' href='./actualizar_docente.php?CODIGO_ALUMNO=" . $filas['CODIGO_ALUMNO'] . "'>ASIGNAR DOCENTE</a>";
+                                                } else {
+                                                    echo "<a style='text-decoration:none; color:black;' href='./actualizar_docente.php?id_docente=" . $filas['id_docente'] . "&CODIGO_ALUMNO=" . $filas['CODIGO_ALUMNO'] . "'>ACTUALIZAR</a>";
+                                                }
                                                 ?>
                                             </div>
                                         </div>
