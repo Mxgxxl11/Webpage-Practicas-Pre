@@ -12,11 +12,20 @@ $query = "SELECT u.*, a.id_rol, a.id_usuario
           JOIN acceso a ON u.codigo = a.id_usuario
           WHERE (u.correo = '$correo' AND u.contraseña = '$contrasena')";
 
+$resultado = mysqli_query($conexion, $query);
+
+$result = mysqli_query($conexion, "SELECT a.id_usuario
+          FROM usuario u
+          JOIN acceso a ON u.codigo = a.id_usuario
+          WHERE (u.correo = '$correo' AND u.contraseña = '$contrasena')");  
+$row = mysqli_fetch_assoc($result);  
+$id_usuario = $row['id_usuario'];
+
 $query2 = "SELECT paso
           FROM usuario u
-          JOIN paso_cp p ON u.codigo = p.id_usuario";
+          JOIN paso_cp p ON u.codigo = p.id_usuario
+          WHERE p.id_usuario = '$id_usuario'";
 
-$resultado = mysqli_query($conexion, $query);
 $resultado2 = mysqli_query($conexion, $query2);
 
 if (!$resultado || !$resultado2) {
