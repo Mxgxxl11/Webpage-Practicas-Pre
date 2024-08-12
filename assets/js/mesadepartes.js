@@ -147,8 +147,8 @@ function abrir_informes(){
 }
 
 
-function abrir_constancia(){
-  window.location.href = 'constancia.php';
+function abrir_evaluacion(){
+  window.location.href = 'evaluacion.php';
 
 }
 
