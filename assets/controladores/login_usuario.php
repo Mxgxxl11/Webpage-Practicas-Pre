@@ -66,7 +66,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
             $datos4 = $resultado4->fetch_object();
             $_SESSION['nt'] = $datos4->nt;
 
-            $query5 = "SELECT e.nombre_empresa, e.ruc_empresa, e.departamento_empre, e.provincia_empre, e.distrito_empre, e.direccion_empre
+            $query5 = "SELECT e.nombre_empresa, e.ruc_empresa, e.direccion_empre
                        FROM practicas p
                        JOIN empresa e ON e.id_empresa = p.id_empresa
                        JOIN alumno a ON p.id_alumno = a.id_alumno
@@ -76,9 +76,6 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
             $datos5 = $resultado5->fetch_object();
             $_SESSION['nombre_empresa'] = $datos5->nombre_empresa;
             $_SESSION['ruc_empresa'] = $datos5->ruc_empresa;
-            $_SESSION['departamento_empre'] = $datos5->departamento_empre;
-            $_SESSION['provincia_empre'] = $datos5->provincia_empre;
-            $_SESSION['distrito_empre'] = $datos5->distrito_empre;
             $_SESSION['direccion_empre'] = $datos5->direccion_empre;
 
             header("location: ./../../../mesadepartes.php");
