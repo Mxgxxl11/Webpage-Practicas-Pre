@@ -474,3 +474,44 @@ function loadPDF3(event) {
         previewContainer.style.display = 'block'; // Mostrar el contenedor al cargar el PDF  
     }  
 }
+
+$(document).ready(function() {  
+    $('#DocFinal').click(async function() {  
+        // Obtener los valores de los inputs  
+        var Fechaconstancia = $('#Fechaconstancia').val();  
+        var NumeroLiquidacion = $('#NumeroLiquidacion').val();   
+        
+        // Obtener los blobs  
+        var blob1 = await fetch(pdfBlobUrl).then(r => r.blob());  
+  
+        // Crear FormData y agregar los blobs  
+        var formData = new FormData();  
+        formData.append('Fechaconstancia', Fechaconstancia);  
+        formData.append('NumeroLiquidacion', NumeroLiquidacion);
+        formData.append('blob1', blob1);
+  
+        const inputs = [document.getElementById('Fotoscarnet'), document.getElementById('ConsEmpresa'), document.getElementById('Comprobante')];  
+  
+        for (const input of inputs) {  
+          if (input.files.length > 0) {  
+            formData.append(input.name, input.files[0]); // Asegúrate de que los inputs tengan el atributo name  
+          }  
+        } 
+  
+        // Enviar los datos a un script PHP usando AJAX  
+        $.ajax({  
+            url: 'assets/controladores/solicitud_constancia.php',  
+            type: 'POST',  
+            data: formData,  
+            contentType: false, // Importante: desactivamos el contenido  
+            processData: false, // Importante: desactivamos el procesamiento de datos  
+            success: function(response) {  
+                alert(response);  
+                window.location = "./../../complete.php";   
+            },  
+            error: function() {  
+                alert('Error al guardar los datos');  
+            }  
+        });  
+    });  
+  }); 
