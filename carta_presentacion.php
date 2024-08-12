@@ -210,7 +210,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
             <div class="buttons">
                 <button type="submit" class="btn-small">Guardar</button>
                 <button id="ModificarDoc" type="button " class="btn-small">Modificar</button>
-                <button id="Previsualizacion" type="button" class="btn-small">Previsualizar</button>
+                <button id="Previsualizacion" type="button" class="btn-small" style="background-color: red;">Previsualizar</button>
             </div>
             
         </div>
