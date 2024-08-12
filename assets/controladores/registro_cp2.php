@@ -8,6 +8,9 @@ $fechaRecord = $_POST['fechaRecord'];
 $numLiquidacion = $_POST['numLiquidacion'];
 $fut = $_FILES['blob1'];  
 $ficha_empresa = $_FILES['blob2']; 
+$record_a = $_FILES['archivo2'];
+$ficha_matricula = $_FILES['archivo3'];
+$comprobante = $_FILES['archivo4'];
 $id_tipoSolicitud = 1;
 $estado = "Iniciado";
 $nombre_carpeta = "carpeta";
@@ -75,28 +78,53 @@ $result3 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_
 $row = mysqli_fetch_assoc($result3);  
 $id_solicitud = $row['id_solicitud'];
 
-if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK) {  
+if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK && $record_a['error'] === UPLOAD_ERR_OK && $ficha_matricula['error'] === UPLOAD_ERR_OK && $comprobante['error'] === UPLOAD_ERR_OK) {  
     // Leer el contenido de los archivos  
     $contenido_fut = file_get_contents($fut['tmp_name']);  
-    $contenido_ficha_empresa = file_get_contents($ficha_empresa['tmp_name']);  
+    $contenido_ficha_empresa = file_get_contents($ficha_empresa['tmp_name']);
+    $contenido_record_a = file_get_contents($record_a['tmp_name']);  
+    $contenido_ficha_matricula = file_get_contents($ficha_matricula['tmp_name']);  
+    $contenido_comprobante = file_get_contents($comprobante['tmp_name']);    
 
     // Preparar la consulta SQL para insertar en la base de datos  
     $sql = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
+    $sql2 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";
+    $sql3 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
+    $sql4 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";
+    $sql5 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)"; 
     
     $stmt = $conexion->prepare($sql);  
-    $nombre_archivo = "FUT";
+    $stmt2 = $conexion->prepare($sql2);
+    $stmt3 = $conexion->prepare($sql3);  
+    $stmt4 = $conexion->prepare($sql4); 
+    $stmt5 = $conexion->prepare($sql5);  
+
+    $nombre_archivo1 = "FUT";
+    $nombre_archivo2 = "Datos de empresa";
+    $nombre_archivo3 = "Record academico";
+    $nombre_archivo4 = "Ficha de matricula";
+    $nombre_archivo5 = "Comprobante de pago";
+
     // Enlazar parámetros  
-    $stmt->bind_param("isi", $id_solicitud, $nombre_archivo, $contenido_fut);  
+    $stmt->bind_param("isi", $id_solicitud, $nombre_archivo1, $contenido_fut);  
+    $stmt2->bind_param("isi", $id_solicitud, $nombre_archivo2, $contenido_ficha_empresa);
+    $stmt3->bind_param("isi", $id_solicitud, $nombre_archivo3, $contenido_record_a);  
+    $stmt4->bind_param("isi", $id_solicitud, $nombre_archivo4, $contenido_ficha_matricula);  
+    $stmt5->bind_param("isi", $id_solicitud, $nombre_archivo5, $contenido_comprobante);      
 
     // Ejecutar la consulta  
-    if ($stmt->execute()) {  
+    if ($stmt->execute() and $stmt2->execute() and $stmt3->execute() and $stmt4->execute() and $stmt5->execute()) {  
         echo "Archivos almacenados correctamente en la base de datos.";  
     } else {  
         echo "Error al almacenar los archivos: " . $stmt->error;  
     }  
 
     // Cerrar el statement  
-    $stmt->close();  
+    $stmt->close(); 
+    $stmt2->close();
+    $stmt3->close(); 
+    $stmt4->close();
+    $stmt5->close();
 } else {  
     echo "Error al subir los archivos.";  
 }  
