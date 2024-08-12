@@ -7,6 +7,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     </script>';
 }
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
+$nt_fut = 'NT:' . $_SESSION['nt'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 ?>
 
@@ -54,12 +55,12 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <input type="text" id="doc3" value="- Dos fotos tamaño carnet a color con fondo blanco, sin lentes." style="display: none;">
                 <input type="text" id="doc4" value="- Comprobante de pago por concepto de Constancia de Práctica Pre-Profesional" style="display: none;">
                 <input type="text" id="folios" value="" style="display: none;">
-                <input type="text" id="nt" value="NT:123456" style="display: none;">
+                <input type="text" id="nt" value="<?php echo $nt_fut; ?>" style="display: none;">
                 <h2>SOLICITUD DE CONSTANCIA DE PRACTICAS PRE PROFESIONALES</h2>
                 <p>*Asegurate de haber recibido la nota final antes de completar este formulario</p>
                 <div class="form-group">
                     <label for="Fechaconstancia">Fecha de Registro:</label>
-                    <input type="date" id="Fechaconstancia" class="date-picker" required>
+                    <input type="date" id="Fechaconstancia" name="Fechaconstancia" class="date-picker" required>
                     </div>
                     <div class="form-group">
                             <label for="firma">Subir firma:</label>
@@ -97,7 +98,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 
                     <div class="form-group">
                             <label for="Fotoscarnet">Adjuntar archivo en formato pdf</label>
-                            <input id="Fotoscarnet" accept=".pdf" type="file" onchange="loadPDF(event)" required>
+                            <input id="Fotoscarnet" name="Fotoscarnet" accept=".pdf" type="file" onchange="loadPDF(event)" required>
                     </div>
                     <div id="preview-container2" style="display: none;">
                         <iframe id="pdf-preview2" width="105%" height="430px" style="border: 1px solid black;"></iframe>
@@ -111,7 +112,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                
                 <div class="form-group">
                         <label for="ConsEmpresa">Adjuntar archivo en formato pdf</label>
-                        <input id="ConsEmpresa" accept=".pdf" type="file" onchange="loadPDF2(event)" required>
+                        <input id="ConsEmpresa" name="ConsEmpresa" accept=".pdf" type="file" onchange="loadPDF2(event)" required>
                     </div>
                     <div id="preview-container3" style="display: none;">
                         <iframe id="pdf-preview3" width="105%" height="430px" style="border: 1px solid black;"></iframe>
@@ -126,9 +127,9 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 <div class="form-group">
 
-                        <label for="ConsEmpresa">Adjuntar Documento:</label>
+                        <label for="Comprobante">Adjuntar Documento:</label>
                         <p>Suba su comprobante de pago (original y copia) por concepto de Constancia de Práctica Pre Profesional en un solo PDF</p>
-                        <input id="ConsEmpresa" accept=".pdf" type="file" onchange="loadPDF3(event)" required>
+                        <input id="Comprobante" name="Comprobante" accept=".pdf" type="file" onchange="loadPDF3(event)" required>
                     </div>
                     <div id="preview-container4" style="display: none;">
                         <iframe id="pdf-preview4" width="105%" height="430px" style="border: 1px solid black;"></iframe>
@@ -137,7 +138,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 
                 <div class="form-group">
                         <div class="buttons">
-                            <button type="button" class="btn-small"> Finalizar</button>
+                            <button id="DocFinal" type="button" class="btn-small"> Finalizar</button>
                         </div>
                     </div>
                 </div>
