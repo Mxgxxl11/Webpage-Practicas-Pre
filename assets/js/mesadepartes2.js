@@ -1,3 +1,8 @@
+function closeProfileForm() {
+    //esta funcion cierra el apartado de la muestra de datos del perfil
+    window.location.href = "./../../../mesadepartes.php";
+}
+
 $(document).ready(function() {  
     $('#uploadButton').click(async function() {  
         // Obtener los valores de los inputs  
