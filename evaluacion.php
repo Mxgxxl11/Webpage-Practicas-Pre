@@ -39,12 +39,13 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <label for="examen">Adjuntar examen en formato pdf</label>
                     <input id="examen" name="examen" type="file" accept=".pdf" required> 
                     <div class="buttons">
-                        <button type="button" id="upload_Examen" class="btn-small">Enviar</button>
+                        <button type="button" name="upload_Examen" id="upload_Examen" class="btn-small">Enviar</button>
                     </div>
                 </div>
             </div>
             <div class="container2" style="<?php echo $mostrarDiv === '10' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Notas de la evaluación</h2>
+                <p>*Si no hay datos es porque el docente aún han sido enviadas por el docente</p>
                 <div class="form-group">
                     <label for="nota1">Nota de evaluación de informes:</label>
                     <input type="text" name="nota1" id="nota1" readonly>
@@ -67,7 +68,6 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
             </div>
         </main>
     </div>
-    <script src="assets/js/mesadepartes.js"></script>
+    <script src="assets/js/mesadepartes2.js"></script>
 </body>
-
 </html>
