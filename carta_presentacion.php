@@ -205,9 +205,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
             <label for="direccionRepresentante">Dirección del Representante:</label>
             <input type="text" id="direccionRepresentante" name="direccion_empre" placeholder="Dirección del representante" required>
         </div>
-        <div id="complete" class="container2">
                 <p>*Presionar visualizar antes de continuar</p>
-            </div>
         <div class="form-group">
             <div class="buttons">
                 <button type="submit" class="btn-small" style="background-color: red;">Guardar</button>
@@ -257,9 +255,6 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
 
                     </div>
                 </div>
-            </div>
-            <div class="form-buttons">
-                <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
             </div>
             <br>
             
