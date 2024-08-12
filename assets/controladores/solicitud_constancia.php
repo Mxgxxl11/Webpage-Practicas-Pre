@@ -51,7 +51,7 @@ $ejecutar = mysqli_stmt_execute($stmt);
 // } 
 // $ejecutar2 = mysqli_stmt_execute($stmt2); 
 
-$result4 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_alumno = '$id_alumno' AND id_tipoSolicitud = '$id_tipoSolicitud'");  
+$result4 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_alumno = '$id_alumno' AND id_tipoSolicitud = '$id_tipoSolicitud' AND numero_liquidacion = '$NumeroLiquidacion'");    
 $row = mysqli_fetch_assoc($result4);  
 $id_solicitud = $row['id_solicitud'];
 
