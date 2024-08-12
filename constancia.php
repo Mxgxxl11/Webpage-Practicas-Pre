@@ -31,12 +31,12 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
         <?php include './includes/sidebar.php'; ?>
 
         <main class="main-content">
-        <div class="container2">
-            <div id="complete" class="container2" style="<?php echo $mostrarDiv < '10' ? 'display:block;' : 'display:none;'; ?>">
+        <div id="complete" class="container2" style="<?php echo $mostrarDiv < '10' ? 'display:block;' : 'display:none;' ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>
-            <div class="container2" style="border:0" style="<?php echo $mostrarDiv >= '10' ? 'display:block;' : 'display:none;'; ?>">
-            <input type="text" id="dependencia" value="DECANO DE LA FIEI" style="display: none;">
+        <div class="container2" style="<?php echo $mostrarDiv >= '10' ? 'display:block;' : 'display:none;'?>">
+            <div class="container2" style="border: 0;">
+                <input type="text" id="dependencia" value="DECANO DE LA FIEI" style="display: none;">
                 <input type="text" id="nro_tramite" value="Constancia de Practica Pre Profesional" style="display: none;">
                 <input type="text" id="datos_solicitante" value="X" style="display: none;">
                 <input type="text" id="nombre_fut" value="<?php echo $nombre_fut; ?>" style="display: none;">
