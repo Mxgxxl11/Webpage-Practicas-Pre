@@ -107,17 +107,12 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '8' ? 'display:block;' : 'display:none;'; ?>">
-                <p>Nota: Si la evaluación de tu informe final se da de manera virtual,  dale continuar</p>
-                <div class="form-group">                
-                    <div class="buttons">
-                        <button type="button" class="btn-small">Continuar</button>
-                    </div>
-                </div>
-            </div>
             <div id="complete" class="container2" style="<?php echo $mostrarDiv === '9' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
-                <p>Realice la solicitud de su constancia en la siguiente sección</p>
+                <p>Continue con su proceso en la siguiente sección</p>
+            </div>
+            <div class="form-buttons">
+                <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
             </div>
         </main>
     </div>
