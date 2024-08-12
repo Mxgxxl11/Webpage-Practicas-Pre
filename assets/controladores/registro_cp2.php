@@ -6,6 +6,8 @@ $apellidos = $_SESSION['primer_apellido'] . '_' . $_SESSION['segundo_apellido'];
 $fechaRegistro = $_POST['fechaRegistro'];
 $fechaRecord = $_POST['fechaRecord'];
 $numLiquidacion = $_POST['numLiquidacion'];
+$fut = $_FILES['blob1'];  
+$ficha_empresa = $_FILES['blob2']; 
 $id_tipoSolicitud = 1;
 $estado = "Iniciado";
 $nombre_carpeta = "carpeta";
@@ -68,6 +70,36 @@ if (!$stmt2) {
     exit();  
 } 
 $ejecutar2 = mysqli_stmt_execute($stmt2); 
+
+$result3 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_alumno = '$id_alumno' AND id_tipoSolicitud = '$id_tipoSolicitud'");  
+$row = mysqli_fetch_assoc($result3);  
+$id_solicitud = $row['id_solicitud'];
+
+if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK) {  
+    // Leer el contenido de los archivos  
+    $contenido_fut = file_get_contents($fut['tmp_name']);  
+    $contenido_ficha_empresa = file_get_contents($ficha_empresa['tmp_name']);  
+
+    // Preparar la consulta SQL para insertar en la base de datos  
+    $sql = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
+    
+    $stmt = $conexion->prepare($sql);  
+    $nombre_archivo = "FUT";
+    // Enlazar parámetros  
+    $stmt->bind_param("isi", $id_solicitud, $nombre_archivo, $contenido_fut);  
+
+    // Ejecutar la consulta  
+    if ($stmt->execute()) {  
+        echo "Archivos almacenados correctamente en la base de datos.";  
+    } else {  
+        echo "Error al almacenar los archivos: " . $stmt->error;  
+    }  
+
+    // Cerrar el statement  
+    $stmt->close();  
+} else {  
+    echo "Error al subir los archivos.";  
+}  
 
 if ($ejecutar and $ejecutar2 and $ejecutar_cp and $ejecutar_u) {  
 
