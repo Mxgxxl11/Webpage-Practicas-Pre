@@ -1,6 +1,11 @@
 <?php  
 include 'bd.php'; 
 session_start();  
+$codigo = $_SESSION['codigo_institucional'];
+
+$result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
+$row = mysqli_fetch_assoc($result);  
+$id_alumno = $row['id_alumno'];
 
 // Verifica que los datos del formulario estén presentes
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,8 +34,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Enlazar los parámetros
     mysqli_stmt_bind_param($stmt, "ssssssssss", $nombre_empresa, $ruc_empresa, $celular_repre, $email_repre, $provincia_empre, $distrito_empre, $representante, $dni_repre, $direccion_empre, $departamento_empre);
 
+    $query2 = "INSERT INTO practicas (id_alumno, id_empresa, area_trabajo, fecha_inicio, fecha_final, horas, meses) 
+              VALUES (?, ?, ?, ?, ?, ?)";
+
+    $result = mysqli_query($conexion, "SELECT id_empresa FROM empresa WHERE nombre = '$nombre_empresa'");  
+    $row = mysqli_fetch_assoc($result);  
+    $id_empresa = $row['id_empresa'];
+
+    $fecha_inicio = null;
+    $fecha_final = null;
+    $horas = null;
+    $meses = null;
+
+    // Preparar la consulta
+    $stmt2 = mysqli_prepare($conexion, $query2);
+    if (!$stmt2) {
+        die("Error en la preparación de la consulta: " . mysqli_error($conexion));
+    }
+
+    // Enlazar los parámetros
+    mysqli_stmt_bind_param($stmt2, "ssssss", $id_alumno, $id_empresa, $fecha_inicio, $fecha_final, $horas, $meses);
+
     // Ejecutar la consulta
-    if (mysqli_stmt_execute($stmt)) {
+    if (mysqli_stmt_execute($stmt) and mysqli_stmt_execute($stmt2)) {
         echo "Datos guardados exitosamente.";
     } else {
         echo "Error: " . mysqli_error($conexion);
@@ -38,7 +64,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-
 mysqli_close($conexion);
-
 ?>
