@@ -178,6 +178,8 @@ let pdfBlobUrl = null;
 let pdfBlobUrl2 = null;
 let tempPdfDoc = null;
 let tempPdfDoc2 = null;
+let blob1 = null;
+let blob2 = null;
 
 document.getElementById('pre').addEventListener('click', async function() {
 const text1 = document.getElementById('dependencia').value;
@@ -403,8 +405,8 @@ height: 50
 // Guardar el PDF moqdificado
 const pdfBytes = await pdfDoc.save();
 tempPdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
-const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-pdfBlobUrl = URL.createObjectURL(blob);
+blob1 = new Blob([pdfBytes], { type: 'application/pdf' });
+pdfBlobUrl = URL.createObjectURL(blob1);
 
 // Previsualizar
 document.getElementById('pdf-preview').setAttribute('src', pdfBlobUrl);
@@ -472,8 +474,8 @@ document.getElementById('Previsualizacion').addEventListener('click', async func
 
       const pdfBytes2 = await pdfDoc.save();
       tempPdfDoc2 = await PDFLib.PDFDocument.load(pdfBytes2);
-      const blob = new Blob([pdfBytes2], { type: 'application/pdf' });
-      pdfBlobUrl2 = URL.createObjectURL(blob);
+      blob2 = new Blob([pdfBytes2], { type: 'application/pdf' });
+      pdfBlobUrl2 = URL.createObjectURL(blob2);
 
       document.getElementById('pdf-preview2').setAttribute('src', pdfBlobUrl2);
   } catch (error) {
@@ -528,31 +530,49 @@ document.getElementById('DocFinal').addEventListener('click', async () => {
 });  
 
 $(document).ready(function() {  
-  $('#DocFinal').click(function() {  
+  $('#DocFinal').click(async function() {  
       // Obtener los valores de los inputs  
       var fechaRegistro = $('#fechaRegistro').val();  
       var fechaRecord = $('#fechaRecord').val();  
-      var numLiquidacion = $('#numLiquidacion').val();  
+      var numLiquidacion = $('#numLiquidacion').val();   
+      
+      // Obtener los blobs  
+      var blob1 = await fetch(pdfBlobUrl).then(r => r.blob());   
+      var blob2 = await fetch(pdfBlobUrl2).then(r => r.blob());  
+
+      // Crear FormData y agregar los blobs  
+      var formData = new FormData();  
+      formData.append('fechaRegistro', fechaRegistro);  
+      formData.append('fechaRecord', fechaRecord);  
+      formData.append('numLiquidacion', numLiquidacion);  
+      formData.append('blob1', blob1); 
+      formData.append('blob2', blob2); 
+
+      const inputs = [document.getElementById('archivo2'), document.getElementById('archivo3'), document.getElementById('archivo4')];  
+
+      for (const input of inputs) {  
+        if (input.files.length > 0) {  
+          formData.append(input.name, input.files[0]); // Asegúrate de que los inputs tengan el atributo name  
+        }  
+      } 
 
       // Enviar los datos a un script PHP usando AJAX  
       $.ajax({  
           url: 'assets/controladores/registro_cp2.php',  
           type: 'POST',  
-          data: {  
-              fechaRegistro: fechaRegistro,  
-              fechaRecord: fechaRecord,  
-              numLiquidacion: numLiquidacion  
-          },  
+          data: formData,  
+          contentType: false, // Importante: desactivamos el contenido  
+          processData: false, // Importante: desactivamos el procesamiento de datos  
           success: function(response) {  
-              alert(response);
-              window.location = "./../../carta_presentacion.php"; 
+              alert(response);  
+              window.location = "./../../carta_presentacion.php";   
           },  
           error: function() {  
               alert('Error al guardar los datos');  
           }  
       });  
   });  
-});
+}); 
 
 /*
   function Aformulario() {  
