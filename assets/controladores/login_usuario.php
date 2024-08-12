@@ -61,6 +61,26 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
         $_SESSION['escuela_profesional'] = $datos3->escuela;
 
         if ($_SESSION['id_rol'] == 3) {
+            $query4 = "SELECT nt FROM alumno WHERE id_usuario = $_SESSION[codigo_institucional]";
+            $resultado4 = mysqli_query($conexion, $query4);
+            $datos4 = $resultado4->fetch_object();
+            $_SESSION['nt'] = $datos4->nt;
+
+            $query5 = "SELECT e.nombre_empresa, e.ruc_empresa, e.departamento_empre, e.provincia_empre, e.distrito_empre, e.direccion_empre
+                       FROM practicas p
+                       JOIN empresa e ON e.id_empresa = p.id_empresa
+                       JOIN alumno a ON p.id_alumno = a.id_alumno
+                       WHERE a.id_usuario = $_SESSION[codigo_institucional]";
+
+            $resultado5 = mysqli_query($conexion, $query5);
+            $datos5 = $resultado5->fetch_object();
+            $_SESSION['nombre_empresa'] = $datos5->nombre_empresa;
+            $_SESSION['ruc_empresa'] = $datos5->ruc_empresa;
+            $_SESSION['departamento_empre'] = $datos5->departamento_empre;
+            $_SESSION['provincia_empre'] = $datos5->provincia_empre;
+            $_SESSION['distrito_empre'] = $datos5->distrito_empre;
+            $_SESSION['direccion_empre'] = $datos5->direccion_empre;
+
             header("location: ./../../../mesadepartes.php");
         } else if ($_SESSION['id_rol'] == 2) {
             header("location: ./../../../menusecretaria.php");
