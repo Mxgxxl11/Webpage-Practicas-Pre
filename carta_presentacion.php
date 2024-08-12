@@ -262,10 +262,10 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
             <br>
             
         </main>
-        <div id="complete" class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;'; ?>">
+        <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '3' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
-                <p>Debe de enviar el archivo PDF descargado</p>
+                <p>Debe de enviar el archivo PDF antes descargado al link de arriba</p>
                 <div class="form-buttons">
                     <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
                 </div>
