@@ -107,7 +107,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div id="complete" class="container2" style="<?php echo $mostrarDiv === '9' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '9' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Continue con su proceso en la siguiente sección</p>
             </div>
