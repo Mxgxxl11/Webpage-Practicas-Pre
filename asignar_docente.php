@@ -9,6 +9,8 @@ if (empty($_SESSION['codigo_institucional'])) {
 }
 //ESTE CODIGO ES PARA ASIGNAR UN DOCENTE DESDE EL PORTAL DE ADMINISTRADOR
 //TOTALMENTE FUNCIONAL
+//Para que los alumnos registrados salgan en este portal, deben primero
+//completar el form del portal alumno de la carta de presentacion
 
 ?>
 <!DOCTYPE html>

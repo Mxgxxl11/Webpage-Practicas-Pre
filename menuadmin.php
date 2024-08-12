@@ -1,4 +1,5 @@
 <!-- MENU ADMINISTRADOR -->
+<!-- Esta es la página principal del portal de ADMINISTRADORES-->
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {

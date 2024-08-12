@@ -6,7 +6,11 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
-//este archivo pertenece al portal ADMIN, AUN NO ESTA LISTO
+//este archivo pertenece al portal ADMIN
+//para que los registros de los alumnos salgan en las tablas de cada escuela
+//los alumnos deben haber llenado previamente el form que les sale antes 
+//de iniciar el tramite de carta de presentacion
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -178,7 +182,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>ELECTRÓNICA</strong></p>
                         </div>
-                        <button onclick="">Iniciar</button>
+                        <button onclick="location.href='./carpetas_electronica.php'">Iniciar</button>
                     </div>
                 </div>
             </div>
@@ -190,7 +194,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>MECATRÓNICA</strong></p>
                         </div>
-                        <button onclick="">Iniciar</button>
+                        <button onclick="location.href='./carpetas_mecatronica.php'">Iniciar</button>
                     </div>
                 </div>
             </div>
@@ -201,7 +205,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>TELECOM.</strong></p>
                         </div>
-                        <button onclick="">Iniciar</button>
+                        <button onclick="location.href='./carpetas_telecomunicaciones.php'">Iniciar</button>
                     </div>
                 </div>
             </div>

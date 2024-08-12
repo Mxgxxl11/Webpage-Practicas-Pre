@@ -1,3 +1,4 @@
+<!-- Este archivo sirve para mostrar el perfil y modificarlo en el portal ADMINISTRADOR-->
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {

@@ -1,4 +1,3 @@
-<!-- PARA MENU ADMIN-->
 <?php
 session_start();
 if (empty($_SESSION['codigo_institucional'])) {
@@ -6,6 +5,8 @@ if (empty($_SESSION['codigo_institucional'])) {
     alert("Para continuar debe iniciar sesión");
     window.location = "login.html"; 
     </script>';
+    //Este archivo te sirve para agregar más administradores o docentes
+    //al sistema. Pertenece al portal ADMINISTRADOR
 }
 ?>
 <!DOCTYPE html>
