@@ -152,3 +152,33 @@ $(document).ready(function() {
         });  
     });  
   });
+
+  $(document).ready(function() {  
+    $('#upload_Examen').click(async function() {  
+        // Obtener los valores de los inputs  
+        var fechaExamen = $('#fechaExamen').val();
+  
+        // Crear FormData 
+        var formData = new FormData();  
+        formData.append('fechaExamen', fechaExamen);  
+  
+        var input = document.getElementById('examen');  
+        formData.append(input.name, input.files[0]); // Añade el archivo al FormData  
+    
+        // Enviar los datos a un script PHP usando AJAX  
+        $.ajax({  
+            url: 'assets/controladores/exam-final.php',  
+            type: 'POST',  
+            data: formData,  
+            contentType: false, // Importante: desactivamos el contenido  
+            processData: false, // Importante: desactivamos el procesamiento de datos  
+            success: function(response) {  
+                alert(response);  
+                window.location = "./../../evaluacion.php";   
+            },  
+            error: function(xhr, status, error) {  
+                alert('Error al guardar los datos: ' + xhr.responseText); // Proporciona más información sobre el error  
+            }    
+        });  
+    });  
+  });
