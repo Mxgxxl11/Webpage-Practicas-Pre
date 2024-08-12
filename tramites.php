@@ -50,14 +50,14 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>APERTURA DE CARPETA</strong></p>
                         </div>
-                        <p class="texto_derecho" id="text2"><strong>Incompleto</strong></p>
+                        <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv === '4' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Requisitos:</strong></p>
                         <p class="texto_izquierdo" id="text4">- Formulario FUT</p>
                         <p class="texto_izquierdo" id="text4">- Record Acádemico Actualizado</p>
                         <p class="texto_izquierdo" id="text4">- Carta de presentación recepcionada por la empresa</p>
                         <p class="texto_izquierdo" id="text4">- Carta de aceptación de la empresa</p>
                         <p class="texto_izquierdo" id="text4">- Ficha de inscripción</p>
-                        <button onclick=" apertura_carpeta()">Iniciar</button>
+                        <button onclick="apertura_carpeta()">Iniciar</button>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>INFORMES</strong></p>
                         </div>
-                        <p class="texto_derecho" id="text2"><strong>Incompleto</strong></p>
+                        <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv === '9' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Documentos:</strong></p>
                         <p class="texto_izquierdo" id="text4">- Primer Informe (30 dias)</p>
                         <p class="texto_izquierdo" id="text4">- Segundo Informe (60 dias)</p>
