@@ -8,6 +8,8 @@ if (empty($_SESSION['codigo_institucional'])) {
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
+$apellidos = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
+$nombre = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $nt_fut = 'NT:' . $_SESSION['nt'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 ?>
@@ -61,8 +63,8 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <h2>Primer Requisito: FORMULARIO ÚNICO DE TRÁMITE</h2>
 
                     <div class="form-group">
-                        <label for="fechaRegistro">Fecha de Registro (Hoy):</label>
-                        <input type="date" name="fechaRegistro3" id="fechaRegistroCarpeta" class="date-picker">
+                        <label for="fechaRegistroS">Fecha de Registro (Hoy):</label>
+                        <input type="date" name="fechaRegistroS" id="fechaRegistroS" class="date-picker" required>
                     </div>
                     <div class="form-group">
                         <label for="firma">Subir firma:</label>
@@ -90,12 +92,12 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 
                 <div class="form-group">
                     <label for="fechaRecord">Fecha del record académico de notas de OCRAC:</label>
-                    <input type="date" id="fechaRecord" class="date-picker" required>
+                    <input type="date" name="fechaRecord" id="fechaRecord" class="date-picker" required>
                 </div>
 
                 <div class="form-group">
                     <label for="RecordAca">Archivo:</label>
-                    <input id="ConsEmpresa" accept=".pdf" type="file" onchange="loadPDF4(event)" required>
+                    <input name="RecordAca" id="RecordAca" accept=".pdf" type="file" onchange="loadPDF4(event)" required>
 
 
                 </div>
@@ -114,7 +116,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 
                 <div class="form-group">
                     <label for="CartaRec">Archivo:</label>
-                    <input id="CartaRec" accept=".pdf" type="file" onchange="loadPDF5(event)" required>
+                    <input id="CartaRec" name="CartaRec" accept=".pdf" type="file" onchange="loadPDF5(event)" required>
 
 
                 </div>
@@ -128,16 +130,16 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 
                 <div class="form-group">
                     <label for="fechaInicio">Fecha de Inicio:</label>
-                    <input type="date" id="fechaInicio" class="date-picker" required>
+                    <input type="date" name="fechaInicio" id="fechaInicio" class="date-picker" required>
                 </div>
                 <div class="form-group">
                     <label for="fechaCulminacion">Fecha de Culminación:</label>
-                    <input type="date" id="fechaCulminacion" class="date-picker" required>
+                    <input type="date" name="fechaCulminacion" id="fechaCulminacion" class="date-picker" required>
                 </div>
 
                 <div class="form-group">
                     <label for="CartaAceptacion">Archivo:</label>
-                    <input id="CartaAceptacion" accept=".pdf" type="file" onchange="loadPDF6(event)" required>
+                    <input name="CartaAceptacion" id="CartaAceptacion" accept=".pdf" type="file" onchange="loadPDF6(event)" required>
 
 
                 </div>
@@ -146,68 +148,69 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 </div>
             </div>
 
-            <div class="container2">
+            <form id="empresaForm" method="POST" enctype="multipart/form-data">
+                <input type="text" id="apellidos" value="<?php echo $apellidos; ?>" style="display: none;">
+                <input type="text" id="nombre" value="<?php echo $nombre; ?>" style="display: none;">
+                <input type="text" id="escuela_profesional" value="<?php echo $_SESSION['escuela_profesional']; ?>" style="display: none;">
+                <input type="text" id="codigo_ins" value="<?php echo $_SESSION['codigo_institucional']; ?>" style="display: none;">
+                <input type="text" id="semestre" value="<?php echo date('Y') . ' - 1'; ?>" style="display: none;">
+                <input type="text" id="celular" value="<?php echo $_SESSION['celular']; ?>" style="display: none;">
+                <input type="text" id="correo" value="<?php echo $_SESSION['Correo_Institucional']; ?>" style="display: none;">
+
+
+                <div class="container2">
                 
                 <h2>Quinto Requisito: Ficha de Inscripción</h2>
 
                 <h2>Datos de la Empresa</h2>
                 <div class="form-group">
                     <label for="nombreEmpresa">Nombre Empresa:</label>
-                    <input type="text" id="nombreEmpresa" value="<?php echo $_SESSION['nombre_empresa']; ?>" readonly>
+                    <input type="text" name="nombreEmpresa" id="nombreEmpresa" value="<?php echo $_SESSION['nombre_empresa']; ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="rucEmpresa">RUC:</label>
-                    <input type="text" id="rucEmpresa" value="<?php echo $_SESSION['ruc_empresa']; ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="departamentoEmpresa">Departamento:</label>
-                    <input type="text" id="departamentoEmpresa" value="<?php echo $_SESSION['departamento_empre']; ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="provinciaEmpresa">Provincia:</label>
-                    <input type="text" id="provinciaEmpresa" value="<?php echo $_SESSION['provincia_empre']; ?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="distritoEmpresa">Distrito:</label>
-                    <input type="text" id="distritoEmpresa" value="<?php echo $_SESSION['distrito_empre']; ?>" readonly>
+                    <input type="text" name="rucEmpresa" id="rucEmpresa" value="<?php echo $_SESSION['ruc_empresa']; ?>" readonly>
                 </div>
                 <div class="form-group">
                     <label for="direccionEmpresa">Direccion:</label>
-                    <input type="text" id="direccionEmpresa" value="<?php echo $_SESSION['direccion_empre']; ?>" readonly>
+                    <input type="text" name="direccionEmpresa" id="direccionEmpresa" value="<?php echo $_SESSION['direccion_empre']; ?>" readonly>
                 </div>
 
                 <div class="container2" style="border: 0;">
                     <h2>Completar Datos</h2>
                     <div class="form-group">
                         <label for="jefeInmediato">Jefe Inmediato:</label>
-                        <input type="text" id="jefeInmediato" placeholder="Jefe Inmediato" required>
+                        <input type="text" name="jefeInmediato" id="jefeInmediato" placeholder="Jefe Inmediato" required>
                     </div>
                     <div class="form-group">
                         <label for="areaTrabajo">Área de Trabajo:</label>
-                        <input type="text" id="areaTrabajo" placeholder="Área de Trabajo" required>
+                        <input type="text" name="areaTrabajo" id="areaTrabajo" placeholder="Área de Trabajo" required>
                     </div>
                     <div class="form-group">
                         <label for="telefonoCelular">Teléfono o Celular:</label>
-                        <input type="text" id="telefonoCelular" placeholder="Teléfono o Celular" required>
+                        <input type="text" name="telefonoCelular" id="telefonoCelular" placeholder="Teléfono o Celular" required>
                     </div>
 
                     <div class="form-group">
                         <div class="buttons">
                             <button id="g" type="button" style="background-color: red;" class="btn-small">Guardar</button>
-                            <button id="act" type="button" class="btn-small">Modificar</button>
+                            <button id="visualizar" type="button" style="background-color: red;" class="btn-small">Visualizar</button>
                         </div>
                     </div>
-
+                    <div id="preview-container">
+                        <iframe id="pdf-preview2" width="100%" height="430px" style="border: 1px solid black;"></iframe>
+                    </div>
                 </div>
 
             </div>
+            </form>
 
             <div class="container2">
                 <h2>Documento Final</h2>
 
                 <div class="form-group">
                     <div class="buttons">
-                        <button type="button" style="background-color: red;" class="btn-small">Descargar PDF Solicitud</button>
+                        <button id="descargar" type="button" style="background-color: red;" class="btn-small">Descargar PDF Solicitud</button>
                     </div>
                 </div>
             </div>
@@ -223,4 +226,3 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
     </div>
     <script src="assets/js/mesadepartes3.js"></script>
 </body>
-</html>
