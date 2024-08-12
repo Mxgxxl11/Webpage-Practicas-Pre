@@ -33,7 +33,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
         <?php include './includes/sidebar.php'; ?>
         <main class="main-content">
             <!-- INICIA FORM DE REGISTRO-->
-            <div class="profile-form" id="Next-step" style="<?php echo $mostrarDiv === '1' ? 'display:block;' : 'display:none'; ?>">
+            <div class="profile-form" id="Next-step" style="<?php echo $mostrarDiv === '1' ? 'display:block;' : 'display:none;'; ?>">
                 <form action="assets/controladores/registro_cp.php" method="POST" enctype="multipart/form-data">
                     <div class="profile-fields">
                         <div>
@@ -141,7 +141,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     </div>
                     <div class="form-group">
                         <label for="archivo2">Archivo:</label>
-                        <input accept="aplication/pdf" id="archivo2" type="file" value="enviar record">
+                        <input accept=".pdf" id="archivo2" name="archivo2" type="file" value="enviar record">
                     </div>
                   
                 </div>
@@ -154,11 +154,10 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     </div>
                     <div class="form-group">
                         <label for="archivo3">Archivo:</label>
-                        <input accept="aplication/pdf" id="archivo3" type="file" value="enviar ficha">
+                        <input accept=".pdf" id="archivo3" name="archivo3" type="file" value="enviar ficha">
                     </div>
                     
                 </div>
-
 
     <!-- DATOS DE LA EMPRESA    ---------------------------->              
       <form id="empresaForm" method="POST" enctype="multipart/form-data">
@@ -235,7 +234,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     </div>
                     <div class="form-group">
                         <label for="archivo4">Archivo:</label>
-                        <input accept="aplication/pdf" id="archivo4" type="file" value="enviar comprobante">
+                        <input accept=".pdf" id="archivo4" name="archivo4" type="file" value="enviar comprobante">
 
                         <div class="buttons">
 
@@ -248,18 +247,17 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                 <div class="container2">
                     <h2>DOCUMENTO</h2>
                     <div class="form-group">
-
                         <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                         <div class="form-group">
                     <div class="buttons">
                         <button id="DocFinal" type="button" class="btn-small">Descargar Documento</button>
-                </div>
+                    </div>
 
                     </div>
                 </div>
             </div>
             <div class="form-buttons">
-                <button onclick="closeProfileForm()" class="close-btn"> Cerrar</button>
+                <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
             </div>
             <br>
             
@@ -267,10 +265,9 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
         <div id="complete" class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
+                <p>Debe de enviar el archivo PDF descargado</p>
                 <div class="form-buttons">
-                    <button onclick="closeProfileForm()" class="close-btn">
-                        Cerrar
-                    </button>
+                    <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
                 </div>
             </div>
     </div>
