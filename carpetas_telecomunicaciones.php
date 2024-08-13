@@ -7,7 +7,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
-//Falta la parte de ver carpetas de los alumnos
+$direccion_carpeta = "./assets/carpetas_virtuales/";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +33,20 @@ if (empty($_SESSION['codigo_institucional'])) {
 
         .my-form__button:hover {
             background-color: chocolate;
+        }
+
+        .download-button {
+            padding: 10px 15px;
+            background-color: orange;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .download-button:hover {
+            background-color: burlywood;
         }
     </style>
 </head>
@@ -66,7 +80,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <td>
                             <div class="tags">
                                 <div class="tag tag--marketing">
-                                    <a href="carpetas_informatica.php" style="text-decoration:none; color:black;">
+                                    <a href="carpetas_telecomunicaciones.php" style="text-decoration:none; color:black;">
                                         Mostrar todos los usuarios
                                     </a>
                                 </div>
@@ -79,21 +93,12 @@ if (empty($_SESSION['codigo_institucional'])) {
             <table>
                 <thead>
                     <tr>
-                        <th>
-                            Código
-                        </th>
-                        <th>
-                            Nombre
-                        </th>
-                        <th>
-                            Escuela
-                        </th>
-                        <th>
-                            Semestre
-                        </th>
-                        <th>
-                            Seccion
-                        </th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Escuela</th>
+                        <th>Semestre</th>
+                        <th>Sección</th>
+                        <th>Descargar carpeta</th>
                     </tr>
                 </thead>
                 <tbody id="team-member-rows">
@@ -105,37 +110,34 @@ if (empty($_SESSION['codigo_institucional'])) {
                         if (empty($codigo) and empty($nombre)) { // si no funciona codigo cambiar a $_POST['codigo']
                             echo '<script>
                             alert("Ingresa algún dato para buscar");
-                            window.location = "./ver_usuarios.php"; 
+                            window.location = "./carpetas_telecomunicaciones.php"; 
                             </script>';
                         } else {
                             if (empty($nombre)) {
-                                $busqueda = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                al.seccion
-                                FROM usuario u
-                                JOIN acceso a ON u.codigo = a.id_usuario
-                                JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                JOIN alumno al ON al.id_usuario = u.codigo
+                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                                FROM usuario u 
+                                JOIN acceso a ON u.codigo = a.id_usuario 
+                                JOIN escuelas e ON e.id_escuela = u.id_escuela 
+                                JOIN alumno al ON al.id_usuario = u.codigo 
+                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
                                 WHERE e.id_escuela = 2 and u.codigo like '%" . $codigo . "%'";
                             }
                             if (empty($codigo)) {
-                                $busqueda = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                al.seccion
-                                FROM usuario u
-                                JOIN acceso a ON u.codigo = a.id_usuario
-                                JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                JOIN alumno al ON al.id_usuario = u.codigo
-                                WHERE e.id_escuela = 2 AND u.nombre1 LIKE '%" . $nombre . "%'
-                                 OR u.nombre2 LIKE '%" . $nombre . "%'
-                                 OR u.apellido1 LIKE '%" . $nombre . "%'
-                                 OR u.apellido2 LIKE '%" . $nombre . "%'";
+                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                                FROM usuario u 
+                                JOIN acceso a ON u.codigo = a.id_usuario 
+                                JOIN escuelas e ON e.id_escuela = u.id_escuela 
+                                JOIN alumno al ON al.id_usuario = u.codigo 
+                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
+                                WHERE e.id_escuela = 2 AND (u.nombre1 LIKE '%" . $nombre . "%' OR u.nombre2 LIKE '%" . $nombre . "%' OR u.apellido1 LIKE '%" . $nombre . "%' OR u.apellido2 LIKE '%" . $nombre . "%')";
                             }
                             if (!empty($nombre) and !empty($codigo)) {
-                                $busqueda = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                al.seccion
-                                FROM usuario u
-                                JOIN acceso a ON u.codigo = a.id_usuario
-                                JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                JOIN alumno al ON al.id_usuario = u.codigo
+                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                                FROM usuario u 
+                                JOIN acceso a ON u.codigo = a.id_usuario 
+                                JOIN escuelas e ON e.id_escuela = u.id_escuela 
+                                JOIN alumno al ON al.id_usuario = u.codigo 
+                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
                                 WHERE e.id_escuela = 2 and u.codigo like '%" . $codigo . "%' 
                                 and (
                                  u.nombre1 LIKE '%" . $nombre . "%'
@@ -147,7 +149,9 @@ if (empty($_SESSION['codigo_institucional'])) {
                         }
                         $ejec = mysqli_query($conexion, $busqueda);
                         if ($ejec) {
-                            while ($filas = mysqli_fetch_assoc($ejec)) { ?>
+                            while ($filas = mysqli_fetch_assoc($ejec)) {
+                                $ruta_carpeta = $direccion_carpeta . $filas['nombre_carpeta'];
+                    ?>
                                 <tr>
                                     <td>
                                         <div class="profile-info">
@@ -170,22 +174,28 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     <td>
                                         <?php echo $filas['seccion']; ?>
                                     </td>
-
+                                    <td>
+                                        <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" class="download-button">
+                                            Descargar
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php }
                         }
                     } else {
                         //aca para mostrar todos los registros de los alumnos de informatica
 
-                        $consulta = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                    al.seccion
-                                    FROM usuario u
-                                    JOIN acceso a ON u.codigo = a.id_usuario
-                                    JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                    JOIN alumno al ON al.id_usuario = u.codigo
+                        $consulta = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                        FROM usuario u 
+                        JOIN acceso a ON u.codigo = a.id_usuario 
+                        JOIN escuelas e ON e.id_escuela = u.id_escuela 
+                        JOIN alumno al ON al.id_usuario = u.codigo 
+                        JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
                                     where a.id_rol=3 and e.id_escuela=2";
                         $ejecucion = mysqli_query($conexion, $consulta);
-                        while ($filas = mysqli_fetch_assoc($ejecucion)) { ?>
+                        while ($filas = mysqli_fetch_assoc($ejecucion)) {
+                            $ruta_carpeta = $direccion_carpeta . $filas['nombre_carpeta'];
+                            ?>
                             <tr>
                                 <td>
                                     <div class="profile-info">
@@ -207,6 +217,11 @@ if (empty($_SESSION['codigo_institucional'])) {
                                 </td>
                                 <td>
                                     <?php echo $filas['seccion']; ?>
+                                </td>
+                                <td>
+                                    <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" class="download-button">
+                                        Descargar
+                                    </a>
                                 </td>
 
                             </tr>
