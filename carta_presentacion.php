@@ -8,6 +8,8 @@ if (empty($_SESSION['codigo_institucional'])) {
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
+$apellidos = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
+$nombres = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
 $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_guardada'] : '';
 
@@ -159,56 +161,62 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     
                 </div>
 
-    <!-- DATOS DE LA EMPRESA    ---------------------------->              
-      <form id="empresaForm" method="POST" enctype="multipart/form-data">
+    <!-- DATOS DE LA EMPRESA    ---------------------------->            
     <div class="container2">
+        <input type="text" id="apellidos" value="<?php echo $apellidos; ?>" style="display: none;">
+        <input type="text" id="nombres" value="<?php echo $nombres; ?>" style="display: none;">
         <h2>Cuarto Requisito: DATOS DE LA EMPRESA</h2>
         <div class="form-group">
             <label for="nombreEmpresa">Nombre:</label>
-            <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder="Nombre de la empresa" required>
+            <input type="text" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre de la empresa" required>
         </div>
         <div class="form-group">
             <label for="rucEmpresa">RUC:</label>
-            <input type="text" id="rucEmpresa" name="ruc_empresa" placeholder="RUC de la empresa" required>
-        </div>
-        <div class="form-group">
-            <label for="celularRepresentante">Celular del Representante:</label>
-            <input type="text" id="celularRepresentante" name="celular_repre" placeholder="Celular del representante" required>
-        </div>
-        <div class="form-group">
-            <label for="emailRepresentante">Email del Representante:</label>
-            <input type="email" id="emailRepresentante" name="email_repre" placeholder="Email del representante" required>
+            <input type="text" id="rucEmpresa" name="rucEmpresa" placeholder="RUC de la empresa" required>
         </div>
         <div class="form-group">
             <label for="provinciaEmpresa">Provincia:</label>
-            <input type="text" id="provinciaEmpresa" name="provincia_empre" placeholder="Provincia" required>
+            <input type="text" id="provinciaEmpresa" name="provinciaEmpresa" placeholder="Provincia" required>
         </div>
         <div class="form-group">
             <label for="departamentoRepresentante">Departamento:</label>
-            <input type="text" id="departamentoRepresentante" name="departamento_empre" placeholder="Departamento" required>
+            <input type="text" id="departamentoRepresentante" name="departamentoRepresentante" placeholder="Departamento" required>
         </div>
         <div class="form-group">
             <label for="DistritoEmpresa">Distrito:</label>
-            <input type="text" id="DistritoEmpresa" name="distrito_empre" placeholder="Distrito" required>
+            <input type="text" id="DistritoEmpresa" name="DistritoEmpresa" placeholder="Distrito" required>
+        </div>
+        <div class="form-group">
+            <label for="direccionRepresentante">Dirección:</label>
+            <input type="text" id="direccionRepresentante" name="direccionRepresentante" placeholder="Dirección del representante" required>
         </div>
 
         <h3>DATOS DEL REPRESENTANTE DE LA EMPRESA</h3>
         <div class="form-group">
             <label for="nombreRepresentante">Nombre del Representante:</label>
-            <input type="text" id="nombreRepresentante" name="representante" placeholder="Nombre del representante" required>
+            <input type="text" id="nombreRepresentante" name="nombreRepresentante" placeholder="Nombre del representante" required>
         </div>
         <div class="form-group">
             <label for="dniRepresentante">DNI del Representante:</label>
-            <input type="text" id="dniRepresentante" name="dni_repre" placeholder="DNI del representante" required>
+            <input type="text" id="dniRepresentante" name="dniRepresentante" placeholder="DNI del representante" required>
         </div>
         <div class="form-group">
-            <label for="direccionRepresentante">Dirección del Representante:</label>
-            <input type="text" id="direccionRepresentante" name="direccion_empre" placeholder="Dirección del representante" required>
+            <label for="cargoRepresentante">Cargo del Representante:</label>
+            <input type="text" id="cargoRepresentante" name="cargoRepresentante" placeholder="Cargo del representante" required>
         </div>
-                <p>*Presionar visualizar antes de continuar</p>
+        <div class="form-group">
+            <label for="celularRepresentante">Celular del Representante:</label>
+            <input type="text" id="celularRepresentante" name="celularRepresentante" placeholder="Celular del representante" required>
+        </div>
+        <div class="form-group">
+            <label for="emailRepresentante">Email del Representante:</label>
+            <input type="email" id="emailRepresentante" name="emailRepresentante" placeholder="Email del representante" required>
+        </div>
+                <p>*Si por algún error guardó datos incorrectos, solo corrija y presione modificar</p>
+                <p>*Presionar visualizar para cargar los datos en el FUT antes de continuar</p>
         <div class="form-group">
             <div class="buttons">
-                <button type="submit" class="btn-small" style="background-color: red;">Guardar</button>
+                <button id="guardar" class="btn-small" style="background-color: red;">Guardar</button>
                 <button id="ModificarDoc" type="button " class="btn-small">Modificar</button>
                 <button id="Previsualizacion" type="button" class="btn-small" style="background-color: red;">Visualizar</button>
             </div>
