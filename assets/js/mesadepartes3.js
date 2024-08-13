@@ -369,12 +369,7 @@ $(document).ready(function() {
   $('#descargar').click(async function() {  
       // Obtener los valores de los inputs  
       var fechaRegistroS = $('#fechaRegistroS').val();  
-      var fechaRecord = $('#fechaRecord').val();  
-      var fechaInicio = $('#fechaInicio').val();   
-      var fechaCulminacion = $('#fechaCulminacion').val();
-      var jefeInmediato = $('#jefeInmediato').val();
-      var areaTrabajo = $('#areaTrabajo').val();
-      var telefonoCelular = $('#telefonoCelular').val();
+      var fechaRecord = $('#fechaRecord').val();
       
       // Obtener los blobs  
       var blob1 = await fetch(pdfBlobUrl).then(r => r.blob());   
@@ -383,12 +378,7 @@ $(document).ready(function() {
       // Crear FormData y agregar los blobs  
       var formData = new FormData();  
       formData.append('fechaRegistroS', fechaRegistroS);  
-      formData.append('fechaRecord', fechaRecord);  
-      formData.append('fechaInicio', fechaInicio); 
-      formData.append('fechaCulminacion', fechaCulminacion);  
-      formData.append('jefeInmediato', jefeInmediato);  
-      formData.append('areaTrabajo', areaTrabajo); 
-      formData.append('telefonoCelular', telefonoCelular);  
+      formData.append('fechaRecord', fechaRecord); 
       formData.append('blob1', blob1); 
       formData.append('blob2', blob2); 
 
@@ -402,14 +392,14 @@ $(document).ready(function() {
 
       // Enviar los datos a un script PHP usando AJAX  
       $.ajax({  
-          url: 'assets/controladores/registro_cp2.php',  
+          url: 'assets/controladores/registro_ac.php',  
           type: 'POST',  
           data: formData,  
           contentType: false, // Importante: desactivamos el contenido  
           processData: false, // Importante: desactivamos el procesamiento de datos  
           success: function(response) {  
               alert(response);  
-              window.location = "./../../carta_presentacion.php";   
+              window.location = "./../../apertura_carpeta.php";   
           },  
           error: function() {  
               alert('Error al guardar los datos');  
@@ -457,3 +447,8 @@ $(document).ready(function() {
       });  
   });  
 }); 
+
+function closeProfileForm() {
+  //esta funcion cierra el apartado de la muestra de datos del perfil
+  window.location.href = "./../../../mesadepartes.php";
+}
