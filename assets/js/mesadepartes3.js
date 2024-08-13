@@ -365,6 +365,52 @@ function loadPDF6(event) {
   }
 }
 
+document.getElementById('descargar').addEventListener('click', async () => {  
+
+  const pdfFiles = [];  
+  const inputs = [document.getElementById('RecordAca'), document.getElementById('CartaRec'), document.getElementById('CartaAceptacion')];  
+
+  if (tempPdfDoc) {  
+    pdfFiles.push(tempPdfDoc);  
+  }   
+
+  if (tempPdfDoc2) {  
+    pdfFiles.push(tempPdfDoc2);  
+  }   
+
+  for (const input of inputs) {  
+      if (input.files.length > 0) {  
+          pdfFiles.push(input.files[0]);  
+      }  
+  }  
+
+  if (pdfFiles.length < 5) {  
+      alert('Falta subir un archivo.');  
+      return;  
+  }  
+
+  const pdfDoc = await PDFLib.PDFDocument.create();  
+
+  for (const pdfFile of pdfFiles) {  
+      const pdfBytes = pdfFile instanceof File ? await pdfFile.arrayBuffer() : await pdfFile.save();
+      const tempDoc = await PDFLib.PDFDocument.load(pdfBytes);  
+      const copiedPages = await pdfDoc.copyPages(tempDoc, tempDoc.getPageIndices());  
+      copiedPages.forEach((page) => pdfDoc.addPage(page));  
+  }  
+
+  const mergedPdfBytes = await pdfDoc.save();  
+  const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });  
+  const url = URL.createObjectURL(blob);  
+  const a = document.createElement('a');  
+  a.href = url;  
+  a.download = 'CartaPresentación.pdf';  
+  document.body.appendChild(a);  
+  a.click();  
+  document.body.removeChild(a);  
+  URL.revokeObjectURL(url);  
+
+}); 
+
 $(document).ready(function() {  
   $('#descargar').click(async function() {  
       // Obtener los valores de los inputs  
@@ -419,8 +465,7 @@ $(document).ready(function() {
       var direccionEmpresa = $('#direccionEmpresa').val();    
       var fechaInicio = $('#fechaInicio').val();  
       var fechaCulminacion = $('#fechaCulminacion').val(); 
-
-      // Crear FormData y agregar los blobs  
+  
       var formData = new FormData();  
       formData.append('jefeInmediato', jefeInmediato);  
       formData.append('areaTrabajo', areaTrabajo);  
