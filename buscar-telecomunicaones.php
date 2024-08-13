@@ -139,5 +139,4 @@ $id_escuela_telecomunicaciones = 2; // Cambia este valor según el id real de "T
             <?php mysqli_close($conexion); ?>
         </article>
     </div>
-    <script src="assets/js/mesadepartes.js">
-        < /sc-evalua
+    <script src="assets/js/mesadepartes.js"></script>
