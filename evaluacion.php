@@ -29,10 +29,10 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
         <?php include './includes/sidebar.php'; ?>
 
         <main class="main-content">
-            <div id="complete" class="container2" style="<?php echo $mostrarDiv < '9' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv < '10' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '9' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '10' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Subir el Examen Final</h2>
                 <div class="form-group">
                     <label for="fechaExamen">Fecha de Subida:</label>
@@ -46,7 +46,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '10' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '11' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Notas de la evaluación</h2>
                 <p>*Si no hay datos es porque sus notas aún no han sido enviadas por el docente</p>
                 <div class="form-group">
