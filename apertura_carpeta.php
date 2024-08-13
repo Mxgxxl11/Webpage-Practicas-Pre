@@ -36,7 +36,20 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
         <div id="complete" class="container2" style="<?php echo $mostrarDiv < '3' ? 'display:block;' : 'display:none;' ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>
-            <div id="segundo" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;' ?>">
+                <h2>Necesitas completar el NT para continuar con este tramite</h2>
+                <div class="form-group">
+                    <label for="nt">NT :</label>
+                    <input type="text" name="nt" id="nt" required>
+                </div>
+                <div class="form-group">
+                    <div class="buttons">
+                        <button onclick="closeProfileForm()" class="btn-small">Cerrar</button>
+                        <button id="send" name="send" type="button" class="btn-small">Enviar</button>
+                    </div>
+                </div>
+            </div>
+            <div id="segundo" style="<?php echo $mostrarDiv === '4' ? 'display:block;' : 'display:none;'; ?>">
                 <!-- DATOS PARA LLENAR EL FUT-->
                 <input type="text" id="dependencia" value="DECANO DE LA FIEI" style="display: none;">
                 <input type="text" id="nro_tramite" value="Solicitud de Apertura de Carpeta" style="display: none;">
@@ -216,7 +229,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 </div>
             </div>
             </div>
-            <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '4' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '5' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                 <p>Debe de enviar el archivo PDF antes descargado al link de arriba</p>
