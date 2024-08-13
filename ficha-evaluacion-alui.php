@@ -1,4 +1,3 @@
-<!-- NO SE SI ELIMINAREMOS ESTE MENU O NO. LO HABLAMOS EN EL SPRINT 6 -->
 <?php
 session_start();
 include './assets/controladores/bd.php';
@@ -886,44 +885,10 @@ if (empty($_SESSION['codigo_institucional'])) {
                             </div>
                         </form>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </main>
     </div>
-    <script src="assets/js/mesadepartes.js"></script>
+    <script src="assets/js/mesadepartes4.js"></script>
 </body>
-
 </html>
