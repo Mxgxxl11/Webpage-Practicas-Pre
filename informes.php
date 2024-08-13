@@ -28,10 +28,10 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
     <div class="container">
         <?php include './includes/sidebar.php'; ?>
         <main class="main-content">
-            <div id="complete" class="container2" style="<?php echo $mostrarDiv < '4' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv < '5' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '4' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '5' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Primer Informe</h2>
                 <p>Nota: El primer informe se debe subir 30 dias despues de la fecha de inicio de sus practicas pre profesionales</p>
                 <div class="form-group">
@@ -46,7 +46,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>   
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '5' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '6' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Segundo Informe</h2>
                 <p>Nota: El segundo informe se debe subir 90 dias despues de la 
                     fecha de inicio de sus practicas pre profesionales</p>
@@ -62,7 +62,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '6' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '7' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Tercer Informe</h2>
                 <p>Nota: El tercer informe se debe subir al culminar sus practicas pre profesionales 
                     desde la fecha de inicio de sus practicas pre profesionales</p>
@@ -78,7 +78,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '7' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '8' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Subir Constancia de Culminacion</h2>
                 <p>Nota: Subir su constancia de culminacion una vez completado las 780 horas</p>
                 <div class="form-group">
@@ -93,7 +93,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '8' ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv === '9' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Subir el Informe Final</h2>
                 <div class="form-group">
                     <label for="fechaInforme5">Fecha de Subida:</label>
@@ -107,7 +107,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     </div>
                 </div>
             </div>
-            <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '9' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '10' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Continue con su proceso en la siguiente sección</p>
             </div>
