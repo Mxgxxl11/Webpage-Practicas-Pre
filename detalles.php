@@ -17,7 +17,7 @@ $codigo = $_SESSION['codigo_institucional'];
 <meta charset="UTF-8">  
     <meta http-equiv="X-UA-Compatible" content="IE=edge">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Notificacione</title>  
+    <title>Notificaciones</title>  
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />  
     <link rel="stylesheet" href="assets/css/detalles.css">   
 </head>  
