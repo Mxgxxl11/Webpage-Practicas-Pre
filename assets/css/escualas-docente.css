@@ -1,0 +1,100 @@
+.contenedor {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.widget-tabla {
+    width: 100%;
+}
+
+.widget-tabla h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.barra-busqueda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.barra-busqueda input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.barra-busqueda button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #ffcc00;
+    border: none;
+    color: #333;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.barra-busqueda button:hover {
+    background-color: #e6b800;
+}
+
+tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tabla thead th {
+    background-color: #f8e87a;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #000;
+}
+
+tabla tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+tabla tbody tr:last-child {
+    border-bottom: none;
+}
+
+tabla tbody td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.info-perfil {
+    background-color: #fff2cc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+boton.boton-accion {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffcc00;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100px;
+}
+
+boton.boton-accion:hover {
+    background-color: #e6b800;
+}
