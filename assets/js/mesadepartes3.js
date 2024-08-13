@@ -403,7 +403,7 @@ document.getElementById('descargar').addEventListener('click', async () => {
   const url = URL.createObjectURL(blob);  
   const a = document.createElement('a');  
   a.href = url;  
-  a.download = 'CartaPresentación.pdf';  
+  a.download = 'SolicitudAperturaCarpeta.pdf';  
   document.body.appendChild(a);  
   a.click();  
   document.body.removeChild(a);  
@@ -497,3 +497,29 @@ function closeProfileForm() {
   //esta funcion cierra el apartado de la muestra de datos del perfil
   window.location.href = "./../../../mesadepartes.php";
 }
+
+$(document).ready(function() {  
+  $('#send').click(async function() {  
+      // Obtener los valores de los inputs  
+      var nt = $('#nt').val();
+  
+      var formData = new FormData();  
+      formData.append('nt', nt); 
+
+      // Enviar los datos a un script PHP usando AJAX  
+      $.ajax({  
+          url: 'assets/controladores/subir_nt.php',  
+          type: 'POST',  
+          data: formData,  
+          contentType: false, // Importante: desactivamos el contenido  
+          processData: false, // Importante: desactivamos el procesamiento de datos  
+          success: function(response) {  
+              alert(response);   
+              window.location = "./../../apertura_carpeta.php";  
+          },  
+          error: function() {  
+              alert('Error al guardar los datos');  
+          }  
+      });  
+  });  
+}); 
