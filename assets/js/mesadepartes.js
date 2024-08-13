@@ -1,22 +1,8 @@
-//resetform(); esta cometado porque daba errores en su implementacion.
-//Comente tanto la función como sus llamadas
-
 //ESTA FUNCIÓN OCULTA Y MUESTRA EL SIDEBAR
 function toggleMenu() {
   const sidebar = document.getElementById('sidebar');
   sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
 }
-
-//PARA CARGAR LOS APARTADOS DE LA PÁGINA
-/*
-function loadProfileForm() {
-  //esta función hace que se cargue el apartado de los datos del perfil
-  //resetForm();
-  const profileContainer = document.getElementById('profileContainer');
-  const solicitudContainer = document.getElementById('solicitudContainer');
-  profileContainer.style.display = 'block';
-  solicitudContainer.style.display = 'none';
-}*/
 
 function loadSolicitudForm() {
   //esta funcion carga el apartado de la carta de presentación (1er tramite)
@@ -26,13 +12,6 @@ function loadSolicitudForm() {
   profileContainer.style.display = 'none';
   solicitudContainer.style.display = 'block';
 }
-/*
-function loadRegistroSolicitud(){
-  //esta funcion carga el apartado del 1form(registro)
-  //de la carta de presentacion
-  const registroContainer = document.getElementById('Next-step');
-  registroContainer.style.display = 'block';
-}*/
 
 function loadSegundoForm(){
   //esta funcion carga el apartado del 2form (subida de futs)
@@ -41,12 +20,6 @@ function loadSegundoForm(){
   const segundoFormContainer = document.getElementById('segundo');
   segundoFormContainer.style.display = 'block';
 }
-/*
-function loadBienvenidaContainer(){
-  //esta funcion carga el apartado de bienvenida a la pagina web
-  const bienvenidaContainer = document.getElementById('bienvenidaContainer');
-  bienvenidaContainer.style.display = 'block';
-}*/
 
 function backtoMenuAdmin(){
   window.location.href = "./../../menuadmin.php";
@@ -77,12 +50,6 @@ function eliminarFoto() {
       .catch(error => console.error('Error:', error));  
   }  
 }
-/*
-function closeBienvenidaContainer(){
-  //esta funcion cierra el apartado de bienvenida de la pag web
-  const bienvenidaContainer = document.getElementById('bienvenidaContainer');
-  bienvenidaContainer.style.display = 'none';
-}*/
 
 function closeProfileForm() {
   //esta funcion cierra el apartado de la muestra de datos del perfil
@@ -115,19 +82,6 @@ function openModal() {
 function closeModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
-/*
-function uploadImage() {
-  alert('Cargar imagen');
-}
-
-function removeImage() {
-  alert('Quitar imagen');
-}
-
-function saveImage() {
-  alert('Imagen guardada');
-  closeModal();
-}*/
 
 
 //Botones de tramite
@@ -412,46 +366,26 @@ pdfBlobUrl = URL.createObjectURL(blob1);
 document.getElementById('pdf-preview').setAttribute('src', pdfBlobUrl);
 });
 
-// MENSAJE DE CONFIRMACION DE ENVIO DE DATOS DE LA EMPRESA
-document.getElementById('empresaForm').addEventListener('submit', function(event) {
-  event.preventDefault(); 
-
-  var formData = new FormData(this); 
-
-  fetch('assets/controladores/registro_empresa.php', {
-      method: 'POST',
-      body: formData
-  })
-  .then(response => response.text())
-  .then(data => {
-      alert("Datos guardados exitosamente.");
-      console.log(data); 
-  })
-  .catch(error => {
-      alert("Error al guardar los datos. Inténtelo nuevamente.");
-      console.error('Error:', error);
-  });
-});
-
 // Previsualizacion Ficha de Empresa
 
 document.getElementById('Previsualizacion').addEventListener('click', async function() {
-  const form = document.getElementById('empresaForm');
-  const formData = new FormData(form);
 
-  const nombrecompleto = document.getElementById('nombre_fut').value;
+  const nombres = document.getElementById('nombres').value;
+  const apellidos = document.getElementById('apellidos').value;
   const codigo = document.getElementById('codigo_ins').value;
   const nombre_empresa = document.getElementById('nombreEmpresa').value;
-  const ruc_empresa = formData.get('ruc_empresa');
-  const celular_repre = formData.get('celular_repre');
-  const email_repre = formData.get('email_repre');
-  const provincia_empre = formData.get('provincia_empre');
-  const distrito_empre = formData.get('distrito_empre');
-  const representante = formData.get('representante');
-  const dni_repre = formData.get('dni_repre');
-  const direccion_empre = formData.get('direccion_empre');
-  const departamento_empre = formData.get('departamento_empre');
+  const ruc_empresa = document.getElementById('rucEmpresa').value;
+  const celular_repre = document.getElementById('celularRepresentante').value;
+  const email_repre = document.getElementById('emailRepresentante').value;
+  const provincia_empre = document.getElementById('provinciaEmpresa').value;
+  const distrito_empre = document.getElementById('DistritoEmpresa').value;
+  const representante = document.getElementById('nombreRepresentante').value;
+  const cargoRepresentante = document.getElementById('cargoRepresentante').value;
+  const dni_repre = document.getElementById('dniRepresentante').value;
+  const direccion_empre = document.getElementById('direccionRepresentante').value;
+  const departamento_empre = document.getElementById('departamentoRepresentante').value;
   const direccion = provincia_empre + ' / ' + departamento_empre + ' / ' + distrito_empre;
+  const cargoRepresentante_space = 'CARGO DEL REPRESENTANTE:';
 
   const url = '/assets/pdf/formato_1_ficha_datos_empresa.pdf'; // Ruta del PDF
 
@@ -461,14 +395,17 @@ document.getElementById('Previsualizacion').addEventListener('click', async func
       const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
       const page = pdfDoc.getPage(0); // Obtener la primera página
 
-      page.drawText(nombrecompleto, { x: 275, y: 647, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(nombres, { x: 275, y: 647, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(apellidos, { x: 275, y: 625, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(codigo, { x: 275, y: 593, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(nombre_empresa, { x: 275, y: 533, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(ruc_empresa, { x: 275, y: 565, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(celular_repre, { x: 350, y: 410, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(email_repre, { x: 350, y: 380, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(direccion, { x: 275, y: 308, size: 12, color: PDFLib.rgb(0, 0, 0) });
-      page.drawText(representante, { x: 275, y: 506, size: 12, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(representante, { x: 275, y: 506, size: 11, color: PDFLib.rgb(0, 0, 0) });
+      page.drawText(cargoRepresentante_space, { x: 56, y: 483, size: 11  , color: PDFLib.rgb(0, 0, 0) })
+      page.drawText(cargoRepresentante, { x: 275, y: 485, size: 12  , color: PDFLib.rgb(0, 0, 0) })
       page.drawText(dni_repre, { x: 315, y: 440, size: 12, color: PDFLib.rgb(0, 0, 0) });
       page.drawText(direccion_empre, { x: 275, y: 350, size: 12, color: PDFLib.rgb(0, 0, 0) });
 
@@ -566,6 +503,96 @@ $(document).ready(function() {
           success: function(response) {  
               alert(response);  
               window.location = "./../../carta_presentacion.php";   
+          },  
+          error: function() {  
+              alert('Error al guardar los datos');  
+          }  
+      });  
+  });  
+}); 
+
+$(document).ready(function() {  
+  $('#guardar').click(async function() {  
+      // Obtener los valores de los inputs  
+      var nombreEmpresa = $('#nombreEmpresa').val();  
+      var rucEmpresa = $('#rucEmpresa').val();  
+      var celularRepresentante = $('#celularRepresentante').val();    
+      var emailRepresentante = $('#emailRepresentante').val();  
+      var provinciaEmpresa = $('#provinciaEmpresa').val();  
+      var departamentoRepresentante = $('#departamentoRepresentante').val();    
+      var DistritoEmpresa = $('#DistritoEmpresa').val();  
+      var nombreRepresentante = $('#nombreRepresentante').val(); 
+      var cargoRepresentante = $('#cargoRepresentante').val(); 
+      var dniRepresentante = $('#dniRepresentante').val(); 
+      var direccionRepresentante = $('#direccionRepresentante').val(); 
+  
+      var formData = new FormData();  
+      formData.append('nombreEmpresa', nombreEmpresa);  
+      formData.append('rucEmpresa', rucEmpresa);  
+      formData.append('celularRepresentante', celularRepresentante);
+      formData.append('emailRepresentante', emailRepresentante);  
+      formData.append('provinciaEmpresa', provinciaEmpresa);  
+      formData.append('departamentoRepresentante', departamentoRepresentante);
+      formData.append('DistritoEmpresa', DistritoEmpresa);
+      formData.append('nombreRepresentante', nombreRepresentante);
+      formData.append('cargoRepresentante', cargoRepresentante);
+      formData.append('dniRepresentante', dniRepresentante);
+      formData.append('direccionRepresentante', direccionRepresentante);
+
+      // Enviar los datos a un script PHP usando AJAX  
+      $.ajax({  
+          url: 'assets/controladores/registro_empresa.php',  
+          type: 'POST',  
+          data: formData,  
+          contentType: false, // Importante: desactivamos el contenido  
+          processData: false, // Importante: desactivamos el procesamiento de datos  
+          success: function(response) {  
+              alert(response);   
+          },  
+          error: function() {  
+              alert('Error al guardar los datos');  
+          }  
+      });  
+  });  
+}); 
+
+$(document).ready(function() {  
+  $('#ModificarDoc').click(async function() {  
+      // Obtener los valores de los inputs  
+      var nombreEmpresa = $('#nombreEmpresa').val();  
+      var rucEmpresa = $('#rucEmpresa').val();  
+      var celularRepresentante = $('#celularRepresentante').val();    
+      var emailRepresentante = $('#emailRepresentante').val();  
+      var provinciaEmpresa = $('#provinciaEmpresa').val();  
+      var departamentoRepresentante = $('#departamentoRepresentante').val();    
+      var DistritoEmpresa = $('#DistritoEmpresa').val();  
+      var nombreRepresentante = $('#nombreRepresentante').val(); 
+      var cargoRepresentante = $('#cargoRepresentante').val(); 
+      var dniRepresentante = $('#dniRepresentante').val(); 
+      var direccionRepresentante = $('#direccionRepresentante').val(); 
+  
+      var formData = new FormData();  
+      formData.append('nombreEmpresa', nombreEmpresa);  
+      formData.append('rucEmpresa', rucEmpresa);  
+      formData.append('celularRepresentante', celularRepresentante);
+      formData.append('emailRepresentante', emailRepresentante);  
+      formData.append('provinciaEmpresa', provinciaEmpresa);  
+      formData.append('departamentoRepresentante', departamentoRepresentante);
+      formData.append('DistritoEmpresa', DistritoEmpresa);
+      formData.append('nombreRepresentante', nombreRepresentante);
+      formData.append('cargoRepresentante', cargoRepresentante);
+      formData.append('dniRepresentante', dniRepresentante);
+      formData.append('direccionRepresentante', direccionRepresentante);
+
+      // Enviar los datos a un script PHP usando AJAX  
+      $.ajax({  
+          url: 'assets/controladores/act_empresa.php',  
+          type: 'POST',  
+          data: formData,  
+          contentType: false, // Importante: desactivamos el contenido  
+          processData: false, // Importante: desactivamos el procesamiento de datos  
+          success: function(response) {  
+              alert(response);   
           },  
           error: function() {  
               alert('Error al guardar los datos');  
