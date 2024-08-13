@@ -51,7 +51,7 @@ mysqli_stmt_bind_param($stmt, "iiisssii", $id_alumno, $id_carpeta, $id_tipoSolic
 // Ejecutar la consulta  
 $ejecutar = mysqli_stmt_execute($stmt);  
 
-$query2 = "UPDATE paso_cp SET paso = 4 WHERE id_usuario = '$codigo'";
+$query2 = "UPDATE paso_cp SET paso = 5 WHERE id_usuario = '$codigo'";
 $stmt2 = mysqli_prepare($conexion, $query2);
 
 if (!$stmt2) {  
@@ -119,7 +119,7 @@ if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK
 }  
 
 if ($ejecutar && $ejecutar2) {  
-    $_SESSION['paso_cp'] = '4'; // Cambia esto según el div que desees mostrar  
+    $_SESSION['paso_cp'] = '5'; // Cambia esto según el div que desees mostrar  
     echo 'Datos almacenados exitosamente';  
 } else {  
     echo 'alert("Error al almacenar los datos. Inténtelo nuevamente.");';  
