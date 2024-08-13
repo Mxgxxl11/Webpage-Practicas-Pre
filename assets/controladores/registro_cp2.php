@@ -142,4 +142,4 @@ if ($ejecutar and $ejecutar2 and $ejecutar_cp and $ejecutar_u) {
 }  
 
 mysqli_close($conexion);
-?>  
+?> 
