@@ -58,7 +58,7 @@ if ($informe3['error'] === UPLOAD_ERR_OK) {
     echo "Error al subir el archivo.";  
 }  
 
-$query = "UPDATE paso_cp SET paso = 7 WHERE id_usuario = '$codigo'";
+$query = "UPDATE paso_cp SET paso = 8 WHERE id_usuario = '$codigo'";
 $stmt2 = mysqli_prepare($conexion, $query);
 
 if (!$stmt2) {  
@@ -68,7 +68,7 @@ if (!$stmt2) {
 $ejecutar = mysqli_stmt_execute($stmt2); 
 
 if ($ejecutar) {  
-    $_SESSION['paso_cp'] = '7'; // Cambia esto según el div que desees mostrar  
+    $_SESSION['paso_cp'] = '8'; // Cambia esto según el div que desees mostrar  
     echo 'Datos almacenados exitosamente';  
 } else {  
     echo '  
