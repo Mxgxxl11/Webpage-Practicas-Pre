@@ -509,7 +509,7 @@ document.getElementById('DocFinal').addEventListener('click', async () => {
   const url = URL.createObjectURL(blob);  
   const a = document.createElement('a');  
   a.href = url;  
-  a.download = 'Solicitud_Constancia.pdf';  
+  a.download = 'SolicitudConstanciaPracticas.pdf';  
   document.body.appendChild(a);  
   a.click();  
   document.body.removeChild(a);  
