@@ -1,67 +1,80 @@
-<?php  
-include 'bd.php'; 
-session_start();  
+<?php
+include 'bd.php';
+session_start();
 
-$codigo = $_SESSION['codigo_institucional']; 
+define('RUTA_DEF_CARPETA', './../carpetas_virtuales/');
+
+$codigo = $_SESSION['codigo_institucional'];
 $informe2 = $_FILES['informe2'];
 $fecha_subida = $_POST['fechaInforme2'];
 
-$result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
-$row = mysqli_fetch_assoc($result);  
+$result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");
+$row = mysqli_fetch_assoc($result);
 $id_alumno = $row['id_alumno'];
 
-$result2 = mysqli_query($conexion, "SELECT id_carpeta FROM carpeta_virtual WHERE id_alumno = '$id_alumno'");  
-$row = mysqli_fetch_assoc($result2);  
-$id_carpeta = $row['id_carpeta'];
+$result2 = mysqli_query($conexion, "SELECT id_carpeta, nombre_carpeta FROM carpeta_virtual WHERE id_alumno = '$id_alumno'");
+$row2 = mysqli_fetch_assoc($result2);
+$id_carpeta = $row2['id_carpeta'];
+$nombre_carpeta = trim($row2['nombre_carpeta']); // Eliminar espacios en blanco
 
 // Verifica si el archivo fue subido  
 if ($informe2['error'] === UPLOAD_ERR_OK) {
-    // Leer el contenido de los archivos  
-    $contenido_informe2 = file_get_contents($informe2['tmp_name']);   
+    // Crear la ruta completa de la carpeta del alumno
+    $ruta_carpeta = RUTA_DEF_CARPETA . $nombre_carpeta;
 
-    // Preparar la consulta SQL para insertar en la base de datos  
-    $sql = "INSERT INTO archivos (id_carpeta, nombre_archivo, fecha_subida, contenido_archivo) VALUES (?, ?, ?, ?)"; 
-    
-    $stmt = $conexion->prepare($sql); 
+    // Verificar si la carpeta existe; si no, crearla
+    if (!file_exists($ruta_carpeta)) {
+        echo "LA CARPETA NO EXISTE :("; // Crear la carpeta con permisos completos
+    }
 
-    $nombre_archivo = "2do informe";
+    // Definir la ruta completa donde se almacenará el archivo
+    $ruta_destino = $ruta_carpeta . "/2do_Informe.pdf";
 
-    // Enlazar parámetros  
-    $stmt->bind_param("issi", $id_carpeta, $nombre_archivo, $fecha_subida, $contenido_informe2);     
+    // Mover el archivo a la carpeta correspondiente
+    if (move_uploaded_file($informe2['tmp_name'], $ruta_destino)) {
+        // Preparar la consulta SQL para insertar en la base de datos  
+        $sql = "INSERT INTO archivos (id_carpeta, nombre_archivo, fecha_subida, ruta) VALUES (?, ?, ?, ?)";
 
-    // Ejecutar la consulta  
-    if ($stmt->execute()) {  
-        echo "Archivos almacenados correctamente en la base de datos.";  
-    } else {  
-        echo "Error al almacenar los archivos: " . $stmt->error;  
-    }  
+        $stmt = $conexion->prepare($sql);
 
-    // Cerrar el statement  
-    $stmt->close();
-} else {  
-    echo "Error al subir los archivos.";  
-}  
+        $nombre_archivo = "2do Informe";
+
+        // Enlazar parámetros  
+        $stmt->bind_param("isss", $id_carpeta, $nombre_archivo, $fecha_subida, $ruta_destino);
+
+        // Ejecutar la consulta  
+        if ($stmt->execute()) {
+            echo "Archivo almacenado correctamente en la base de datos.";
+        } else {
+            echo "Error al almacenar el archivo: " . $stmt->error;
+        }
+
+        // Cerrar el statement  
+        $stmt->close();
+    } else {
+        echo "Error al mover el archivo a la carpeta destino.";
+    }
+} else {
+    echo "Error al subir el archivo.";
+}
 
 $query = "UPDATE paso_cp SET paso = 6 WHERE id_usuario = '$codigo'";
 $stmt2 = mysqli_prepare($conexion, $query);
 
-if (!$stmt2) {  
-    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
-    exit();  
-} 
-$ejecutar = mysqli_stmt_execute($stmt2); 
+if (!$stmt2) {
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);
+    exit();
+}
+$ejecutar = mysqli_stmt_execute($stmt2);
 
-if ($ejecutar) {  
-
+if ($ejecutar) {
     $_SESSION['paso_cp'] = '6'; // Cambia esto según el div que desees mostrar  
-
-    echo ' Datos almacenados exitosamente ';  
-} else {  
+    echo 'Datos almacenados exitosamente';
+} else {
     echo '  
             alert("Error al almacenar los datos. Inténtelo nuevamente.");   
-         ';  
-    echo "Error: " . mysqli_error($conexion);  
+         ';
+    echo "Error: " . mysqli_error($conexion);
 }
 
 mysqli_close($conexion);
-?>

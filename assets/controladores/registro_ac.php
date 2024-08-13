@@ -1,8 +1,11 @@
 <?php  
 include 'bd.php'; 
 session_start();  
+
+define('RUTA_DEF_CARPETA', './../carpetas_virtuales/'); 
+
 $codigo = $_SESSION['codigo_institucional']; 
-$apellidos = $_SESSION['primer_apellido'] . '_' . $_SESSION['segundo_apellido'];
+$apellidos = trim($_SESSION['primer_apellido'] . '_' . $_SESSION['segundo_apellido']); // Eliminar espacios en blanco
 $fechaRegistroS = $_POST['fechaRegistroS'];
 $fechaRecord = $_POST['fechaRecord'];
 $fut = $_FILES['blob1'];  
@@ -20,11 +23,19 @@ $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario
 $row = mysqli_fetch_assoc($result);  
 $id_alumno = $row['id_alumno']; 
 
-$result2 = mysqli_query($conexion, "SELECT id_carpeta FROM carpeta_virtual WHERE id_alumno = '$id_alumno'");  
-$row = mysqli_fetch_assoc($result2);  
-$id_carpeta = $row['id_carpeta'];
+$result2 = mysqli_query($conexion, "SELECT id_carpeta, nombre_carpeta FROM carpeta_virtual WHERE id_alumno = '$id_alumno'");  
+$row2 = mysqli_fetch_assoc($result2);  
+$id_carpeta = $row2['id_carpeta'];
+$nombre_carpeta = trim($row2['nombre_carpeta']); // Eliminar espacios en blanco
 
-// Preparar la consulta  
+// Crear la ruta completa de la carpeta del alumno
+$ruta_carpeta = RUTA_DEF_CARPETA . $nombre_carpeta;
+
+// Verificar si la carpeta existe; si no, crearla
+if (!file_exists($ruta_carpeta)) {
+    mkdir($ruta_carpeta, 0777, true); // Crear la carpeta con permisos completos
+}
+
 $query = "INSERT INTO solicitud (id_alumno, id_carpeta, id_tipoSolicitud, fecha_solicitud, estado, fecha_recordAcademico, numero_liquidacion, nt_solicitud)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -50,71 +61,69 @@ if (!$stmt2) {
 $ejecutar2 = mysqli_stmt_execute($stmt2); 
 
 $result3 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_alumno = '$id_alumno' AND id_tipoSolicitud = '$id_tipoSolicitud'");  
-$row = mysqli_fetch_assoc($result3);  
-$id_solicitud = $row['id_solicitud'];
+$row3 = mysqli_fetch_assoc($result3);  
+$id_solicitud = $row3['id_solicitud'];
 
 if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK && $record_a['error'] === UPLOAD_ERR_OK && $CartaRec['error'] === UPLOAD_ERR_OK && $CartaAceptacion['error'] === UPLOAD_ERR_OK) {  
-    // Leer el contenido de los archivos  
-    $contenido_fut = file_get_contents($fut['tmp_name']);  
-    $contenido_ficha_empresa = file_get_contents($ficha_empresa['tmp_name']);
-    $contenido_record_a = file_get_contents($record_a['tmp_name']);  
-    $contenido_carta_rec = file_get_contents($CartaRec['tmp_name']);  
-    $contenido_carta_acep = file_get_contents($CartaAceptacion['tmp_name']);    
+    // Definir las rutas completas donde se almacenarán los archivos
+    $ruta_fut = $ruta_carpeta . "/FUT_apertura_carpeta.pdf";
+    $ruta_ficha_empresa = $ruta_carpeta . "/Ficha_de_Inscripcion.pdf";
+    $ruta_record_a = $ruta_carpeta . "/Record_Academico_Actualizado.pdf";
+    $ruta_carta_rec = $ruta_carpeta . "/Carta_de_Presentacion.pdf";
+    $ruta_carta_acep = $ruta_carpeta . "/Carta_de_Aceptacion.pdf";
 
-    // Preparar la consulta SQL para insertar en la base de datos  
-    $sql = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
-    $sql2 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";
-    $sql3 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
-    $sql4 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";
-    $sql5 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)"; 
-    
-    $stmt = $conexion->prepare($sql);  
-    $stmt2 = $conexion->prepare($sql2);
-    $stmt3 = $conexion->prepare($sql3);  
-    $stmt4 = $conexion->prepare($sql4); 
-    $stmt5 = $conexion->prepare($sql5);  
+    // Mover los archivos a la carpeta correspondiente
+    $mover_fut = move_uploaded_file($fut['tmp_name'], $ruta_fut);
+    $mover_ficha_empresa = move_uploaded_file($ficha_empresa['tmp_name'], $ruta_ficha_empresa);
+    $mover_record_a = move_uploaded_file($record_a['tmp_name'], $ruta_record_a);
+    $mover_carta_rec = move_uploaded_file($CartaRec['tmp_name'], $ruta_carta_rec);
+    $mover_carta_acep = move_uploaded_file($CartaAceptacion['tmp_name'], $ruta_carta_acep);
 
-    $nombre_archivo1 = "FUT";
-    $nombre_archivo2 = "Ficha de Inscripción";
-    $nombre_archivo3 = "Record Academico Actualizado";
-    $nombre_archivo4 = "Carta de Presentacion";
-    $nombre_archivo5 = "Carta de Aceptación";
+    if ($mover_fut && $mover_ficha_empresa && $mover_record_a && $mover_carta_rec && $mover_carta_acep) {
+        // Preparar la consulta SQL para insertar las rutas en la base de datos  
+        $sql = "INSERT INTO documentos (id_solicitud, nombre_documento, ruta) VALUES (?, ?, ?)";  
+        
+        $stmt = $conexion->prepare($sql);  
 
-    // Enlazar parámetros  
-    $stmt->bind_param("isi", $id_solicitud, $nombre_archivo1, $contenido_fut);  
-    $stmt2->bind_param("isi", $id_solicitud, $nombre_archivo2, $contenido_ficha_empresa);
-    $stmt3->bind_param("isi", $id_solicitud, $nombre_archivo3, $contenido_record_a);  
-    $stmt4->bind_param("isi", $id_solicitud, $nombre_archivo4, $contenido_carta_rec);  
-    $stmt5->bind_param("isi", $id_solicitud, $nombre_archivo5, $contenido_carta_acep);      
+        $nombre_archivo1 = "FUT de Apertura de Carpeta";
+        $nombre_archivo2 = "Ficha de Inscripción";
+        $nombre_archivo3 = "Record Academico Actualizado";
+        $nombre_archivo4 = "Carta de Presentacion";
+        $nombre_archivo5 = "Carta de Aceptación";
 
-    // Ejecutar la consulta  
-    if ($stmt->execute() and $stmt2->execute() and $stmt3->execute() and $stmt4->execute() and $stmt5->execute()) {  
+        // Enlazar parámetros y ejecutar la consulta para cada archivo
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo1, $ruta_fut);  
+        $stmt->execute();
+
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo2, $ruta_ficha_empresa);
+        $stmt->execute();
+
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo3, $ruta_record_a);  
+        $stmt->execute();
+
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo4, $ruta_carta_rec);  
+        $stmt->execute();
+
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo5, $ruta_carta_acep);  
+        $stmt->execute();
+
         echo "Archivos almacenados correctamente en la base de datos.";  
-    } else {  
-        echo "Error al almacenar los archivos: " . $stmt->error;  
-    }  
 
-    // Cerrar el statement  
-    $stmt->close(); 
-    $stmt2->close();
-    $stmt3->close(); 
-    $stmt4->close();
-    $stmt5->close();
+        // Cerrar el statement  
+        $stmt->close(); 
+    } else {
+        echo "Error al mover los archivos a la carpeta destino.";
+    }
 } else {  
     echo "Error al subir los archivos.";  
 }  
 
-if ($ejecutar and $ejecutar2) {  
-
+if ($ejecutar && $ejecutar2) {  
     $_SESSION['paso_cp'] = '4'; // Cambia esto según el div que desees mostrar  
-
-    echo ' Datos almacenados exitosamente ';  
+    echo 'Datos almacenados exitosamente';  
 } else {  
-    echo '  
-            alert("Error al almacenar los datos. Inténtelo nuevamente.");   
-         ';  
+    echo 'alert("Error al almacenar los datos. Inténtelo nuevamente.");';  
     echo "Error: " . mysqli_error($conexion);  
 }  
 
 mysqli_close($conexion);
-?>  

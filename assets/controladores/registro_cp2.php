@@ -88,7 +88,7 @@ $id_solicitud = $row['id_solicitud'];
 if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK && $record_a['error'] === UPLOAD_ERR_OK && $ficha_matricula['error'] === UPLOAD_ERR_OK && $comprobante['error'] === UPLOAD_ERR_OK) {
     // Definir las rutas de destino para los archivos
     $ruta_relativa = 'assets/carpetas_virtuales/' . $nombre_carpeta_ofi . '/';
-    $ruta_fut = $ruta_relativa . "FUT.pdf";
+    $ruta_fut = $ruta_relativa . "FUT_carta_presentacion.pdf";
     $ruta_ficha_empresa = $ruta_relativa . "Datos_empresa.pdf";
     $ruta_record_a = $ruta_relativa . "Record_academico.pdf";
     $ruta_ficha_matricula = $ruta_relativa . "Ficha_matricula.pdf";
@@ -110,7 +110,7 @@ if ($fut['error'] === UPLOAD_ERR_OK && $ficha_empresa['error'] === UPLOAD_ERR_OK
     }
 
     // Ejecutar cada consulta por separado
-    $nombre_archivo1 = "FUT";
+    $nombre_archivo1 = "FUT carta de presentacion";
     $stmt->bind_param("iss", $id_solicitud, $nombre_archivo1, $ruta_fut);
     $stmt->execute();
 
