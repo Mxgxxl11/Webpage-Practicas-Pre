@@ -123,7 +123,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <h2> Comprobantes de Pago</h2>
                 <div class="form-group">
                         <label for="NumeroLiquidacion">Número de Liquidacion (que aparece en el voucher):</label>
-                        <input type="email" id="NumeroLiquidacion" placeholder="Numero de liquidacion" required>
+                        <input type="text" id="NumeroLiquidacion" placeholder="Numero de liquidacion" required>
                     </div>
                 <div class="form-group">
 
