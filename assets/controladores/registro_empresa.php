@@ -19,11 +19,10 @@ $cargoRepresentante = $_POST['cargoRepresentante'];
 $dniRepresentante = $_POST['dniRepresentante'];
 $direccionRepresentante = $_POST['direccionRepresentante'];
 
-// Preparar la consulta SQL para insertar los datos
+// Preparar la consulta SQL para insertar los datos en empresa
 $query = "INSERT INTO empresa (nombre_empresa, ruc_empresa, celular_repre, email_repre, provincia_empre, distrito_empre, representante, dni_repre, direccion_empre, departamento_empre, cargo_representante) 
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-// Preparar la consulta
 $stmt = mysqli_prepare($conexion, $query);
 if (!$stmt) {
     die("Error en la preparación de la consulta: " . mysqli_error($conexion));
@@ -32,20 +31,25 @@ if (!$stmt) {
 // Enlazar los parámetros
 mysqli_stmt_bind_param($stmt, "siissssisss", $nombreEmpresa, $rucEmpresa, $celularRepresentante, $emailRepresentante, $provinciaEmpresa, $DistritoEmpresa, $nombreRepresentante, $dniRepresentante, $direccionRepresentante, $departamentoRepresentante, $cargoRepresentante);
 
+// Ejecutar la consulta de inserción en empresa
+if (!mysqli_stmt_execute($stmt)) {
+    die("Error al guardar los datos de la empresa: " . mysqli_error($conexion));
+}
+
+// Obtener el id_empresa recién insertado
+$id_empresa = mysqli_insert_id($conexion);
+
+// Asignar valores a las variables de practicas
+$fecha_inicio = $_POST['fecha_inicio'] ?? null;
+$fecha_final = $_POST['fecha_final'] ?? null;
+$horas = $_POST['horas'] ?? null;
+$meses = $_POST['meses'] ?? null;
+$area = $_POST['area_trabajo'] ?? null;
+
+// Preparar la consulta para insertar en practicas
 $query2 = "INSERT INTO practicas (id_alumno, id_empresa, area_trabajo, fecha_inicio, fecha_final, horas, meses) 
           VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-$result2 = mysqli_query($conexion, "SELECT id_empresa FROM empresa WHERE nombre_empresa = '$nombreEmpresa'");  
-$row2 = mysqli_fetch_assoc($result2);  
-$id_empresa = $row2['id_empresa'];
-
-$fecha_inicio = null;
-$fecha_final = null;
-$horas = null;
-$meses = null;
-$area = null;
-
-// Preparar la consulta
 $stmt2 = mysqli_prepare($conexion, $query2);
 if (!$stmt2) {
     die("Error en la preparación de la consulta: " . mysqli_error($conexion));
@@ -54,14 +58,14 @@ if (!$stmt2) {
 // Enlazar los parámetros
 mysqli_stmt_bind_param($stmt2, "iisssii", $id_alumno, $id_empresa, $area, $fecha_inicio, $fecha_final, $horas, $meses);
 
-// Ejecutar la consulta
-if (mysqli_stmt_execute($stmt)) {
-    if (mysqli_stmt_execute($stmt2)){
+// Ejecutar la consulta de inserción en practicas
+if (mysqli_stmt_execute($stmt2)) {
     echo "Datos guardados exitosamente.";
-    }
 } else {
-    echo "Error: " . mysqli_error($conexion);
+    echo "Error al guardar los datos en practicas: " . mysqli_error($conexion);
 }
 
+// Cerrar las conexiones
+mysqli_stmt_close($stmt);
+mysqli_stmt_close($stmt2);
 mysqli_close($conexion);
-?>
