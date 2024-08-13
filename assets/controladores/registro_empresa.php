@@ -7,61 +7,58 @@ $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario
 $row = mysqli_fetch_assoc($result);  
 $id_alumno = $row['id_alumno'];
 
-// Verifica que los datos del formulario estén presentes
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los datos del formulario
-    $nombre_empresa = $_POST['nombre_empresa'];
-    $ruc_empresa = $_POST['ruc_empresa'];
-    $celular_repre = $_POST['celular_repre'];
-    $email_repre = $_POST['email_repre'];
-    $provincia_empre = $_POST['provincia_empre'];
-    $distrito_empre = $_POST['distrito_empre'];
-    $representante = $_POST['representante'];
-    $dni_repre = $_POST['dni_repre'];
-    $direccion_empre = $_POST['direccion_empre'];
-    $departamento_empre = $_POST['departamento_empre'];
+$nombreEmpresa = $_POST['nombreEmpresa'];
+$rucEmpresa = $_POST['rucEmpresa'];
+$celularRepresentante = $_POST['celularRepresentante'];
+$emailRepresentante = $_POST['emailRepresentante'];
+$provinciaEmpresa = $_POST['provinciaEmpresa'];
+$departamentoRepresentante = $_POST['departamentoRepresentante'];
+$DistritoEmpresa = $_POST['DistritoEmpresa'];
+$nombreRepresentante = $_POST['nombreRepresentante'];
+$cargoRepresentante = $_POST['cargoRepresentante'];
+$dniRepresentante = $_POST['dniRepresentante'];
+$direccionRepresentante = $_POST['direccionRepresentante'];
 
-    // Preparar la consulta SQL para insertar los datos
-    $query = "INSERT INTO empresa (nombre_empresa, ruc_empresa, celular_repre, email_repre, provincia_empre, distrito_empre, representante, dni_repre, direccion_empre, departamento_empre) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// Preparar la consulta SQL para insertar los datos
+$query = "INSERT INTO empresa (nombre_empresa, ruc_empresa, celular_repre, email_repre, provincia_empre, distrito_empre, representante, dni_repre, direccion_empre, departamento_empre, cargo_representante) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    // Preparar la consulta
-    $stmt = mysqli_prepare($conexion, $query);
-    if (!$stmt) {
-        die("Error en la preparación de la consulta: " . mysqli_error($conexion));
-    }
+// Preparar la consulta
+$stmt = mysqli_prepare($conexion, $query);
+if (!$stmt) {
+    die("Error en la preparación de la consulta: " . mysqli_error($conexion));
+}
 
-    // Enlazar los parámetros
-    mysqli_stmt_bind_param($stmt, "ssssssssss", $nombre_empresa, $ruc_empresa, $celular_repre, $email_repre, $provincia_empre, $distrito_empre, $representante, $dni_repre, $direccion_empre, $departamento_empre);
+// Enlazar los parámetros
+mysqli_stmt_bind_param($stmt, "siissssisss", $nombreEmpresa, $rucEmpresa, $celularRepresentante, $emailRepresentante, $provinciaEmpresa, $DistritoEmpresa, $nombreRepresentante, $dniRepresentante, $direccionRepresentante, $departamentoRepresentante, $cargoRepresentante);
 
-    $query2 = "INSERT INTO practicas (id_alumno, id_empresa, area_trabajo, fecha_inicio, fecha_final, horas, meses) 
-              VALUES (?, ?, ?, ?, ?, ?, ?)";
+$query2 = "INSERT INTO practicas (id_alumno, id_empresa, area_trabajo, fecha_inicio, fecha_final, horas, meses) 
+          VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    $result = mysqli_query($conexion, "SELECT id_empresa FROM empresa WHERE nombre = '$nombre_empresa'");  
-    $row = mysqli_fetch_assoc($result);  
-    $id_empresa = $row['id_empresa'];
+$result2 = mysqli_query($conexion, "SELECT id_empresa FROM empresa WHERE nombre_empresa = '$nombreEmpresa'");  
+$row2 = mysqli_fetch_assoc($result2);  
+$id_empresa = $row2['id_empresa'];
 
-    $fecha_inicio = null;
-    $fecha_final = null;
-    $horas = null;
-    $meses = null;
+$fecha_inicio = null;
+$fecha_final = null;
+$horas = null;
+$meses = null;
+$area = null;
 
-    // Preparar la consulta
-    $stmt2 = mysqli_prepare($conexion, $query2);
-    if (!$stmt2) {
-        die("Error en la preparación de la consulta: " . mysqli_error($conexion));
-    }
+// Preparar la consulta
+$stmt2 = mysqli_prepare($conexion, $query2);
+if (!$stmt2) {
+    die("Error en la preparación de la consulta: " . mysqli_error($conexion));
+}
 
-    // Enlazar los parámetros
-    mysqli_stmt_bind_param($stmt2, "ssssss", $id_alumno, $id_empresa, $fecha_inicio, $fecha_final, $horas, $meses);
+// Enlazar los parámetros
+mysqli_stmt_bind_param($stmt2, "iisssii", $id_alumno, $id_empresa, $area, $fecha_inicio, $fecha_final, $horas, $meses);
 
-    // Ejecutar la consulta
-    if (mysqli_stmt_execute($stmt) and mysqli_stmt_execute($stmt2)) {
-        echo "Datos guardados exitosamente.";
-    } else {
-        echo "Error: " . mysqli_error($conexion);
-    }
-
+// Ejecutar la consulta
+if (mysqli_stmt_execute($stmt) and mysqli_stmt_execute($stmt2)) {
+    echo "Datos guardados exitosamente.";
+} else {
+    echo "Error: " . mysqli_error($conexion);
 }
 
 mysqli_close($conexion);
