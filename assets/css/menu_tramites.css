@@ -126,3 +126,22 @@ div.gallery img {
     width: 100%;  
   }  
 } 
+
+
+/* para el menu de docente donde se buscara los alumnos por escuela*/
+
+
+/* Nuevo contenedor específico para TELECOMUNICACIONES */
+div.gallery-docente{  
+  border: 1px solid #ccc;  
+  border-radius: 15px;
+  overflow: hidden; 
+  width: 100%;
+  max-width: 600px; /* Aumenta el ancho máximo para evitar el desbordamiento */
+  height: 260px; /* Puedes ajustar este valor según lo necesario */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+} 
+
