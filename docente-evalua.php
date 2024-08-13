@@ -7,6 +7,47 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
+$codigo = $_GET['codigo']; 
+$codigo2 = $_SESSION['codigo_institucional'];
+$codigo_doc = '';
+$promedio_final = '';  
+$codigo_alum = '';
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_docente FROM docente WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo2); 
+    $stmt->execute();  
+    $stmt->bind_result($codigo_doc);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_alumno FROM alumno WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($codigo_alum);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT promedio_final FROM calificaciones WHERE (id_alumno = ? AND id_docente = ?)");  
+    $stmt->bind_param("ii", $codigo_alum, $codigo_doc); 
+    $stmt->execute();  
+    $stmt->bind_result($promedio_final);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +59,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     <title>MENU SECRETARIA</title>
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         /* Estilos CSS embebidos */
         .profile-form {
@@ -103,10 +145,11 @@ if (empty($_SESSION['codigo_institucional'])) {
     </header>
     <div class="container">
         <?php include './includes/sidebar-docente.php'; ?>
-        <main class="main-content">
+        <main class="main-content">    
+        <input type="text" name="codigo_a" id="codigo_a" value="<?php echo $codigo; ?>" style="display: none;">
 
             <!-- EVALUACIÓN DEL ALUMNO-- INFORME FINAL DEL ALUMNO--->
-            <div class="container2"><br>
+            <div class="container2" style="border: 0;"><br>
                 <h2>EVALUACIÓN DEL ALUMNO</h2>
                 <br>
             </div>
@@ -114,18 +157,18 @@ if (empty($_SESSION['codigo_institucional'])) {
                 <h2>Informe Final Del alumno</h2>
                 <div class="form-group">
                     <div class="buttons">
-                        <button id="(DocFinal)descargar informe" type="button" class="btn-small">Descargar informe final</button>
+                        <button id="(DocFinal)descargar_informe" type="button" class="btn-small">Descargar informe final</button>
                     </div>
 
                 </div>
 
                 <div class="form-group">
-                    <label for="nombreEmpresa">Calificación:</label>
-                    <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder="Nota de la evaluacion" required>
+                    <label for="calificacion_reporte">Calificación:</label>
+                    <input type="text" id="calificacion_reporte" name="calificacion_reporte" placeholder="Nota de la evaluacion" required>
                 </div>
 
                 <div class=" btn">
-                    <button type="submit" class="btn">Calificar</button>
+                    <button id="envi" type="button" class="btn">Enviar calificación</button>
                 </div>
             </div>
 
@@ -159,26 +202,25 @@ if (empty($_SESSION['codigo_institucional'])) {
                 </div>
 
                 <div class="form-group">
-                    <label for="nombreEmpresa">Calificación del examen:</label>
-                    <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder="Nota de la evaluacion" required>
+                    <label for="nota_e">Calificación del examen:</label>
+                    <input type="text" id="nota_e" name="nota_e" placeholder="Nota de la evaluacion" required>
                 </div>
 
                 <div class=" btn">
-                    <button type="submit" class="btn">Calificar examen</button>
+                    <button type="button" id="calificar" name="calificar" class="btn">Calificar examen</button>
                 </div>
             </div>
 
             <!-- NOTA DE APRESIACION DEL DOCENTE-->
             <div class="container2">
-
                 <h2>Apreciación final del docente</h2>
                 <div class="form-group">
-                    <label for="nombreEmpresa">Apresiación final:</label>
-                    <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder="Apresiación" required>
+                    <label for="nota_a">Apreciación final:</label>
+                    <input type="text" id="nota_a" name="nota_a" placeholder="Apreciación" required>
                 </div>
 
                 <div class=" btn">
-                    <button type="submit" class="btn">Enviar apresiación </button>
+                    <button id="apreciacion" class="btn">Enviar nota de apreciación</button>
                 </div>
 
             </div>
@@ -188,16 +230,16 @@ if (empty($_SESSION['codigo_institucional'])) {
 
                 <h2>PROMEDIO FINAL DEL ALUMNO</h2>
                 <div class="form-group">
-                    <label for="nombreEmpresa">Promedio final:</label>
-                    <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder=" " required>
+                    <label for="prom_final">Promedio final:</label>
+                    <input type="text" id="prom_final" name="prom_final" value="<?php echo htmlspecialchars($promedio_final) ?>" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="nombreEmpresa">Comentario final sobre el alumno:</label>
-                    <input type="text" id="nombreEmpresa" name="nombre_empresa" placeholder="comentario final required">
+                    <label for="comentario">Comentario final sobre el alumno:</label>
+                    <input type="text" id="comentario" name="comentario" placeholder="Comentario final" required>
                 </div>
 
                 <div class=" btn">
-                    <button type="submit" class="btn">Enviar apresiación </button>
+                    <button id="e_comentario" class="btn">Enviar comentario</button>
                 </div>
             </div>
 
@@ -207,7 +249,6 @@ if (empty($_SESSION['codigo_institucional'])) {
             </div>
         </main>
     </div>
-    <script src="assets/js/mesadepartes.js"></script>
+    <script src="assets/js/mesadepartes4.js"></script>
 </body>
-
 </html>
