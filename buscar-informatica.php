@@ -124,8 +124,8 @@ $id_escuela_telecomunicaciones = 1; // Cambia este valor según el id real de "T
                                 <td><?php echo $filas['semestre'] ?></td>
                                 <td><?php echo $filas['seccion'] ?></td>
                                 <td>
-                                    <button class="action-btn">Evaluar</button>
-                                    <button class="action-btn">Enviar Informes</button>
+                                    <a href="./docente-evalua.php?codigo=<?php echo $filas['codigo']; ?>"><button class="action-btn">Evaluar</button></a>
+                                    <a href="./ficha-evaluacion-alui.php?codigo=<?php echo $filas['codigo']; ?>"><button class="action-btn">Enviar informe</button></a>
                                 </td>
                             </tr>
                         <?php }
