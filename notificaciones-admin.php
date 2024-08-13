@@ -1,3 +1,5 @@
+<!-- Esta página muestra TODOS los usuarios registrados en el sistema
+ IMPORTANTE: Pertenece al apartado de ADMINISTRADORES-->
 <?php
 session_start();
 include './assets/controladores/bd.php';
@@ -7,7 +9,7 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
-//Falta la parte de ver carpetas de los alumnos
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +48,7 @@ if (empty($_SESSION['codigo_institucional'])) {
         <article class="table-widget">
             <div class="caption">
                 <h2>
-                    CARPETA ALUMNOS INFORMÁTICA
+                    TODOS LOS USUARIOS REGISTRADOS
                 </h2>
             </div>
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
@@ -57,8 +59,8 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <input type="number" id="codigo" name="codigo" autocomplete="off">
                         </td>
                         <td>
-                            <label for="nombre">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" autocomplete="off">
+                            <label for="rol">Rol</label>
+                            <input type="text" id="rol" name="rol" autocomplete="off">
                         </td>
                         <td>
                             <input class="my-form__button" type="submit" name="enviar" value="Buscar">
@@ -66,11 +68,11 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <td>
                             <div class="tags">
                                 <div class="tag tag--marketing">
-                                    <a href="carpetas_informatica.php" style="text-decoration:none; color:black;">
+                                    <a href="ver_usuarios.php" style="text-decoration:none; color:black;">
                                         Mostrar todos los usuarios
                                     </a>
                                 </div>
-
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -80,22 +82,19 @@ if (empty($_SESSION['codigo_institucional'])) {
                 <thead>
                     <tr>
                         <th>
-                            Código
+                            Descripcion
                         </th>
                         <th>
-                            Nombre
+                            Estado
                         </th>
                         <th>
-                            Escuela
+                            Fecha
                         </th>
                         <th>
-                            Semestre
+                            Subido por
                         </th>
                         <th>
-                            Seccion
-                        </th>
-                        <th>
-                            Descargar carpeta
+                            Rol
                         </th>
                     </tr>
                 </thead>
@@ -104,48 +103,33 @@ if (empty($_SESSION['codigo_institucional'])) {
                     if (isset($_POST['enviar'])) {
                         //aca es para la busqueda
                         $codigo = $_POST['codigo'];
-                        $nombre = $_POST['nombre'];
-                        if (empty($codigo) and empty($nombre)) { // si no funciona codigo cambiar a $_POST['codigo']
+                        $rol = $_POST['rol'];
+                        if (empty($codigo) and empty($rol)) { // si no funciona codigo cambiar a $_POST['codigo']
                             echo '<script>
                             alert("Ingresa algún dato para buscar");
                             window.location = "./ver_usuarios.php"; 
                             </script>';
                         } else {
-                            if (empty($nombre)) {
-                                $busqueda = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                al.seccion
-                                FROM usuario u
-                                JOIN acceso a ON u.codigo = a.id_usuario
-                                JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                JOIN alumno al ON al.id_usuario = u.codigo
-                                WHERE e.id_escuela = 1 and u.codigo like '%" . $codigo . "%'";
+                            if (empty($rol)) {
+                                $busqueda = "SELECT a.id_usuario,r.nombre_rol,u.codigo,u.nombre1,u.apellido1, u.correo,u.fecha_creacion  
+                                    FROM usuario u
+                                    JOIN acceso a ON u.codigo = a.id_usuario
+                                    JOIN roles r ON a.id_rol = r.id_rol
+                                    WHERE u.codigo like '%" . $codigo . "%'";
                             }
                             if (empty($codigo)) {
-                                $busqueda = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                al.seccion
+                                $busqueda = "SELECT a.id_usuario,r.nombre_rol,u.codigo,u.nombre1,u.apellido1, u.correo,u.fecha_creacion  
                                 FROM usuario u
                                 JOIN acceso a ON u.codigo = a.id_usuario
-                                JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                JOIN alumno al ON al.id_usuario = u.codigo
-                                WHERE e.id_escuela = 1 AND u.nombre1 LIKE '%" . $nombre . "%'
-                                 OR u.nombre2 LIKE '%" . $nombre . "%'
-                                 OR u.apellido1 LIKE '%" . $nombre . "%'
-                                 OR u.apellido2 LIKE '%" . $nombre . "%'";
+                                JOIN roles r ON a.id_rol = r.id_rol
+                                WHERE r.nombre_rol like '%" . $rol . "%'";
                             }
-                            if (!empty($nombre) and !empty($codigo)) {
-                                $busqueda = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                al.seccion
+                            if (!empty($rol) and !empty($codigo)) {
+                                $busqueda = "SELECT a.id_usuario,r.nombre_rol,u.codigo,u.nombre1,u.apellido1, u.correo,u.fecha_creacion  
                                 FROM usuario u
                                 JOIN acceso a ON u.codigo = a.id_usuario
-                                JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                JOIN alumno al ON al.id_usuario = u.codigo
-                                WHERE e.id_escuela = 1 and u.codigo like '%" . $codigo . "%' 
-                                and (
-                                 u.nombre1 LIKE '%" . $nombre . "%'
-                                 OR u.nombre2 LIKE '%" . $nombre . "%'
-                                 OR u.apellido1 LIKE '%" . $nombre . "%'
-                                 OR u.apellido2 LIKE '%" . $nombre . "%'
-                                 )";
+                                JOIN roles r ON a.id_rol = r.id_rol
+                                WHERE u.codigo like '%" . $codigo . "%' and r.nombre_rol like '%" . $rol . "%'";
                             }
                         }
                         $ejec = mysqli_query($conexion, $busqueda);
@@ -164,29 +148,27 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     </td>
                                     <td>
                                         <div class="profile-info">
-                                            <?php echo $filas['escuela'] ?>
+                                            <?php echo $filas['nombre_rol'] ?>
                                         </div>
                                     </td>
                                     <td>
-                                        <?php echo $filas['semestre']; ?>
+                                        <?php echo $filas['correo']; ?>
                                     </td>
                                     <td>
-                                        <?php echo $filas['seccion']; ?>
+                                        <div class="profile-info" style="text-align:center;">
+                                            <?php echo $filas['fecha_creacion']; ?>
+                                        </div>
                                     </td>
-
                                 </tr>
                             <?php }
                         }
                     } else {
-                        //aca para mostrar todos los registros de los alumnos de informatica
-                        
-                        $consulta = "SELECT u.codigo,u.nombre1,u.apellido1, u.correo, e.escuela, al.semestre,
-                                    al.seccion
+                        //aca para mostrar todos los registros
+                        //esta consulta solo llamará a los admins (cambiar el a.id_rol a lo que quieras llamar)
+                        $consulta = "SELECT a.id_usuario,r.nombre_rol,u.codigo,u.nombre1,u.apellido1, u.correo,u.fecha_creacion  
                                     FROM usuario u
                                     JOIN acceso a ON u.codigo = a.id_usuario
-                                    JOIN escuelas e ON e.id_escuela = u.id_escuela
-                                    JOIN alumno al ON al.id_usuario = u.codigo
-                                    where a.id_rol=3 and e.id_escuela=1";
+                                    JOIN roles r ON a.id_rol = r.id_rol";
                         $ejecucion = mysqli_query($conexion, $consulta);
                         while ($filas = mysqli_fetch_assoc($ejecucion)) { ?>
                             <tr>
@@ -202,16 +184,17 @@ if (empty($_SESSION['codigo_institucional'])) {
                                 </td>
                                 <td>
                                     <div class="profile-info">
-                                        <?php echo $filas['escuela']; ?>
+                                        <?php echo $filas['nombre_rol'] ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <?php echo $filas['semestre']; ?>
+                                    <?php echo $filas['correo']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $filas['seccion']; ?>
+                                    <div class="profile-info" style="text-align:center;">
+                                        <?php echo $filas['fecha_creacion']; ?>
+                                    </div>
                                 </td>
-
                             </tr>
                     <?php }
                     } ?>

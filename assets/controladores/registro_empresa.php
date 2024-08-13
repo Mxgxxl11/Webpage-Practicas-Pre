@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_bind_param($stmt, "ssssssssss", $nombre_empresa, $ruc_empresa, $celular_repre, $email_repre, $provincia_empre, $distrito_empre, $representante, $dni_repre, $direccion_empre, $departamento_empre);
 
     $query2 = "INSERT INTO practicas (id_alumno, id_empresa, area_trabajo, fecha_inicio, fecha_final, horas, meses) 
-              VALUES (?, ?, ?, ?, ?, ?)";
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $result = mysqli_query($conexion, "SELECT id_empresa FROM empresa WHERE nombre = '$nombre_empresa'");  
     $row = mysqli_fetch_assoc($result);  

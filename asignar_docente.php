@@ -52,6 +52,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                 <h2>
                     ASIGNAR DOCENTE A ALUMNO
                 </h2>
+                <p>*Solo saldrán los alumnos que completaron el formulario de carta de presentación*</p>
             </div>
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
                 <table>
