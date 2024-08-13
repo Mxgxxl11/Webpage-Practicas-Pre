@@ -55,8 +55,10 @@ if (!$stmt2) {
 mysqli_stmt_bind_param($stmt2, "iisssii", $id_alumno, $id_empresa, $area, $fecha_inicio, $fecha_final, $horas, $meses);
 
 // Ejecutar la consulta
-if (mysqli_stmt_execute($stmt) and mysqli_stmt_execute($stmt2)) {
+if (mysqli_stmt_execute($stmt)) {
+    if (mysqli_stmt_execute($stmt2)){
     echo "Datos guardados exitosamente.";
+    }
 } else {
     echo "Error: " . mysqli_error($conexion);
 }
