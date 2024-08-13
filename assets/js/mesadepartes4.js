@@ -4,6 +4,32 @@ function closeProfileForm() {
 }
 
 $(document).ready(function() {  
+    $('#envi').click(async function() {  
+        var calificacion_reporte = $('#calificacion_reporte').val();
+        var codigo_a = $('#codigo_a').val();
+    
+        var formData = new FormData();  
+        formData.append('calificacion_reporte', calificacion_reporte); 
+        formData.append('codigo_a', codigo_a); 
+
+        $.ajax({  
+            url: 'assets/controladores/subir_nota_informe_final.php',  
+            type: 'POST',  
+            data: formData,  
+            contentType: false, // Importante: desactivamos el contenido  
+            processData: false, // Importante: desactivamos el procesamiento de datos  
+            success: function(response) {  
+                alert(response);   
+                window.location = "./../../docente-evalua.php?codigo=" + codigo_a;  
+            },  
+            error: function() {  
+                alert('Error al guardar los datos');  
+            }  
+        });  
+    });  
+});
+
+$(document).ready(function() {  
     $('#calificar').click(async function() {  
         var nota_e = $('#nota_e').val();
         var codigo_a = $('#codigo_a').val();
