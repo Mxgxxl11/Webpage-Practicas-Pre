@@ -83,7 +83,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                         <iframe id="pdf-preview" width="100%" height="430px" style="border: 1px solid black;"></iframe>
                     </div>
                 </div>
-            </div>
+            
 
 
 
@@ -209,13 +209,14 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <h2>Documento Final</h2>
 
                 <div class="form-group">
+                <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                     <div class="buttons">
                         <button id="descargar" type="button" style="background-color: red;" class="btn-small">Descargar PDF Solicitud</button>
                     </div>
                 </div>
             </div>
-        </main>
-        <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '5' ? 'display:block;' : 'display:none;'; ?>">
+            </div>
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '4' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Proceso ya completado</h2>
                 <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                 <p>Debe de enviar el archivo PDF antes descargado al link de arriba</p>
@@ -223,6 +224,8 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
                 </div>
             </div>
+        </main>
     </div>
     <script src="assets/js/mesadepartes3.js"></script>
 </body>
+</html>
