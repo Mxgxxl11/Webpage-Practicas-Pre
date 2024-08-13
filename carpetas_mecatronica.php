@@ -98,6 +98,7 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                         <th>Escuela</th>
                         <th>Semestre</th>
                         <th>Sección</th>
+                        <th>Proceso Culminado</th>
                         <th>Descargar carpeta</th>
                     </tr>
                 </thead>
@@ -114,33 +115,36 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                             </script>';
                         } else {
                             if (empty($nombre)) {
-                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta, p.paso 
                                 FROM usuario u 
                                 JOIN acceso a ON u.codigo = a.id_usuario 
                                 JOIN escuelas e ON e.id_escuela = u.id_escuela 
                                 JOIN alumno al ON al.id_usuario = u.codigo 
-                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
+                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno 
+                                JOIN paso_cp p ON p.id_usuario = u.codigo
                                 WHERE e.id_escuela = 3 and u.codigo like '%" . $codigo . "%'";
                             }
                             if (empty($codigo)) {
-                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta, p.paso 
                                 FROM usuario u 
                                 JOIN acceso a ON u.codigo = a.id_usuario 
                                 JOIN escuelas e ON e.id_escuela = u.id_escuela 
                                 JOIN alumno al ON al.id_usuario = u.codigo 
-                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
+                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno 
+                                JOIN paso_cp p ON p.id_usuario = u.codigo
                                 WHERE e.id_escuela = 3 AND u.nombre1 LIKE '%" . $nombre . "%'
                                  OR u.nombre2 LIKE '%" . $nombre . "%'
                                  OR u.apellido1 LIKE '%" . $nombre . "%'
                                  OR u.apellido2 LIKE '%" . $nombre . "%'";
                             }
                             if (!empty($nombre) and !empty($codigo)) {
-                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                                $busqueda = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta, p.paso 
                                 FROM usuario u 
                                 JOIN acceso a ON u.codigo = a.id_usuario 
                                 JOIN escuelas e ON e.id_escuela = u.id_escuela 
                                 JOIN alumno al ON al.id_usuario = u.codigo 
-                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
+                                JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno 
+                                JOIN paso_cp p ON p.id_usuario = u.codigo
                                 WHERE e.id_escuela = 3 and u.codigo like '%" . $codigo . "%' 
                                 and (
                                  u.nombre1 LIKE '%" . $nombre . "%'
@@ -178,6 +182,46 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         <?php echo $filas['seccion']; ?>
                                     </td>
                                     <td>
+                                        <?php
+                                        $estado = $filas['paso'];
+                                        switch ($estado) {
+                                            case 1:
+                                                echo "Inicio del proceso";
+                                                break;
+                                            case 2:
+                                                echo "Formulario datos del Alumno";
+                                                break;
+                                            case 3:
+                                                echo "Carta de Presentación";
+                                                break;
+                                            case 4:
+                                                echo "Subida de NT";
+                                                break;
+                                            case 5:
+                                                echo "Apertura de Carpeta";
+                                                break;
+                                            case 6:
+                                                echo "1er Informe";
+                                                break;
+                                            case 7:
+                                                echo "2do Informe";
+                                                break;
+                                            case 8:
+                                                echo "3er Informe";
+                                                break;
+                                            case 9:
+                                                echo "Constancia de culminación";
+                                                break;
+                                            case 10:
+                                                echo "Informe Final";
+                                                break;
+                                            case 11:
+                                                echo "Examen Final";
+                                                break;
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
                                         <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" class="download-button">
                                             Descargar
                                         </a>
@@ -188,12 +232,13 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                     } else {
                         //aca para mostrar todos los registros de los alumnos de mecatrónica
 
-                        $consulta = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta 
+                        $consulta = "SELECT u.codigo, u.nombre1, u.apellido1, u.correo, e.escuela, al.semestre, al.seccion, car.nombre_carpeta, p.paso 
                         FROM usuario u 
                         JOIN acceso a ON u.codigo = a.id_usuario 
                         JOIN escuelas e ON e.id_escuela = u.id_escuela 
                         JOIN alumno al ON al.id_usuario = u.codigo 
-                        JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno
+                        JOIN carpeta_virtual car ON car.id_alumno = al.id_alumno 
+                        JOIN paso_cp p ON p.id_usuario = u.codigo
                                     where a.id_rol=3 and e.id_escuela=3";
                         $ejecucion = mysqli_query($conexion, $consulta);
                         while ($filas = mysqli_fetch_assoc($ejecucion)) {
@@ -221,6 +266,46 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                 </td>
                                 <td>
                                     <?php echo $filas['seccion']; ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $estado = $filas['paso'];
+                                    switch ($estado) {
+                                        case 1:
+                                            echo "Inicio del proceso";
+                                            break;
+                                        case 2:
+                                            echo "Formulario datos del Alumno";
+                                            break;
+                                        case 3:
+                                            echo "Carta de Presentación";
+                                            break;
+                                        case 4:
+                                            echo "Subida de NT";
+                                            break;
+                                        case 5:
+                                            echo "Apertura de Carpeta";
+                                            break;
+                                        case 6:
+                                            echo "1er Informe";
+                                            break;
+                                        case 7:
+                                            echo "2do Informe";
+                                            break;
+                                        case 8:
+                                            echo "3er Informe";
+                                            break;
+                                        case 9:
+                                            echo "Constancia de culminación";
+                                            break;
+                                        case 10:
+                                            echo "Informe Final";
+                                            break;
+                                        case 11:
+                                            echo "Examen Final";
+                                            break;
+                                    }
+                                    ?>
                                 </td>
                                 <td>
                                     <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" class="download-button">

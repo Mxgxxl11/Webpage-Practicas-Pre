@@ -34,7 +34,13 @@ if (isset($_GET['carpeta']) && isset($_GET['nombre_carpeta'])) {
         unlink($zip_filename);
         exit;
     } else {
-        exit("La carpeta no existe.");
+        echo '
+            <script>
+                alert("La carpeta no existe");
+                window.location = "./carpeta_virtual.php";
+            </script>
+        ';
+    exit();
     }
 }
 ?>
