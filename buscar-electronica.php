@@ -49,7 +49,7 @@ $id_escuela_telecomunicaciones = 4; // Cambia este valor según el id
         <article class="table-widget">
             <div class="caption">
                 <h2>
-                    TODOS LOS ALUMNOS REGISTRADOS DE TELECOMUNICACIONES
+                    TODOS LOS ALUMNOS REGISTRADOS DE ELECTRONICA
                 </h2>
             </div>
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
