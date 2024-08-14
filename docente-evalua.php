@@ -12,6 +12,7 @@ $codigo2 = $_SESSION['codigo_institucional'];
 $codigo_doc = '';
 $promedio_final = '';  
 $codigo_alum = '';
+$mostrarDiv = 0;
 try {  
     // Preparar consulta  
     $stmt = $conexion->prepare("SELECT id_docente FROM docente WHERE id_usuario = ?");  
@@ -42,6 +43,18 @@ try {
     $stmt->bind_param("ii", $codigo_alum, $codigo_doc); 
     $stmt->execute();  
     $stmt->bind_result($promedio_final);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT paso FROM paso_cp WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($mostrarDiv);  
     $stmt->fetch();  
     $stmt->close();  
     
@@ -152,8 +165,12 @@ try {
             <div class="container2" style="border: 0;"><br>
                 <h2>EVALUACIÓN DEL ALUMNO</h2>
                 <br>
+            
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv < 10 ? 'display:block;' : 'display:none;'; ?>">
+                <h2>El informe final del alumno aún no está disponible</h2>
+                <p>*La siguiente pestaña se habilitará cuando el alumno suba su informe final</p>
             </div>
-            <div class="container2">
+            <div class="container2" style="<?php echo $mostrarDiv === 10 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Informe Final Del alumno</h2>
                 <div class="form-group">
                     <div class="buttons">
@@ -173,7 +190,7 @@ try {
             </div>
 
             <!-- DOCENTE ENVIA PRACTICA AL ALUMNO--->
-            <div class="container2">
+            <div class="container2" style="<?php echo $mostrarDiv === 11 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Examen de PRACTICA PRE-PROFESIONAL</h2>
                 <div class="form-group">
                     <label for="fechaRegistro">Fecha de Registro:</label>
@@ -190,9 +207,13 @@ try {
                     <button type="submit" class="btn">Enviar examen</button>
                 </div>
             </div>
-
-            <!-- DOCENTE CALIFICA EXAMEN DLE ALUMNO-->
-            <div class="container2">
+            
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === 12 ? 'display:block;' : 'display:none;'; ?>">
+                <h2>El examen final del alumno aún no está disponible</h2>
+                <p>*La siguiente pestaña se habilitará cuando el alumno suba su examen final resuelto</p>
+            </div>
+            <!-- DOCENTE CALIFICA EXAMEN DEL ALUMNO-->
+            <div class="container2" style="<?php echo $mostrarDiv === 13 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Calificar examen del alumno</h2>
                 <div class="form-group">
                     <div class="buttons">
@@ -212,7 +233,7 @@ try {
             </div>
 
             <!-- NOTA DE APRESIACION DEL DOCENTE-->
-            <div class="container2">
+            <div class="container2" style="<?php echo $mostrarDiv === 14 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Apreciación final del docente</h2>
                 <div class="form-group">
                     <label for="nota_a">Apreciación final:</label>
@@ -226,7 +247,7 @@ try {
             </div>
 
             <!-- PROMEDIO FINAL DEL ALUMNO-->
-            <div class="container2">
+            <div class="container2" style="<?php echo $mostrarDiv === 15 ? 'display:block;' : 'display:none;'; ?>">
 
                 <h2>PROMEDIO FINAL DEL ALUMNO</h2>
                 <div class="form-group">
@@ -242,8 +263,11 @@ try {
                     <button id="e_comentario" class="btn">Enviar comentario</button>
                 </div>
             </div>
-
-
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === 16 ? 'display:block;' : 'display:none;'; ?>">
+                <h2>Proceso completado</h2>
+                <p>*Se ha completado todo el proceso de calificación de este alumno</p>
+            </div>
+            </div>
             <div class="form-buttons">
                 <button onclick="closeProfileForm()" class="close-btn"> Cerrar</button>
             </div>
