@@ -1,12 +1,43 @@
 <?php
 session_start();
+include './assets/controladores/bd.php';
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
     window.location = "login.html"; 
     </script>';
 }
-$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
+$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
+$codigo = $_SESSION['codigo_institucional'];
+$promedio_final = '';  
+$trabajo_final = '';
+$examen_final = '';
+$apreciacion = '';
+$codigo_alum = '';
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_alumno FROM alumno WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($codigo_alum);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT promedio_final, trabajo_final, apreciacion, examen_final FROM calificaciones WHERE id_alumno = ?");  
+    $stmt->bind_param("i", $codigo_alum); 
+    $stmt->execute();  
+    $stmt->bind_result($promedio_final, $trabajo_final, $apreciacion, $examen_final);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
 ?>
 
 <!DOCTYPE html>
@@ -51,19 +82,19 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <p>*Si no hay datos es porque sus notas aún no han sido enviadas por el docente</p>
                 <div class="form-group">
                     <label for="nota1">Nota de evaluación de informes:</label>
-                    <input type="text" name="nota1" id="nota1" readonly>
+                    <input type="text" value="<?php echo $trabajo_final; ?>" name="nota1" id="nota1" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nota2">Nota del examen:</label>
-                    <input type="text" name="nota2" id="nota2" readonly>
+                    <input type="text"  value="<?php echo $examen_final; ?>" name="nota2" id="nota2" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nota3">Nota de apreciación del docente:</label>
-                    <input type="text" name="nota3" id="nota3" readonly>
+                    <input type="text" value="<?php echo $apreciacion; ?>" name="nota3" id="nota3" readonly>
                 </div>
                 <div class="form-group">
                     <label for="prom">Promedio:</label>
-                    <input type="text" name="prom" id="prom" readonly>
+                    <input type="text" name="prom" id="prom" value="<?php echo $promedio_final; ?>" readonly>
                 </div>
             </div>
             <div class="form-buttons">
