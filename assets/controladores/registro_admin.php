@@ -22,7 +22,7 @@ $Escuela = $_POST['escuela'];
 $fecha_actual = date("Y-m-d");
 //recordar que idRoles ahora esta en otra tabla
 //aca se guardan los admin
-$query = "INSERT INTO usuario(codigo, contraseña, correo, fecha_creacion, nombre1,
+$query = "INSERT INTO usuario(codigo, contrasena, correo, fecha_creacion, nombre1,
     nombre2, apellido1, apellido2, celular, direccion, id_escuela, id_tipodoc, numDocumento, distrito, nro_departamento)
     VALUES ('$codigo','$password','$correo', '$fecha_actual', '$primerNombre','$segundoNombre',
     '$primerApellido', '$segundoApellido', '$celular', '$direccion', '$Escuela','$tipoDoc','$numDoc', '$distrito', '$dpto')";

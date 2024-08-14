@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Iniciar Sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/f5e0a0e037.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish&display=swap"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="centering">
+      <form
+        action="assets/controladores/login_usuario.php"
+        method="POST"
+        class="my-form"
+      >
+        <div class="signup-welcome-row">
+          <img />
+          <h1>Iniciar Sesión</h1>
+        </div>
+        <div class="socials-row">
+          <img
+            src="assets/images/Escudo_UNFV.png"
+            width="400"
+            height="150"
+            alt="Escudo UNFV"
+          />
+        </div>
+        <div class="divider">
+          <div class="divider-line"></div>
+
+          <div class="divider-line"></div>
+        </div>
+        <div class="my-form__content">
+          <div class="text-field">
+            <label for="correo">Correo institucional:</label>
+            <input
+              aria-label="Correo Institucional"
+              type="email"
+              id="correo"
+              name="correo"
+              placeholder="Correo Institucional"
+              autocomplete="off"
+              required
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-mail"
+              width="44"
+              height="44"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#A7A2CB"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"
+              />
+              <path d="M3 7l9 6l9 -6" />
+            </svg>
+          </div>
+          <div class="text-field">
+            <label for="password"
+              >Contraseña:
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Contraseña"
+                required
+              />
+              <span class="ver_clave" id="verclave"
+                ><i id="icono" class="fa-solid fa-eye fa-2x"></i
+              ></span>
+            </label>
+          </div>
+
+          <input type="submit" class="my-form__button" value="Iniciar Sesión" />
+        </div>
+        <div class="my-form__actions">
+          <div class="my-form__signin">
+            <a href="registroPPP.html" type="button" title="Registrarse"
+              >Registrar</a
+            >
+          </div>
+        </div>
+        <div class="my-form__actions">
+          <div class="my-form__signin">
+            <a
+              href="olvide_contra.html"
+              title="Olvide mi Contraseña"
+              style="color: black"
+              target="_blank"
+              >Olvidé mi contraseña</a
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+    <!--
+
+      ESTO ES PARA LA VENTANA EMERGENTE
+      TAMBIEN HAY UN FRAGMENTO EN script.js y en style.css
+      
+    <div class="v_emergente" id="myv_emergente">
+      <div class="v_emergente-content">
+          <buttonx class="button" onclick="cerrar_ve()">X</buttonx>
+          <h3>Registro</h3>
+          <img src="assets/images/estela_de_raimondi.jpg" alt="Img" height="100px">
+          <p>Elige una opción:</p>
+          <button class="my-form__button" onclick="redirectToInstitutional()">Registro con correo institucional</button>
+          <button class="my-form__button" onclick="redirectToOther()">Registro con otro correo</button>
+      </div>
+      -->
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
