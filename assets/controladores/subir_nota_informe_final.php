@@ -32,24 +32,24 @@ if ($stmt->execute()) {
 }
 $stmt->close();
 
-// $query = "UPDATE paso_cp SET paso = 4 WHERE id_usuario = '$codigo'";
-// $stmt = mysqli_prepare($conexion, $query);
+$query = "UPDATE paso_cp SET paso = 11 WHERE id_usuario = '$codigo_a'";
+$stmt = mysqli_prepare($conexion, $query);
 
-// if (!$stmt) {  
-//    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
-//    exit();  
-//} 
-// $ejecutar = mysqli_stmt_execute($stmt); 
+if (!$stmt) {  
+   echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+} 
+ $ejecutar = mysqli_stmt_execute($stmt); 
 
-// if ($ejecutar) {    
-//    $_SESSION['paso_cp'] = '4';
-//    echo ' Datos almacenados exitosamente ';  
-// } else {  
-//    echo '  
-//            alert("Error al almacenar los datos. Inténtelo nuevamente.");   
-//         ';  
-//    echo "Error: " . mysqli_error($conexion);  
-// }
+ if ($ejecutar) {    
+    $_SESSION['paso_cp'] = '11';
+    echo ' Datos almacenados exitosamente ';  
+} else {  
+    echo '  
+            alert("Error al almacenar los datos. Inténtelo nuevamente.");   
+         ';  
+    echo "Error: " . mysqli_error($conexion);  
+}
 
 mysqli_close($conexion);
 ?>
