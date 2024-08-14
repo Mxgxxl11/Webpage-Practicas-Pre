@@ -99,7 +99,8 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                         <th>Semestre</th>
                         <th>Sección</th>
                         <th>Proceso Culminado</th>
-                        <th>Descargar carpeta</th>
+                        <th>Descargar</th>
+                        <th>Generar</th>
                     </tr>
                 </thead>
                 <tbody id="team-member-rows">
@@ -219,9 +220,22 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" class="download-button">
-                                            Descargar
-                                        </a>
+                                        <div class="tags">
+                                            <div class="tag tag--QA">
+                                                <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:#fff">
+                                                    Carpeta Presentación
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tags">
+                                            <div class="tag tag--dev">
+                                                <a href="generar_constancia.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
+                                                    Constacia Culminación
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php }
@@ -304,9 +318,22 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" class="download-button">
-                                        Descargar
-                                    </a>
+                                    <div class="tags">
+                                        <div class="tag tag--QA">
+                                            <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:#fff">
+                                                Carpeta Presentación
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tags">
+                                        <div class="tag tag--dev">
+                                            <a href="generar_constancia.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
+                                                Constacia Culminación
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
 
                             </tr>
