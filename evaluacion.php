@@ -63,7 +63,15 @@ try {
             <div id="complete" class="container2" style="<?php echo $mostrarDiv < '10' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '10' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === '10' ? 'display:block;' : 'display:none;'; ?>">
+                <h2>El docente esta calificando tu informe final</h2>
+                <p>*La siguiente pestaña se habilitará cuando tu profesor encargado suba la nota de tu informe final</p>
+            </div>
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === '11' ? 'display:block;' : 'display:none;'; ?>">
+                <h2>Aún no puedes continuar</h2>
+                <p>*La siguiente pestaña se habilitará cuando tu profesor encargado suba tu examen final</p>
+            </div>
+            <div class="container2" style="<?php echo $mostrarDiv === '12' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Subir el Examen Final</h2>
                 <div class="form-group">
                     <label for="fechaExamen">Fecha de Subida:</label>
@@ -77,9 +85,16 @@ try {
                     </div>
                 </div>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === '11' ? 'display:block;' : 'display:none;'; ?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === '13' ? 'display:block;' : 'display:none;'; ?>">
+                <h2>Aún no puedes continuar</h2>
+                <p>*La siguiente pestaña se habilitará cuando tu profesor encargado suba la nota de tu examen final</p>
+            </div>
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === '14' ? 'display:block;' : 'display:none;'; ?>">
+                <h2>Aún no puedes continuar</h2>
+                <p>*La siguiente pestaña se habilitará cuando tu profesor encargado suba la nota apreciacion</p>
+            </div>
+            <div class="container2" style="<?php echo $mostrarDiv === '15' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Notas de la evaluación</h2>
-                <p>*Si no hay datos es porque sus notas aún no han sido enviadas por el docente</p>
                 <div class="form-group">
                     <label for="nota1">Nota de evaluación de informes:</label>
                     <input type="text" value="<?php echo $trabajo_final; ?>" name="nota1" id="nota1" readonly>
