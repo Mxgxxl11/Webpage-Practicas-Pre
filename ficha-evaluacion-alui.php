@@ -7,6 +7,124 @@ if (empty($_SESSION['codigo_institucional'])) {
     window.location = "login.html"; 
     </script>';
 }
+$codigo = $_GET['codigo']; 
+$codigo2 = $_SESSION['codigo_institucional'];
+$codigo_alum = '';
+$codigo_doc = '';
+$nombre_alumno = '';
+$nombre_alumno2 = '';
+$apellido_alumno = '';
+$apellido_alumno2 = '';
+$nombre_docente = '';
+$nombre_docente2 = '';
+$apellido_docente = '';
+$apellido_docente2 = '';
+$promedio_final = '';  
+$trabajo_final = '';
+$examen_final = '';
+$apreciacion = '';
+$id_escuela = '';
+$escuela = '';
+$id_empresa = '';
+$nombre_empresa = '';
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_docente FROM docente WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo2); 
+    $stmt->execute();  
+    $stmt->bind_result($codigo_doc);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT nombre1, nombre2, apellido1, apellido2, id_escuela FROM usuario WHERE codigo = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($nombre_alumno, $nombre_alumno2, $apellido_alumno, $apellido_alumno2, $id_escuela);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT escuela FROM escuelas WHERE id_escuela = ?");  
+    $stmt->bind_param("i", $id_escuela); 
+    $stmt->execute();  
+    $stmt->bind_result($escuela);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT nombre1, nombre2, apellido1, apellido2 FROM usuario WHERE codigo = ?");  
+    $stmt->bind_param("i", $codigo2); 
+    $stmt->execute();  
+    $stmt->bind_result($nombre_docente, $nombre_docente2, $apellido_docente, $apellido_docente2);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+}
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_alumno FROM alumno WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($codigo_alum);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_empresa FROM practicas WHERE id_alumno = ?");  
+    $stmt->bind_param("i", $codigo_alum); 
+    $stmt->execute();  
+    $stmt->bind_result($id_empresa);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT nombre_empresa FROM empresa WHERE id_empresa = ?");  
+    $stmt->bind_param("i", $id_empresa); 
+    $stmt->execute();  
+    $stmt->bind_result($nombre_empresa);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT promedio_final, trabajo_final, apreciacion, examen_final FROM calificaciones WHERE (id_alumno = ? AND id_docente = ?)");  
+    $stmt->bind_param("ii", $codigo_alum, $codigo_doc); 
+    $stmt->execute();  
+    $stmt->bind_result($promedio_final, $trabajo_final, $apreciacion, $examen_final);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
+$nombre_alumno_completo = $nombre_alumno . ' ' . $nombre_alumno2 . ' ' . $apellido_alumno . ' ' . $apellido_alumno2;
+$nombre_docente_completo = $nombre_docente . ' ' . $nombre_docente2 . ' ' . $apellido_docente . ' ' . $apellido_docente2;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +135,8 @@ if (empty($_SESSION['codigo_institucional'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MENU SECRETARIA</title>
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .ficha-evaluacion {
             background-color: white;
@@ -127,6 +247,20 @@ if (empty($_SESSION['codigo_institucional'])) {
             margin: 0 auto;
             text-align: center;
         }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #000;
+            color: white;
+        }
+
+        .btn-small:hover {
+            background-color: #c08143;
+        }
     </style>
 </head>
 
@@ -138,32 +272,30 @@ if (empty($_SESSION['codigo_institucional'])) {
         <?php include './includes/sidebar-docente.php' ?>
         <main class="main-content">
             <div class="profile-form">
-                <p>Esta ventana está destinada para el docente </p>
-
                 <div class="ficha-evaluacion">
                     <h2>Ficha de evaluación del coordinador_FIEI Práctica PRE PROFESIONAL Y PROFESIONAL</h2>
-                    <form>
+                    
                         <div class="campo">
                             <label>Estudiante:</label>
-                            <input type="text" placeholder="Add text" disabled>
+                            <input id="estudiante" type="text" value="<?php echo $nombre_alumno_completo; ?>" disabled>
                         </div>
                         <div class="campo">
                             <label>Escuela Profesional:</label>
-                            <input type="text" placeholder="Add text" disabled>
+                            <input id="escuela" type="text" value="<?php echo $escuela; ?>" disabled>
                         </div>
                         <div class="campo">
                             <label>Empresa:</label>
-                            <input type="text" placeholder="Add text" disabled>
+                            <input id="empresa" type="text" value="<?php echo $nombre_empresa; ?>" disabled>
                         </div>
                         <div class="campo">
                             <label>Coordinador:</label>
-                            <input type="text" placeholder="Add text" disabled>
+                            <input id="coordinador" type="text" value="<?php echo $nombre_docente_completo; ?>" disabled>
                         </div>
                         <div class="campo">
                             <label>Fecha:</label>
-                            <input type="text" placeholder="Add text">
+                            <input name="fechaRegistro" id="fechaRegistro" type="date" class="date-picker">
                         </div>
-                    </form>
+                    
                     <div class="criterios-evaluacion">
                         <h3>CRITERIOS DE EVALUACIÓN</h3>
                         <table>
@@ -597,43 +729,43 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <tbody>
                                 <tr>
                                     <td>Anticipa las implicancias de sus decisiones, así como los resultados de sus acciones.</td>
-                                    <td><label><input type="radio" name="criterio81" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio81" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio81" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio81" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio81" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio36" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio36" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio36" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio36" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio36" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Valora el cumplimiento puntual y responsable de sus actividades personales y profesionales.</td>
-                                    <td><label><input type="radio" name="criterio82" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio82" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio82" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio82" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio82" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio37" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio37" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio37" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio37" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio37" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Prioriza el interés común y el beneficio social.</td>
-                                    <td><label><input type="radio" name="criterio83" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio83" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio83" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio83" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio83" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio38" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio38" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio38" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio38" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio38" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Respeta la propiedad intelectual.</td>
-                                    <td><label><input type="radio" name="criterio84" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio84" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio84" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio84" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio84" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio39" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio39" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio39" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio39" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio39" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Conoce y actúa de acuerdo al código deontológico del Colegio de Ingenieros del Perú.</td>
-                                    <td><label><input type="radio" name="criterio85" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio85" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio85" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio85" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio85" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio40" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio40" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio40" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio40" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio40" value="1"></label></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -656,35 +788,35 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <tbody>
                                 <tr>
                                     <td>Se expresa con claridad y de manera concisa usando el soporte tecnológico adecuado</td>
-                                    <td><label><input type="radio" name="criterio91" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio91" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio91" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio91" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio91" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio41" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio41" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio41" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio41" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio41" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Elabora documentación técnica clara y precisa usando normas, simbología y terminología propias de la ingeniería de su especialidad.</td>
-                                    <td><label><input type="radio" name="criterio92" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio92" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio92" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio92" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio92" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio42" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio42" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio42" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio42" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio42" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Adecúa su discurso según el tipo de audiencia para lograr un buen entendimiento</td>
-                                    <td><label><input type="radio" name="criterio93" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio93" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio93" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio93" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio93" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio43" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio43" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio43" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio43" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio43" value="1"></label></td>
                                 </tr>
                                 <tr>
                                     <td>Comprende textos técnicos en inglés y practica conversación básica en inglés.</td>
-                                    <td><label><input type="radio" name="criterio94" value="5"></label></td>
-                                    <td><label><input type="radio" name="criterio94" value="4"></label></td>
-                                    <td><label><input type="radio" name="criterio94" value="3"></label></td>
-                                    <td><label><input type="radio" name="criterio94" value="2"></label></td>
-                                    <td><label><input type="radio" name="criterio94" value="1"></label></td>
+                                    <td><label><input type="radio" name="criterio44" value="5"></label></td>
+                                    <td><label><input type="radio" name="criterio44" value="4"></label></td>
+                                    <td><label><input type="radio" name="criterio44" value="3"></label></td>
+                                    <td><label><input type="radio" name="criterio44" value="2"></label></td>
+                                    <td><label><input type="radio" name="criterio44" value="1"></label></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -707,43 +839,43 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <tbody>
                                 <tr>
                                     <td>Se desempeña como líder o miembro activo de un equipo de trabajo aportando con iniciativa para alcanzar las metas propuestas.</td>
-                                    <td><input type="radio" name="criterio10_1" value="5"></td>
-                                    <td><input type="radio" name="criterio10_1" value="4"></td>
-                                    <td><input type="radio" name="criterio10_1" value="3"></td>
-                                    <td><input type="radio" name="criterio10_1" value="2"></td>
-                                    <td><input type="radio" name="criterio10_1" value="1"></td>
+                                    <td><input type="radio" name="criterio45" value="5"></td>
+                                    <td><input type="radio" name="criterio45" value="4"></td>
+                                    <td><input type="radio" name="criterio45" value="3"></td>
+                                    <td><input type="radio" name="criterio45" value="2"></td>
+                                    <td><input type="radio" name="criterio45" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Propone y acepta ideas que conduzcan al alcance de los objetivos.</td>
-                                    <td><input type="radio" name="criterio10_2" value="5"></td>
-                                    <td><input type="radio" name="criterio10_2" value="4"></td>
-                                    <td><input type="radio" name="criterio10_2" value="3"></td>
-                                    <td><input type="radio" name="criterio10_2" value="2"></td>
-                                    <td><input type="radio" name="criterio10_2" value="1"></td>
+                                    <td><input type="radio" name="criterio46" value="5"></td>
+                                    <td><input type="radio" name="criterio46" value="4"></td>
+                                    <td><input type="radio" name="criterio46" value="3"></td>
+                                    <td><input type="radio" name="criterio46" value="2"></td>
+                                    <td><input type="radio" name="criterio46" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Valora las diferencias y respeta los acuerdos.</td>
-                                    <td><input type="radio" name="criterio10_3" value="5"></td>
-                                    <td><input type="radio" name="criterio10_3" value="4"></td>
-                                    <td><input type="radio" name="criterio10_3" value="3"></td>
-                                    <td><input type="radio" name="criterio10_3" value="2"></td>
-                                    <td><input type="radio" name="criterio10_3" value="1"></td>
+                                    <td><input type="radio" name="criterio47" value="5"></td>
+                                    <td><input type="radio" name="criterio47" value="4"></td>
+                                    <td><input type="radio" name="criterio47" value="3"></td>
+                                    <td><input type="radio" name="criterio47" value="2"></td>
+                                    <td><input type="radio" name="criterio47" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Escucha empáticamente, negocia conflictos y usa inteligencia emocional.</td>
-                                    <td><input type="radio" name="criterio10_4" value="5"></td>
-                                    <td><input type="radio" name="criterio10_4" value="4"></td>
-                                    <td><input type="radio" name="criterio10_4" value="3"></td>
-                                    <td><input type="radio" name="criterio10_4" value="2"></td>
-                                    <td><input type="radio" name="criterio10_4" value="1"></td>
+                                    <td><input type="radio" name="criterio48" value="5"></td>
+                                    <td><input type="radio" name="criterio48" value="4"></td>
+                                    <td><input type="radio" name="criterio48" value="3"></td>
+                                    <td><input type="radio" name="criterio48" value="2"></td>
+                                    <td><input type="radio" name="criterio48" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Promueve el debate, concierta y busca consensos.</td>
-                                    <td><input type="radio" name="criterio10_5" value="5"></td>
-                                    <td><input type="radio" name="criterio10_5" value="4"></td>
-                                    <td><input type="radio" name="criterio10_5" value="3"></td>
-                                    <td><input type="radio" name="criterio10_5" value="2"></td>
-                                    <td><input type="radio" name="criterio10_5" value="1"></td>
+                                    <td><input type="radio" name="criterio49" value="5"></td>
+                                    <td><input type="radio" name="criterio49" value="4"></td>
+                                    <td><input type="radio" name="criterio49" value="3"></td>
+                                    <td><input type="radio" name="criterio49" value="2"></td>
+                                    <td><input type="radio" name="criterio49" value="1"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -766,27 +898,27 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <tbody>
                                 <tr>
                                     <td>Tiene un procedimiento que puede ser seguido sin tener que hacerles consultas o aclaraciones.</td>
-                                    <td><input type="radio" name="criterio11_1" value="5"></td>
-                                    <td><input type="radio" name="criterio11_1" value="4"></td>
-                                    <td><input type="radio" name="criterio11_1" value="3"></td>
-                                    <td><input type="radio" name="criterio11_1" value="2"></td>
-                                    <td><input type="radio" name="criterio11_1" value="1"></td>
+                                    <td><input type="radio" name="criterio50" value="5"></td>
+                                    <td><input type="radio" name="criterio50" value="4"></td>
+                                    <td><input type="radio" name="criterio50" value="3"></td>
+                                    <td><input type="radio" name="criterio50" value="2"></td>
+                                    <td><input type="radio" name="criterio50" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Se encuentra fácilmente la información que da fundamento a sus afirmaciones.</td>
-                                    <td><input type="radio" name="criterio11_2" value="5"></td>
-                                    <td><input type="radio" name="criterio11_2" value="4"></td>
-                                    <td><input type="radio" name="criterio11_2" value="3"></td>
-                                    <td><input type="radio" name="criterio11_2" value="2"></td>
-                                    <td><input type="radio" name="criterio11_2" value="1"></td>
+                                    <td><input type="radio" name="criterio51" value="5"></td>
+                                    <td><input type="radio" name="criterio51" value="4"></td>
+                                    <td><input type="radio" name="criterio51" value="3"></td>
+                                    <td><input type="radio" name="criterio51" value="2"></td>
+                                    <td><input type="radio" name="criterio51" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Demuestra poder creativo para adaptar la metodología que debe aplicar en las condiciones reales que se presenta.</td>
-                                    <td><input type="radio" name="criterio11_3" value="5"></td>
-                                    <td><input type="radio" name="criterio11_3" value="4"></td>
-                                    <td><input type="radio" name="criterio11_3" value="3"></td>
-                                    <td><input type="radio" name="criterio11_3" value="2"></td>
-                                    <td><input type="radio" name="criterio11_3" value="1"></td>
+                                    <td><input type="radio" name="criterio52" value="5"></td>
+                                    <td><input type="radio" name="criterio52" value="4"></td>
+                                    <td><input type="radio" name="criterio52" value="3"></td>
+                                    <td><input type="radio" name="criterio52" value="2"></td>
+                                    <td><input type="radio" name="criterio52" value="1"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -809,35 +941,35 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <tbody>
                                 <tr>
                                     <td>Puede sostener con fundamento la metodología que ha empleado.</td>
-                                    <td><input type="radio" name="criterio12_1" value="5"></td>
-                                    <td><input type="radio" name="criterio12_1" value="4"></td>
-                                    <td><input type="radio" name="criterio12_1" value="3"></td>
-                                    <td><input type="radio" name="criterio12_1" value="2"></td>
-                                    <td><input type="radio" name="criterio12_1" value="1"></td>
+                                    <td><input type="radio" name="criterio53" value="5"></td>
+                                    <td><input type="radio" name="criterio53" value="4"></td>
+                                    <td><input type="radio" name="criterio53" value="3"></td>
+                                    <td><input type="radio" name="criterio53" value="2"></td>
+                                    <td><input type="radio" name="criterio53" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Puede sostener con fundamento la información que ha obtenido.</td>
-                                    <td><input type="radio" name="criterio12_2" value="5"></td>
-                                    <td><input type="radio" name="criterio12_2" value="4"></td>
-                                    <td><input type="radio" name="criterio12_2" value="3"></td>
-                                    <td><input type="radio" name="criterio12_2" value="2"></td>
-                                    <td><input type="radio" name="criterio12_2" value="1"></td>
+                                    <td><input type="radio" name="criterio54" value="5"></td>
+                                    <td><input type="radio" name="criterio54" value="4"></td>
+                                    <td><input type="radio" name="criterio54" value="3"></td>
+                                    <td><input type="radio" name="criterio54" value="2"></td>
+                                    <td><input type="radio" name="criterio54" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Puede sostener con fundamento las Conclusiones.</td>
-                                    <td><input type="radio" name="criterio12_3" value="5"></td>
-                                    <td><input type="radio" name="criterio12_3" value="4"></td>
-                                    <td><input type="radio" name="criterio12_3" value="3"></td>
-                                    <td><input type="radio" name="criterio12_3" value="2"></td>
-                                    <td><input type="radio" name="criterio12_3" value="1"></td>
+                                    <td><input type="radio" name="criterio55" value="5"></td>
+                                    <td><input type="radio" name="criterio55" value="4"></td>
+                                    <td><input type="radio" name="criterio55" value="3"></td>
+                                    <td><input type="radio" name="criterio55" value="2"></td>
+                                    <td><input type="radio" name="criterio55" value="1"></td>
                                 </tr>
                                 <tr>
                                     <td>Puede sostener con fundamento las Recomendaciones.</td>
-                                    <td><input type="radio" name="criterio12_4" value="5"></td>
-                                    <td><input type="radio" name="criterio12_4" value="4"></td>
-                                    <td><input type="radio" name="criterio12_4" value="3"></td>
-                                    <td><input type="radio" name="criterio12_4" value="2"></td>
-                                    <td><input type="radio" name="criterio12_4" value="1"></td>
+                                    <td><input type="radio" name="criterio56" value="5"></td>
+                                    <td><input type="radio" name="criterio56" value="4"></td>
+                                    <td><input type="radio" name="criterio56" value="3"></td>
+                                    <td><input type="radio" name="criterio56" value="2"></td>
+                                    <td><input type="radio" name="criterio56" value="1"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -856,34 +988,36 @@ if (empty($_SESSION['codigo_institucional'])) {
 
                     <div class="criterios-evaluacion">
                         <h3>Calificación y Envío de Evaluación</h3>
-                        <form>
                             <div class="campo">
                                 <label>Nota de evaluación de informes:</label>
-                                <input type="text" placeholder="Ingrese nota" name="nota_informes">
+                                <input type="text" id="nota_informes" name="nota_informes" value="<?php echo $trabajo_final; ?>" disabled>
                             </div>
                             <div class="campo">
                                 <label>Nota de examen:</label>
-                                <input type="text" placeholder="Ingrese nota" name="nota_examen">
+                                <input type="text" id="nota_examen" name="nota_examen" value="<?php echo $examen_final; ?>" disabled>
                             </div>
                             <div class="campo">
                                 <label>Nota de apreciación del docente:</label>
-                                <input type="text" placeholder="Ingrese nota" name="nota_docente">
+                                <input type="text" id="nota_docente" name="nota_docente" value="<?php echo $apreciacion; ?>" disabled>
                             </div>
                             <div class="campo">
                                 <label>Promedio:</label>
-                                <input type="text" placeholder="Promedio" name="promedio" disabled>
+                                <input type="text" id="promedio" name="promedio" value="<?php echo $promedio_final; ?>" disabled>
                             </div>
                             <div class="campo">
                                 <label>Adjuntar Firma:</label>
-                                <input type="file" name="firma">
+                                <input type="file" accept="image/*" id="firma" name="firma" required>
                             </div>
                             <div class="campo">
-                                <button type="button" class="btn-rojo">Previsualizar documento</button>
+                                <p>*Suba los datos al PDF antes de enviar</p>
                             </div>
                             <div class="campo">
-                                <button type="submit" class="btn-rojo">Enviar evaluación</button>
+                                <button id="subir" type="button" class="btn-small" style="background-color: red;">Subir datos al PDF</button>
+                                <button type="button" class="btn-small">Enviar evaluación</button>
                             </div>
-                        </form>
+                            <div id="preview-container">
+                                <iframe id="pdf-preview" width="100%" height="430px" style="border: 1px solid black;"></iframe>
+                            </div>
                     </div>
                 </div>
             </div>
