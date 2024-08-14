@@ -40,14 +40,14 @@ if (!$stmt2) {
 } 
 $ejecutar2 = mysqli_stmt_execute($stmt2); 
 
-// $query = "UPDATE paso_cp SET paso = 15 WHERE id_usuario = '$codigo'";
-// $stmt = mysqli_prepare($conexion, $query);
+ $query = "UPDATE paso_cp SET paso = 15 WHERE id_usuario = '$codigo'";
+ $stmt = mysqli_prepare($conexion, $query);
 
-// if (!$stmt) {  
-//    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
-//    exit();  
-//} 
-// $ejecutar = mysqli_stmt_execute($stmt); 
+ if (!$stmt) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+} 
+ $ejecutar3 = mysqli_stmt_execute($stmt); 
 
 if ($ejecutar and $ejecutar2) {    
     //$_SESSION['paso_cp'] = '15';
