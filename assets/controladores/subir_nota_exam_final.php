@@ -1,3 +1,14 @@
+<?php  
+include 'bd.php'; 
+session_start();  
+$codigo = $_SESSION['codigo_institucional'];
+$codigo_a = $_POST['codigo_a'];
+$nota_e = $_POST['nota_e'];
+
+$result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo_a'");
+$row = mysqli_fetch_assoc($result);
+$id_alumno = $row['id_alumno'];
+
 $result2 = mysqli_query($conexion, "SELECT id_docente FROM docente WHERE id_usuario = '$codigo'");
 $row2 = mysqli_fetch_assoc($result2);
 $id_docente = $row2['id_docente'];
@@ -19,8 +30,7 @@ $ejecutar2 = mysqli_stmt_execute($stmt2);
 } 
  $ejecutar = mysqli_stmt_execute($stmt); 
 
-if ($ejecutar2) {    
-    $_SESSION['paso_cp'] = '14';
+if ($ejecutar2) {   
     echo ' Datos almacenados exitosamente ';  
 } else {  
     echo '  
