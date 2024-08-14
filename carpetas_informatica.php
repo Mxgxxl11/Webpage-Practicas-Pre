@@ -212,6 +212,15 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         </div>
                                     </td>
                                     <td>
+                                    <div class="tags">
+                                        <div class="tag tag--dev">
+                                            <a href="generar_carta.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
+                                                Carta de Presentación
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                    <td>
                                         <div class="tags">
                                             <div class="tag tag--dev">
                                                 <a href="generar_constancia.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">

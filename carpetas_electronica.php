@@ -100,7 +100,7 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                         <th>Sección</th>
                         <th>Proceso culminado</th>
                         <th>Descargar</th>
-                        <th>Generar</th>
+                        <th colspan="2">Generar</th>
                     </tr>
                 </thead>
                 <tbody id="team-member-rows">
@@ -233,6 +233,15 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         </div>
                                     </td>
                                     <td>
+                                    <div class="tags">
+                                        <div class="tag tag--dev">
+                                            <a href="generar_carta.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
+                                                Carta de Presentación
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                    <td>
                                         <div class="tags">
                                             <div class="tag tag--dev">
                                                 <a href="generar_constancia.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
@@ -326,6 +335,15 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         <div class="tag tag--QA">
                                             <a href="descargar_carpeta.php?carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:#fff">
                                                 Carpeta Presentación
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tags">
+                                        <div class="tag tag--dev">
+                                            <a href="generar_carta.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
+                                                Carta de Presentación
                                             </a>
                                         </div>
                                     </div>
