@@ -26,7 +26,6 @@ $stmt = $conexion->prepare($sql);
 $stmt->bind_param("iiii", $id_archivo, $id_alumno, $id_docente, $calificacion_reporte);       
 if ($stmt->execute()) {  
     echo "Archivo almacenado correctamente en la base de datos.";
-    //$_SESSION['paso_cp'] = '4';  
 } else {  
     echo "Error al almacenar el archivo: " . $stmt->error;  
 }
@@ -41,8 +40,7 @@ if (!$stmt) {
 } 
  $ejecutar = mysqli_stmt_execute($stmt); 
 
- if ($ejecutar) {    
-    $_SESSION['paso_cp'] = '11';
+ if ($ejecutar) {  
     echo ' Datos almacenados exitosamente ';  
 } else {  
     echo '  
