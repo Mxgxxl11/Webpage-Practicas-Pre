@@ -40,7 +40,7 @@ if (!$stmt2) {
 } 
 $ejecutar2 = mysqli_stmt_execute($stmt2); 
 
- $query = "UPDATE paso_cp SET paso = 15 WHERE id_usuario = '$codigo'";
+ $query = "UPDATE paso_cp SET paso = 15 WHERE id_usuario = '$codigo_a'";
  $stmt = mysqli_prepare($conexion, $query);
 
  if (!$stmt) {  
@@ -50,7 +50,6 @@ $ejecutar2 = mysqli_stmt_execute($stmt2);
  $ejecutar3 = mysqli_stmt_execute($stmt); 
 
 if ($ejecutar and $ejecutar2) {    
-    //$_SESSION['paso_cp'] = '15';
     echo ' Datos almacenados exitosamente ';  
 } else {  
     echo '  
