@@ -25,8 +25,13 @@ if (empty($_SESSION['codigo_institucional'])) {
     <?php include './includes/sidebar-docente.php' ?>
     <main class="main-content">
       <div class="profile-form">
-        <p>Tu mismo eres con la conexion a la base de datos</p>
-        
+      <p style="text-align: justify;"><strong>¡Bienvenido al Portal de Docente de Prácticas Pre Profesionales!</strong></p>
+      <p style="text-align: justify;">
+      Este espacio está diseñado para facilitar la gestión y supervisión de los 
+      tramistes de las prácticas pre profesionales de los estudiantes. 
+      Aquí encontrarás todas las herramientas necesarias para asignar tutores, monitorear 
+      el progreso de tus alumnos ademas de supervisar el avance de sus documentos
+      </p>  
       </div>
     </main>
   </div>
