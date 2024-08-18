@@ -20,6 +20,34 @@ $Escuela = $_POST['escuela'];
 
 //para sacar la fecha de creacion de la cuenta
 $fecha_actual = date("Y-m-d");
+
+if(strlen($codigo) <> 10){
+    echo '  
+        <script>  
+            alert("Código inválido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if(strlen($password) < 6){
+    echo '  
+        <script>  
+            alert("Contraseña debe tener mínimo 6 carateres.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if(strlen($celular) <> 9){
+    echo '  
+        <script>  
+            alert("Teléfono inválido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
 //recordar que idRoles ahora esta en otra tabla
 $query = "INSERT INTO usuario(codigo, contrasena, correo, fecha_creacion, nombre1,
     nombre2, apellido1, apellido2, celular, direccion, id_escuela, id_tipodoc, numDocumento, distrito, nro_departamento)
@@ -71,3 +99,4 @@ if ($ejecutar and $ejecutar2 and $ejecutar3) {
 }
 
 mysqli_close($conexion);
+?>
