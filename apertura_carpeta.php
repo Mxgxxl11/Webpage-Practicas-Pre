@@ -12,6 +12,12 @@ $apellidos = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 $nombre = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $nt_fut = 'NT:' . $_SESSION['nt'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
+$ciclo = '';
+if (date('m') < 9) {
+    $ciclo = date('Y') . ' - 1';
+} else {
+    $ciclo = date('Y') . ' - 2';
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,9 +44,10 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
             </div>
             <div id="complete" class="container2" style="<?php echo $mostrarDiv === '3' ? 'display:block;' : 'display:none;' ?>">
                 <h2>Necesitas completar el NT para continuar con este tramite</h2>
+                <p>*Ingresar número de tramite sin el año</p>
                 <div class="form-group">
                     <label for="nt">NT :</label>
-                    <input type="text" name="nt" id="nt" required>
+                    <input type="number" name="nt" id="nt" required>
                 </div>
                 <div class="form-group">
                     <div class="buttons">
@@ -166,7 +173,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <input type="text" id="nombre" value="<?php echo $nombre; ?>" style="display: none;">
                 <input type="text" id="escuela_profesional" value="<?php echo $_SESSION['escuela_profesional']; ?>" style="display: none;">
                 <input type="text" id="codigo_ins" value="<?php echo $_SESSION['codigo_institucional']; ?>" style="display: none;">
-                <input type="text" id="semestre" value="<?php echo date('Y') . ' - 1'; ?>" style="display: none;">
+                <input type="text" id="semestre" value="<?php echo $ciclo; ?>" style="display: none;">
                 <input type="text" id="celular" value="<?php echo $_SESSION['celular']; ?>" style="display: none;">
                 <input type="text" id="correo" value="<?php echo $_SESSION['Correo_Institucional']; ?>" style="display: none;">
 
