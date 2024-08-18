@@ -1,12 +1,20 @@
 <?php  
 include 'bd.php'; 
 session_start();  
-
+date_default_timezone_set('America/Lima');
 define('RUTA_DEF_CARPETA', './../carpetas_virtuales/'); 
 
 $codigo = $_SESSION['codigo_institucional']; 
 $informe3 = $_FILES['informe3'];
 $fecha_subida = $_POST['fechaInforme3'];
+
+$fechaHoy = date('Y-m-d');
+
+if($fecha_subida !== $fechaHoy){
+    echo '  
+        La fecha de registro debe ser la fecha de hoy.';  
+    exit(); 
+}
 
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
 $row = mysqli_fetch_assoc($result);  
