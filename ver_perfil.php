@@ -109,6 +109,7 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
                                 <option value="ATE">ATE</option>
                                 <option value="BARRANCO">BARRANCO</option>
                                 <option value="BREÑA">BREÑA</option>
+                                <option value="CALLAO">CALLAO</option>
                                 <option value="CARABAYLLO">CARABAYLLO</option>
                                 <option value="CHACLACAYO">CHACLACAYO</option>
                                 <option value="CHORRILLOS">CHORRILLOS</option>
