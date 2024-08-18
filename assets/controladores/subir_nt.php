@@ -4,6 +4,12 @@ session_start();
 $codigo = $_SESSION['codigo_institucional'];
 $nt = $_POST['nt'];
 
+if(strlen($nt) <> 6){
+    echo '  
+        Número de tramite invalido.';  
+    exit(); 
+}
+
 $query2 = "UPDATE alumno SET nt = '$nt' WHERE id_usuario = '$codigo';";
 $stmt2 = mysqli_prepare($conexion, $query2);
 if (!$stmt2) {  
