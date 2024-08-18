@@ -1,7 +1,7 @@
 <?php  
 include 'bd.php'; 
 session_start();  
-
+date_default_timezone_set('America/Lima');
 define('RUTA_DEF_CARPETA', './../carpetas_virtuales/'); 
 
 $codigo = $_SESSION['codigo_institucional']; 
@@ -17,6 +17,19 @@ $id_tipoSolicitud = 2;
 $estado = "Iniciado";
 $numLiquidacion = 0;
 $nt = 0;
+$fechaHoy = date('Y-m-d');
+
+if($fechaRegistroS !== $fechaHoy){
+    echo '  
+        La fecha de registro debe ser la fecha de hoy.';  
+    exit(); 
+}
+
+if($fechaRecord > $fechaHoy){
+    echo '  
+        La fecha del record acádemico debe ser anterior a la fecha de hoy.';  
+    exit(); 
+}
 
 // Obtener el id_rol basado en el código  
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
@@ -127,3 +140,4 @@ if ($ejecutar && $ejecutar2) {
 }  
 
 mysqli_close($conexion);
+?>
