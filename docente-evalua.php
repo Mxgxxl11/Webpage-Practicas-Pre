@@ -192,20 +192,20 @@ try {
             <!-- DOCENTE ENVIA PRACTICA AL ALUMNO--->
             <div class="container2" style="<?php echo $mostrarDiv === 11 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Examen de PRACTICA PRE-PROFESIONAL</h2>
+                <form action="assets/controladores/enviar_examen.php" method="post">
                 <div class="form-group">
-                    <label for="fechaRegistro">Fecha de Registro:</label>
-                    <input type="date" id="fechaRegistro" class="date-picker">
+                    <label for="fechaExam">Fecha de Examen (Hoy):</label>
+                    <input type="date" id="fechaExam" class="date-picker" required>
                 </div>
 
                 <div class="form-group">
-                    <div class="buttons">
-                        <button id="(DocFinal)descargar informe" type="button" class="btn-small">Adjuntar examen</button>
-                    </div>
+                    <input id="exam" type="file" accept=".pdf" required>
                 </div>
 
                 <div class=" btn">
                     <button type="submit" class="btn">Enviar examen</button>
                 </div>
+                </form>
             </div>
             
             <div id="complete" class="container2" style="<?php echo $mostrarDiv === 12 ? 'display:block;' : 'display:none;'; ?>">
