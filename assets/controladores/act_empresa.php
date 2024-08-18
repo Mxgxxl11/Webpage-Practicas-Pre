@@ -14,6 +14,24 @@ $cargoRepresentante = $_POST['cargoRepresentante'];
 $dniRepresentante = $_POST['dniRepresentante'];
 $direccionRepresentante = $_POST['direccionRepresentante'];
 
+if(strlen($dniRepresentante) <> 8){
+    echo '  
+        Número de DNI inválido';  
+    exit(); 
+}
+
+if(strlen($celularRepresentante) <> 9){
+    echo '  
+        Número de teléfono inválido';  
+    exit(); 
+}
+
+if(strlen($rucEmpresa) <> 11){
+    echo '  
+        Ingrese un número RUC valido';  
+    exit(); 
+}
+
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
 $row = mysqli_fetch_assoc($result);
 $id_alumno = $row['id_alumno'];
