@@ -87,7 +87,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                         <div class="ambos">
                             <p class="texto_izquierdo" id="text3"><strong>EVALUACION FINAL</strong></p>
                         </div>
-                        <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv >= '11' ? 'Completo' : 'Incompleto'; ?></strong></p>
+                        <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv >= '15' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Documentos:</strong></p>
                         <p class="texto_izquierdo" id="text4">- Examen final resuelto</p>
                         <button onclick="abrir_evaluacion()">Iniciar</button>
