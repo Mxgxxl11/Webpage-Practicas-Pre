@@ -1,7 +1,7 @@
 <?php
 include 'bd.php';
 session_start();
-
+date_default_timezone_set('America/Lima');
 $codigo = $_SESSION['codigo_institucional'];
 $apellidos = $_SESSION['primer_apellido'] . '_' . $_SESSION['segundo_apellido'];
 $fechaRegistro = $_POST['fechaRegistro'];
@@ -16,31 +16,23 @@ $id_tipoSolicitud = 1;
 $estado = "Iniciado";
 $nombre_carpeta = "carpeta";
 $nt = 0;
+$fechaHoy = date('Y-m-d');
 
-if($fechaRegistro <> date("Y-m-d")){
+if($fechaRegistro !== $fechaHoy){
     echo '  
-        <script>  
-            alert("La fecha de registro debe ser la fecha de hoy.");   
-            window.location = "./../../carta_presentacion.php";
-        </script>';  
+        La fecha de registro debe ser la fecha de hoy.';  
     exit(); 
 }
 
-if($fechaRecord > date("Y-m-d")){
+if($fechaRecord > $fechaHoy){
     echo '  
-        <script>  
-            alert("La fecha del record acádemico debe ser anterior a la fecha de hoy.");   
-            window.location = "./../../carta_presentacion.php";
-        </script>';  
+        La fecha del record acádemico debe ser anterior a la fecha de hoy.';  
     exit(); 
 }
 
 if(strlen($numLiquidacion) <> 10){
     echo '  
-        <script>  
-            alert("Número de liquidacion invalido.");   
-            window.location = "./../../carta_presentacion.php";
-        </script>';  
+        Número de liquidacion invalido.';  
     exit(); 
 }
 
