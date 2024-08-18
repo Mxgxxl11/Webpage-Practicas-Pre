@@ -17,6 +17,33 @@ $estado = "Iniciado";
 $nombre_carpeta = "carpeta";
 $nt = 0;
 
+if($fechaRegistro <> date("Y-m-d")){
+    echo '  
+        <script>  
+            alert("La fecha de registro debe ser la fecha de hoy.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if($fechaRecord > date("Y-m-d")){
+    echo '  
+        <script>  
+            alert("La fecha del record acádemico debe ser anterior a la fecha de hoy.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if(strlen($numLiquidacion) <> 10){
+    echo '  
+        <script>  
+            alert("Número de liquidacion invalido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
 // Obtener el id_rol basado en el código  
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");
 $row = mysqli_fetch_assoc($result);
@@ -147,3 +174,4 @@ if ($ejecutar and $ejecutar2 and $ejecutar_cp and $ejecutar_u) {
 }
 
 mysqli_close($conexion);
+?>
