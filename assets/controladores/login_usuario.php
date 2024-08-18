@@ -10,14 +10,14 @@ $contrasena = hash('sha512', $contrasena);
 $query = "SELECT u.*, a.id_rol, a.id_usuario
           FROM usuario u
           JOIN acceso a ON u.codigo = a.id_usuario
-          WHERE (u.correo = '$correo' AND u.contraseña = '$contrasena')";
+          WHERE (u.correo = '$correo' AND u.contrasena = '$contrasena')";
 
 $resultado = mysqli_query($conexion, $query);
 
 $result = mysqli_query($conexion, "SELECT a.id_usuario
           FROM usuario u
           JOIN acceso a ON u.codigo = a.id_usuario
-          WHERE (u.correo = '$correo' AND u.contraseña = '$contrasena')");  
+          WHERE (u.correo = '$correo' AND u.contrasena = '$contrasena')");  
 $row = mysqli_fetch_assoc($result);  
 $id_usuario = $row['id_usuario'];
 
@@ -97,3 +97,4 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
     exit();
 }
 mysqli_close($conexion);
+?>
