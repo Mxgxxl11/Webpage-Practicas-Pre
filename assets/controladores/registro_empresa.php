@@ -19,6 +19,33 @@ $cargoRepresentante = $_POST['cargoRepresentante'];
 $dniRepresentante = $_POST['dniRepresentante'];
 $direccionRepresentante = $_POST['direccionRepresentante'];
 
+if(strlen($dniRepresentante) <> 8){
+    echo '  
+        <script>  
+            alert("Número de DNI inválido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if(strlen($celularRepresentante) <> 9){
+    echo '  
+        <script>  
+            alert("Número de teléfono inválido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if(strlen($rucEmpresa) <> 11){
+    echo '  
+        <script>  
+            alert("Número de RUC inválido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
 // Preparar la consulta SQL para insertar los datos en empresa
 $query = "INSERT INTO empresa (nombre_empresa, ruc_empresa, celular_repre, email_repre, provincia_empre, distrito_empre, representante, dni_repre, direccion_empre, departamento_empre, cargo_representante) 
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -69,3 +96,4 @@ if (mysqli_stmt_execute($stmt2)) {
 mysqli_stmt_close($stmt);
 mysqli_stmt_close($stmt2);
 mysqli_close($conexion);
+?>
