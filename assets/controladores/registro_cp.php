@@ -34,7 +34,7 @@ if($base > (date("Y") - 4) && $estado === 'Estudiante'){
 if($estado === 'Estudiante' && ($semestre === '' || $seccion === '')){
     echo '  
         <script>  
-            alert("Debes seleccionar un semestre y una seccion para poder continuar.");   
+            alert("Si eres alumno debes seleccionar un semestre y una seccion para poder continuar.");   
             window.location = "./../../carta_presentacion.php";
         </script>';  
     exit(); 
