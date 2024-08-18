@@ -1,6 +1,7 @@
 <?php  
 include 'bd.php'; 
 session_start();  
+date_default_timezone_set('America/Lima');
 $codigo = $_SESSION['codigo_institucional'];
 $jefeInmediato = $_POST['jefeInmediato'];
 $areaTrabajo = $_POST['areaTrabajo'];
@@ -16,7 +17,19 @@ $culminacion = new DateTime($fechaCulminacion);
 
 $intervalo = $inicio->diff($culminacion);  
 $meses = $intervalo->y * 12 + $intervalo->m; // Total de meses  
-$horas = ($intervalo->days * 24) + $intervalo->h; // Total de horas 
+$horas = ($intervalo->days * 6) + $intervalo->h; // Total de horas 
+
+if($horas < 780){
+    echo '  
+        Error en las fechas, no has completado tus horas.';  
+    exit();
+}
+
+if(strlen($telefonoCelular) <> 9){
+    echo '  
+        Número de teléfono inválido.';  
+    exit(); 
+}
 
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
 $row = mysqli_fetch_assoc($result);
