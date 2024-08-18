@@ -54,25 +54,38 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         </div>
                         <div>
                             <label for="p-curricular">Plan curricular:</label>
-                            <input type="text" id="p-curricular" name="p-curricular" required/>
+                            <select id="p-curricular" name="p-curricular" required>
+                            <option value="2019">Malla 2019</option>
+                            <option value="Malla anterior">Malla anterior</option>
+                            </select>
                         </div>
-                        <div>
+                        <div style="margin-top: 10px;">
                             <label for="base">Base:</label>
                             <input type="text" id="base" name="base" required/>
                         </div>
                         <div>
+                            <label for="condicion">Condición:</label>
+                            <select id="condicion" name="condicion" required>
+                                <option value="Estudiante">Estudiante</option>
+                                <option value="Egresado">Egresado</option>
+                            </select>
+                        </div>
+                        <div style="margin-top: 10px;">
                             <label for="semestre">Semestre:</label>
-                            <input type="text" id="semestre" name="semestre" required/>
+                            <select id="semestre" name="semestre">
+                            <option value="">---</option>
+                            <option value="9no">9no</option>
+                            <option value="10mo">10mo</option>
+                            </select>
                         </div>
-                        <div>
+                        <div style="margin-top: 10px;">
                             <label for="seccion">Sección:</label>
-                            <input type="text" id="seccion" name="seccion" required/>
+                            <select id="seccion" name="seccion">
+                            <option value="">---</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            </select>
                         </div>
-                        <label for="condicion">Condición:</label>
-                        <select id="condicion" name="condicion" required>
-                            <option value="1">Estudiante</option>
-                            <option value="2">Egresado</option>
-                        </select>
                         <div class="form-buttons">
                             <button style="margin-top: 10px;" type="submit">Siguiente</button>
                         </div>
@@ -243,11 +256,6 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     <div class="form-group">
                         <label for="archivo4">Archivo:</label>
                         <input accept=".pdf" id="archivo4" name="archivo4" type="file" value="enviar comprobante">
-
-                        <div class="buttons">
-
-                            <button type="button" class="btn-small">Eliminar</button>
-                        </div>
                     </div>
                    
                 </div>
