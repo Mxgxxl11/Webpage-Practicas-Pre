@@ -1,7 +1,7 @@
 <?php  
 include 'bd.php'; 
 session_start();  
-
+date_default_timezone_set('America/Lima');
 // Obtener los datos del formulario   
 $codigo = $_POST['codigo'];  
 $planCurricular = $_POST['p-curricular'];  
@@ -34,7 +34,7 @@ if($base > (date("Y") - 4) && $estado === 'Estudiante'){
 if($estado === 'Estudiante' && ($semestre === '' || $seccion === '')){
     echo '  
         <script>  
-            alert("Si eres alumno debes seleccionar un semestre y una seccion para poder continuar.");   
+            alert("Debes seleccionar un semestre y una seccion para poder continuar.");   
             window.location = "./../../carta_presentacion.php";
         </script>';  
     exit(); 
