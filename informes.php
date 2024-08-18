@@ -34,6 +34,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
             <div class="container2" style="<?php echo $mostrarDiv === '5' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Primer Informe</h2>
                 <p>Nota: El primer informe se debe subir 30 dias despues de la fecha de inicio de sus practicas pre profesionales</p>
+                <p>Descargue el formato aquí: <a href="https://web.unfv.edu.pe/facultades/fiei/images/oficinas/practicas_preprofesionales/formato_a_1_1.pdf" target="_blank">descargar</a></p>
                 <div class="form-group">
                     <label for="fechaInforme1">Fecha de Subida:</label>
                     <input type="date" name="fechaInforme1" id="fechaInforme1" class="date-picker" required>
@@ -48,8 +49,8 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
             </div>
             <div class="container2" style="<?php echo $mostrarDiv === '6' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Segundo Informe</h2>
-                <p>Nota: El segundo informe se debe subir 90 dias despues de la 
-                    fecha de inicio de sus practicas pre profesionales</p>
+                <p>Nota: El segundo informe se debe subir 90 dias despues de la fecha de inicio de sus practicas pre profesionales</p>
+                <p>Descargue el formato aquí: <a href="https://web.unfv.edu.pe/facultades/fiei/images/oficinas/practicas_preprofesionales/formato_b_1_2.pdf" target="_blank">descargar</a></p>
                 <div class="form-group">
                     <label for="fechaInforme2">Fecha de Subida:</label>
                     <input type="date" name="fechaInforme2" id="fechaInforme2" class="date-picker" required>
@@ -64,8 +65,8 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
             </div>
             <div class="container2" style="<?php echo $mostrarDiv === '7' ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Tercer Informe</h2>
-                <p>Nota: El tercer informe se debe subir al culminar sus practicas pre profesionales 
-                    desde la fecha de inicio de sus practicas pre profesionales</p>
+                <p>Nota: El tercer informe se debe subir al culminar sus practicas pre profesionales desde la fecha de inicio de sus practicas pre profesionales</p>
+                <p>Descargue el formato aquí: <a href="https://web.unfv.edu.pe/facultades/fiei/images/oficinas/practicas_preprofesionales/formato_c_1_3.pdf" target="_blank">descargar</a></p>
                 <div class="form-group">
                     <label for="fechaInforme3">Fecha de Subida:</label>
                     <input type="date" name="fechaInforme3" id="fechaInforme3" class="date-picker" required>
