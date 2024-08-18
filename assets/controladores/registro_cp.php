@@ -17,9 +17,37 @@ if (mysqli_num_rows($verificarCodigo) == 0) {
     echo '  
         <script>  
             alert("Código no encontrado en el sistema.");   
+            window.location = "./../../carta_presentacion.php";
         </script>';  
     exit();  
 }  
+
+if($base > (date("Y") - 4) && $estado === 'Estudiante'){
+    echo '  
+        <script>  
+            alert("Debes ser de una base menor para poder continuar.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if($estado === 'Estudiante' && ($semestre === '' || $seccion === '')){
+    echo '  
+        <script>  
+            alert("Debes seleccionar un semestre y una seccion para poder continuar.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
+
+if($base > (date("Y") - 5) && $estado === 'Egresado'){
+    echo '  
+        <script>  
+            alert("Debes ser de una base menor para ser egresado.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';  
+    exit(); 
+}
 
 $verificarCodigo2 = mysqli_query($conexion, "SELECT * FROM alumno WHERE id_usuario = '$codigo'");   
 
