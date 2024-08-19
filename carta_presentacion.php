@@ -10,8 +10,10 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $apellidos = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 $nombres = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
-$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
+$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_guardada'] : '';
+
+$base = substr($_SESSION['codigo_institucional'], 0, 4);
 
 ?>
 
@@ -24,7 +26,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
     <title>Mesa de partes</title>
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -40,12 +42,12 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     <div class="profile-fields">
                         <div>
                             <label for="codigo">Código:</label>
-                            <input type="text" id="codigo" name="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly/>
+                            <input type="text" id="codigo" name="codigo" value="<?php echo $_SESSION['codigo_institucional']; ?>" readonly />
                             <div class="error-message" id="codigo-error"></div>
                         </div>
                         <div>
                             <label for="name">Nombres y Apellidos:</label>
-                            <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly/>
+                            <input type="text" id="name" name="name" value="<?php echo $nombre_completo; ?>" readonly />
                             <div class="error-message" id="name-error"></div>
                         </div>
                         <div>
@@ -55,13 +57,13 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <div>
                             <label for="p-curricular">Plan curricular:</label>
                             <select id="p-curricular" name="p-curricular" required>
-                            <option value="2019">Malla 2019</option>
-                            <option value="Malla anterior">Malla anterior</option>
+                                <option value="2019">Malla 2019</option>
+                                <option value="Malla anterior">Malla 2015</option>
                             </select>
                         </div>
                         <div style="margin-top: 10px;">
                             <label for="base">Base:</label>
-                            <input type="text" id="base" name="base" required/>
+                            <input type="text" id="base" name="base" value="<?php echo $base; ?>" required readonly/>
                         </div>
                         <div>
                             <label for="condicion">Condición:</label>
@@ -73,17 +75,17 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <div style="margin-top: 10px;">
                             <label for="semestre">Semestre:</label>
                             <select id="semestre" name="semestre">
-                            <option value="">---</option>
-                            <option value="9no">9no</option>
-                            <option value="10mo">10mo</option>
+                                <option value="">---</option>
+                                <option value="9no">9no</option>
+                                <option value="10mo">10mo</option>
                             </select>
                         </div>
                         <div style="margin-top: 10px;">
                             <label for="seccion">Sección:</label>
                             <select id="seccion" name="seccion">
-                            <option value="">---</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
+                                <option value="">---</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
                             </select>
                         </div>
                         <div class="form-buttons">
@@ -128,12 +130,12 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <input type="date" name="fechaRegistro" id="fechaRegistro" class="date-picker">
                     </div>
                     <div class="form-group">
-                            <label for="firma">Subir firma:</label>
-                            <input type="file" name="firma" id="firma" accept="image/*" onchange="previewImage(event)" required>
-                            <div id="imagePreviewContainer">  
-                                <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;"/>  
-                            </div>
+                        <label for="firma">Subir firma:</label>
+                        <input type="file" name="firma" id="firma" accept="image/*" onchange="previewImage(event)" required>
+                        <div id="imagePreviewContainer">
+                            <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;" />
                         </div>
+                    </div>
                     <div class="form-group">
                         <label for="archivo1">Archivo:</label>
                         <div class="buttons">
@@ -158,7 +160,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <label for="archivo2">Archivo:</label>
                         <input accept=".pdf" id="archivo2" name="archivo2" type="file" value="enviar record">
                     </div>
-                  
+
                 </div>
 
                 <div class="container2">
@@ -171,76 +173,76 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <label for="archivo3">Archivo:</label>
                         <input accept=".pdf" id="archivo3" name="archivo3" type="file" value="enviar ficha">
                     </div>
-                    
+
                 </div>
 
-    <!-- DATOS DE LA EMPRESA    ---------------------------->            
-    <div class="container2">
-        <input type="text" id="apellidos" value="<?php echo $apellidos; ?>" style="display: none;">
-        <input type="text" id="nombres" value="<?php echo $nombres; ?>" style="display: none;">
-        <h2>Cuarto Requisito: DATOS DE LA EMPRESA</h2>
-        <div class="form-group">
-            <label for="nombreEmpresa">Nombre:</label>
-            <input type="text" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre de la empresa" required>
-        </div>
-        <div class="form-group">
-            <label for="rucEmpresa">RUC:</label>
-            <input type="text" id="rucEmpresa" name="rucEmpresa" placeholder="RUC de la empresa" required>
-        </div>
-        <div class="form-group">
-            <label for="provinciaEmpresa">Provincia:</label>
-            <input type="text" id="provinciaEmpresa" name="provinciaEmpresa" placeholder="Provincia" required>
-        </div>
-        <div class="form-group">
-            <label for="departamentoRepresentante">Departamento:</label>
-            <input type="text" id="departamentoRepresentante" name="departamentoRepresentante" placeholder="Departamento" required>
-        </div>
-        <div class="form-group">
-            <label for="DistritoEmpresa">Distrito:</label>
-            <input type="text" id="DistritoEmpresa" name="DistritoEmpresa" placeholder="Distrito" required>
-        </div>
-        <div class="form-group">
-            <label for="direccionRepresentante">Dirección:</label>
-            <input type="text" id="direccionRepresentante" name="direccionRepresentante" placeholder="Dirección del representante" required>
-        </div>
+                <!-- DATOS DE LA EMPRESA    ---------------------------->
+                <div class="container2">
+                    <input type="text" id="apellidos" value="<?php echo $apellidos; ?>" style="display: none;">
+                    <input type="text" id="nombres" value="<?php echo $nombres; ?>" style="display: none;">
+                    <h2>Cuarto Requisito: DATOS DE LA EMPRESA</h2>
+                    <div class="form-group">
+                        <label for="nombreEmpresa">Nombre:</label>
+                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre de la empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rucEmpresa">RUC:</label>
+                        <input type="text" id="rucEmpresa" name="rucEmpresa" placeholder="RUC de la empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="provinciaEmpresa">Provincia:</label>
+                        <input type="text" id="provinciaEmpresa" name="provinciaEmpresa" placeholder="Provincia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departamentoRepresentante">Departamento:</label>
+                        <input type="text" id="departamentoRepresentante" name="departamentoRepresentante" placeholder="Departamento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="DistritoEmpresa">Distrito:</label>
+                        <input type="text" id="DistritoEmpresa" name="DistritoEmpresa" placeholder="Distrito" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccionRepresentante">Dirección:</label>
+                        <input type="text" id="direccionRepresentante" name="direccionRepresentante" placeholder="Dirección del representante" required>
+                    </div>
 
-        <h3>DATOS DEL REPRESENTANTE DE LA EMPRESA</h3>
-        <div class="form-group">
-            <label for="nombreRepresentante">Nombre del Representante:</label>
-            <input type="text" id="nombreRepresentante" name="nombreRepresentante" placeholder="Nombre del representante" required>
-        </div>
-        <div class="form-group">
-            <label for="dniRepresentante">DNI del Representante:</label>
-            <input type="text" id="dniRepresentante" name="dniRepresentante" placeholder="DNI del representante" required>
-        </div>
-        <div class="form-group">
-            <label for="cargoRepresentante">Cargo del Representante:</label>
-            <input type="text" id="cargoRepresentante" name="cargoRepresentante" placeholder="Cargo del representante" required>
-        </div>
-        <div class="form-group">
-            <label for="celularRepresentante">Celular del Representante:</label>
-            <input type="text" id="celularRepresentante" name="celularRepresentante" placeholder="Celular del representante" required>
-        </div>
-        <div class="form-group">
-            <label for="emailRepresentante">Email del Representante:</label>
-            <input type="email" id="emailRepresentante" name="emailRepresentante" placeholder="Email del representante" required>
-        </div>
-                <p>*Si por algún error guardó datos incorrectos, solo corrija y presione modificar</p>
-                <p>*Presionar visualizar para cargar los datos en el FUT antes de continuar</p>
-        <div class="form-group">
-            <div class="buttons">
-                <button id="guardar" class="btn-small" style="background-color: red;">Guardar</button>
-                <button id="ModificarDoc" type="button " class="btn-small">Modificar</button>
-                <button id="Previsualizacion" type="button" class="btn-small" style="background-color: red;">Visualizar</button>
-            </div>
-            
-        </div>
-        <div id="preview-container">
+                    <h3>DATOS DEL REPRESENTANTE DE LA EMPRESA</h3>
+                    <div class="form-group">
+                        <label for="nombreRepresentante">Nombre del Representante:</label>
+                        <input type="text" id="nombreRepresentante" name="nombreRepresentante" placeholder="Nombre del representante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dniRepresentante">DNI del Representante:</label>
+                        <input type="text" id="dniRepresentante" name="dniRepresentante" placeholder="DNI del representante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cargoRepresentante">Cargo del Representante:</label>
+                        <input type="text" id="cargoRepresentante" name="cargoRepresentante" placeholder="Cargo del representante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="celularRepresentante">Celular del Representante:</label>
+                        <input type="text" id="celularRepresentante" name="celularRepresentante" placeholder="Celular del representante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailRepresentante">Email del Representante:</label>
+                        <input type="email" id="emailRepresentante" name="emailRepresentante" placeholder="Email del representante" required>
+                    </div>
+                    <p>*Si por algún error guardó datos incorrectos, solo corrija y presione modificar</p>
+                    <p>*Presionar visualizar para cargar los datos en el FUT antes de continuar</p>
+                    <div class="form-group">
+                        <div class="buttons">
+                            <button id="guardar" class="btn-small" style="background-color: red;">Guardar</button>
+                            <button id="ModificarDoc" type="button " class="btn-small">Modificar</button>
+                            <button id="Previsualizacion" type="button" class="btn-small" style="background-color: red;">Visualizar</button>
+                        </div>
+
+                    </div>
+                    <div id="preview-container">
                         <iframe id="pdf-preview2" width="100%" height="430px" style="border: 1px solid black;"></iframe>
                     </div>
-           </div>
-          </form>
-              <!---------------------------------  -------------------------------------------->              
+                </div>
+                </form>
+                <!---------------------------------  -------------------------------------------->
 
 
                 <div class="container2">
@@ -257,7 +259,7 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                         <label for="archivo4">Archivo:</label>
                         <input accept=".pdf" id="archivo4" name="archivo4" type="file" value="enviar comprobante">
                     </div>
-                   
+
                 </div>
 
                 <div class="container2">
@@ -265,25 +267,26 @@ $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_gu
                     <div class="form-group">
                         <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                         <div class="form-group">
-                    <div class="buttons">
-                        <button id="DocFinal" type="button" class="btn-small">Descargar Documento</button>
-                    </div>
+                            <div class="buttons">
+                                <button id="DocFinal" type="button" class="btn-small">Descargar Documento</button>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br>
-            
+                <br>
+
         </main>
         <div id="complete" class="container2" style="<?php echo $mostrarDiv >= '3' ? 'display:block;' : 'display:none;'; ?>">
-                <h2>Proceso ya completado</h2>
-                <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
-                <p>Debe de enviar el archivo PDF antes descargado al link de arriba</p>
-                <div class="form-buttons">
-                    <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
-                </div>
+            <h2>Proceso ya completado</h2>
+            <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
+            <p>Debe de enviar el archivo PDF antes descargado al link de arriba</p>
+            <div class="form-buttons">
+                <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
             </div>
+        </div>
     </div>
     <script src="assets/js/mesadepartes.js"></script>
 </body>
+
 </html>

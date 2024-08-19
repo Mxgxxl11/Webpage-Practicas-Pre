@@ -30,7 +30,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="carta_presentacion">
                     <div class="desc">
                         <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>CARTA DE PRESENTACIÓN</strong></p>
+                            <p class="texto_izquierdo" id="text3"><strong>1. CARTA DE PRESENTACIÓN</strong></p>
                         </div>
                         <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv >= '3' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Requisitos:</strong></p>
@@ -48,7 +48,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <img src="https://cdn-icons-png.freepik.com/512/9746/9746449.png" alt="apertura_carpeta">
                     <div class="desc">
                         <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>APERTURA DE CARPETA</strong></p>
+                            <p class="texto_izquierdo" id="text3"><strong>2. APERTURA DE CARPETA</strong></p>
                         </div>
                         <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv >= '5' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Requisitos:</strong></p>
@@ -67,7 +67,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <img src="https://img.freepik.com/vector-premium/icono-carpeta-archivo-almacenamiento-datos-color-documentos-computadora_53562-18585.jpg" alt="informes">
                     <div class="desc">
                         <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>INFORMES</strong></p>
+                            <p class="texto_izquierdo" id="text3"><strong>3. INFORMES</strong></p>
                         </div>
                         <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv >= '10' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Documentos:</strong></p>
@@ -85,7 +85,7 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                     <img src="https://cdn-icons-png.flaticon.com/512/4420/4420106.png" style="height: 32%;" alt="evaluación">
                     <div class="desc">
                         <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>EVALUACION FINAL</strong></p>
+                            <p class="texto_izquierdo" id="text3"><strong>4. EVALUACIÓN FINAL</strong></p>
                         </div>
                         <p class="texto_derecho" id="text2"><strong><?php echo $mostrarDiv >= '15' ? 'Completo' : 'Incompleto'; ?></strong></p>
                         <p class="texto_izquierdo" id="text1"><strong>Documentos:</strong></p>

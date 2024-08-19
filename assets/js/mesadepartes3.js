@@ -1,3 +1,12 @@
+//Validaciones
+//para el nt
+document.getElementById("nt").addEventListener("input",function(a){
+  let valor = a.target.value;
+  if(valor.length > 6){
+      a.target.value = valor.slice(0, 6);
+  }
+})
+
 function previewImage(event) {  
   const file = event.target.files[0];  
   const imagePreview = document.getElementById('imagePreview');  

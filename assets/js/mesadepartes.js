@@ -83,6 +83,37 @@ function closeModal() {
   document.getElementById('imageModal').style.display = 'none';
 }
 
+//VALIDACIONES PARA CARTA_PRESENTACION.PHP
+//para el ruc de la empresa
+document.getElementById("rucEmpresa").addEventListener("input",function(a){
+  let valor = a.target.value;
+  if(valor.length > 11){
+      a.target.value = valor.slice(0, 11);
+  }
+})
+//para el DNI del representante de la empresa
+document.getElementById("dniRepresentante").addEventListener("input",function(a){
+  let valor = a.target.value;
+  if(valor.length > 8){
+      a.target.value = valor.slice(0, 8);
+  }
+})
+//para el celular del representante de la empresa
+document.getElementById("celularRepresentante").addEventListener("input",function(a){
+  let valor = a.target.value;
+  if(valor.length > 9){
+      a.target.value = valor.slice(0, 9);
+  }
+})
+//para el número de liquidación del comprobante de pago
+document.getElementById("numLiquidacion").addEventListener("input",function(a){
+  let valor = a.target.value;
+  if(valor.length > 10){
+      a.target.value = valor.slice(0, 10);
+  }
+})
+
+
 
 //Botones de tramite
 function iniciar_cp() {
