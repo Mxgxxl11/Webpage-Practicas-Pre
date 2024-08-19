@@ -36,7 +36,7 @@ if (isset($_GET['carpeta']) && isset($_GET['nombre_carpeta'])) {
     } else {
         echo '
             <script>
-                alert("La carpeta no existe");
+                alert("La carpeta no existe debido a que el alumno aún no la apertura");
                 window.location = "./carpeta_virtual.php";
             </script>
         ';

@@ -69,12 +69,9 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
     ';
     }
 } else {
-    
-    die("Error en la consulta SQL: " . mysqli_error($conexion));
-    
-    //echo "No se encontraron datos para el alumno con código: $codigo_alumno.";
-    /*<script>
+    echo'
+    <script>
             alert("No se encontraron datos suficientes para el alumno con código: ' . $codigo_alumno . '");
             window.location = "carpeta_virtual.php"; 
-        </script>*/
+        </script>';
 }

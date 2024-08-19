@@ -109,7 +109,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                     <br>
                     <div class="form-grid">
                         <div class="entrada">
-                            <label for="codigo">Codigo Usuario Villarreal:</label>
+                            <label for="codigo">Código Usuario Villarreal:</label>
                             <input type="number" id="codigo" name="codigo" maxlength="10" autocomplete="off" title="Recuerda tu codigo son 10 dígitos" required />
                         </div>
                         <div class="entrada">
@@ -212,7 +212,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                             <input type="number" id="dpto" name="dpto" autocomplete="off" />
                         </div>
                         <div class="entrada">
-                            <label for="correo">Correo Electronico:</label>
+                            <label for="correo">Correo Electrónico:</label>
                             <input type="email" id="correo" name="correo" autocomplete="off" required />
                         </div>
                         <div class="entrada">
