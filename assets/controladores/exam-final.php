@@ -10,11 +10,7 @@ $fechaExamen = $_POST['fechaExamen'];
 $fechaHoy = date('Y-m-d');
 
 if($fechaExamen !== $fechaHoy){
-    echo '  
-        <script>  
-            alert("La fecha de envío del examen debe ser la fecha actual.");   
-            window.location = "./../../evaluacion.php";
-        </script>';  
+    echo 'La fecha de envío del examen debe ser la fecha actual.';
     exit(); 
 }
 
