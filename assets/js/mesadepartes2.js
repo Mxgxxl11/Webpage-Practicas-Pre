@@ -155,9 +155,6 @@ $(document).ready(function() {
 
   $(document).ready(function() {  
     $('#d_e_f').click(function() {  
-        // Obtener los valores de los inputs  
-        var id_alumno = $('#id_alumno').val();  
-        
         // Redirigir a la URL de descarga  
         window.location.href = 'assets/controladores/descargar_exam_final.php?codigo_a=' + encodeURIComponent(id_alumno);  
     });  
