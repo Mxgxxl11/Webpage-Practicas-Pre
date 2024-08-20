@@ -1,5 +1,6 @@
 <?php  
 include 'bd.php'; 
+date_default_timezone_set('America/Lima');
 session_start();  
 $codigo = $_SESSION['codigo_institucional']; 
 $apellidos = $_SESSION['primer_apellido'] . '_' . $_SESSION['segundo_apellido'];
@@ -12,6 +13,13 @@ $cons_empresa = $_FILES['ConsEmpresa'];
 $comprobante = $_FILES['Comprobante'];
 $id_tipoSolicitud = 3;
 $estado = "Solicitado";
+$fechaHoy = date('Y-m-d');
+
+if($FechaSolicitud !== $fechaHoy){
+    echo '  
+        La fecha de solicitud debe ser la fecha de hoy.';  
+    exit(); 
+}
 
 // Obtener el id_rol basado en el código  
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
