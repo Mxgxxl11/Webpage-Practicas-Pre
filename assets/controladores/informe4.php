@@ -65,6 +65,24 @@ if ($informe4['error'] === UPLOAD_ERR_OK) {
     echo "Error al subir el archivo.";  
 }  
 
+// Inserción en la tabla notificaciones
+$query2 = "INSERT INTO notificaciones (id_usuario, id_archivo, tipo_notificacion, mensaje) VALUES (?, ?, ?, ?)";  
+
+$tipo_notificacion = 'Constancia culminación';
+$mensaje = 'Subí la constancia de culminación';
+
+$result3 = mysqli_query($conexion, "SELECT id_archivo FROM archivos WHERE (nombre_archivo = '$nombre_archivo' AND id_carpeta = '$id_carpeta')");  
+$row3 = mysqli_fetch_assoc($result3);  
+$id_archivo = $row3['id_archivo'];
+
+$stmt3 = mysqli_prepare($conexion, $query2);  
+if (!$stmt3) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+}  
+mysqli_stmt_bind_param($stmt3, "iiss", $codigo, $id_archivo, $tipo_notificacion, $mensaje); 
+$ejecutar2 = mysqli_stmt_execute($stmt3);  
+
 $query = "UPDATE paso_cp SET paso = 9 WHERE id_usuario = '$codigo'";
 $stmt2 = mysqli_prepare($conexion, $query);
 
@@ -74,7 +92,7 @@ if (!$stmt2) {
 } 
 $ejecutar = mysqli_stmt_execute($stmt2); 
 
-if ($ejecutar) {  
+if ($ejecutar and $ejecutar2) {  
     $_SESSION['paso_cp'] = '9'; // Cambia esto según el div que desees mostrar  
     echo 'Datos almacenados exitosamente';  
 } else {  
