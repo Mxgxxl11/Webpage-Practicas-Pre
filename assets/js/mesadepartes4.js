@@ -4,6 +4,16 @@ function closeProfileForm() {
 }
 
 $(document).ready(function() {  
+    $('#d_i_f').click(function() {  
+        // Obtener los valores de los inputs  
+        var id_alumno = $('#id_alumno').val();  
+        
+        // Redirigir a la URL de descarga  
+        window.location.href = 'assets/controladores/descargar_informe_final.php?codigo_a=' + encodeURIComponent(id_alumno);  
+    });  
+});
+
+$(document).ready(function() {  
     $('#envi').click(async function() {  
         var calificacion_reporte = $('#calificacion_reporte').val();
         var codigo_a = $('#codigo_a').val();
@@ -26,6 +36,16 @@ $(document).ready(function() {
                 alert('Error al guardar los datos');  
             }  
         });  
+    });  
+});
+
+$(document).ready(function() {  
+    $('#d_e_f_r').click(function() {  
+        // Obtener los valores de los inputs  
+        var id_alumno = $('#id_alumno').val();  
+        
+        // Redirigir a la URL de descarga  
+        window.location.href = 'assets/controladores/descargar_exam_final_resuelto.php?codigo_a=' + encodeURIComponent(id_alumno);  
     });  
 });
 
