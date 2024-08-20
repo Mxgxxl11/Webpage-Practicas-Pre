@@ -53,8 +53,7 @@ try {
                         <th>Nombre</th>
                         <th>Apellido</th>   
                         <th>Mensaje</th>  
-                        <th>Fecha-Hora</th>  
-                        <th>Leido</th>  
+                        <th>Fecha-Hora</th> 
                     </tr>  
                 </thead>  
                 <tbody id="team-member-rows">  
@@ -64,7 +63,7 @@ try {
                     SELECT u.nombre1, u.apellido1, n.mensaje, n.fecha_notificacion, n.leido   
                     FROM notificaciones n   
                     JOIN usuario u ON u.codigo = n.id_usuario  
-                    WHERE n.id_usuario = '$codigo' AND id_profesor = '$id_docente' AND tipo_notificacion <> 'Examen Final'";  
+                    WHERE n.id_usuario = '$codigo' AND id_profesor = '$id_docente' AND tipo_notificacion = 'Examen Final'";  
 
                     $ejecucion = mysqli_query($conexion, $consulta);  
                     
@@ -74,8 +73,7 @@ try {
                             <td><?php echo $filas['nombre1']; ?></td>  
                             <td><?php echo $filas['apellido1']; ?></td>  
                             <td><?php echo $filas['mensaje']; ?></td>  
-                            <td><?php echo $filas['fecha_notificacion']; ?></td>  
-                            <td><?php echo $filas['leido']; ?></td>  
+                            <td><?php echo $filas['fecha_notificacion']; ?></td> 
                         </tr>  
                     <?php   
                     }   
