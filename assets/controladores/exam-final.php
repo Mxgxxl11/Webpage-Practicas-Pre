@@ -28,7 +28,7 @@ if ($exam['error'] === UPLOAD_ERR_OK) {
     }
 
     // Definir la ruta completa donde se almacenará el archivo
-    $ruta_destino = $ruta_carpeta . "/Examen_Final.pdf";
+    $ruta_destino = $ruta_carpeta . "/Examen_Final_Resuelto.pdf";
 
     // Mover el archivo a la carpeta correspondiente
     if (move_uploaded_file($exam['tmp_name'], $ruta_destino)) {
@@ -37,7 +37,7 @@ if ($exam['error'] === UPLOAD_ERR_OK) {
 
         $stmt = $conexion->prepare($sql);
 
-        $nombre_archivo = "Examen Final";
+        $nombre_archivo = "Examen Final Resuelto";
 
         // Enlazar parámetros  
         $stmt->bind_param("isss", $id_carpeta, $nombre_archivo, $fechaExamen, $ruta_destino);
@@ -57,6 +57,29 @@ if ($exam['error'] === UPLOAD_ERR_OK) {
 } else {
     echo "Error al subir el archivo.";
 }
+
+// Inserción en la tabla notificaciones
+$query = "INSERT INTO notificaciones (id_usuario, id_archivo, tipo_notificacion, mensaje, id_profesor) VALUES (?, ?, ?, ?, ?)";  
+
+$tipo_notificacion = 'Examen Final Resuelto';
+$mensaje = 'Subí el examen final resuelto';
+
+$result3 = mysqli_query($conexion, "SELECT id_archivo FROM archivos WHERE (nombre_archivo = '$nombre_archivo' AND id_carpeta = '$id_carpeta')");  
+$row3 = mysqli_fetch_assoc($result3);  
+$id_archivo = $row3['id_archivo'];
+
+$result4 = mysqli_query($conexion, "SELECT id_profesor FROM notificaciones WHERE (tipo_notificacion = 'Examen Final' AND id_usuario = '$codigo')");  
+$row4 = mysqli_fetch_assoc($result4);  
+$id_docente = $row4['id_profesor'];
+
+// Preparar la consulta  
+$stmt3 = mysqli_prepare($conexion, $query);  
+if (!$stmt3) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+}  
+mysqli_stmt_bind_param($stmt3, "iissi", $codigo, $id_archivo, $tipo_notificacion, $mensaje, $id_docente); 
+$ejecutar2 = mysqli_stmt_execute($stmt3);  
 
 $query = "UPDATE paso_cp SET paso = 13 WHERE id_usuario = '$codigo'";
 $stmt2 = mysqli_prepare($conexion, $query);
