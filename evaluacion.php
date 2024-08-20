@@ -86,6 +86,7 @@ try {
             <div class="container2" style="<?php echo $mostrarDiv === 12 ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Subir el Examen Final</h2>
                 <div class="form-group">
+                    <input type="text" value="<?php echo $codigo; ?>" name="id_alumno" id="id_alumno" style="display: none;">
                     <div class="buttons">
                             <button id="d_e_f" name="d_e_f" type="button" class="btn-small">Descargar Examen Final</button>
                     </div>
