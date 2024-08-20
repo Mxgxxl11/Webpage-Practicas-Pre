@@ -14,7 +14,10 @@ $nombre_archivo = "Examen_final";
 
 if($fechaExam !== $fechaHoy){
     echo '  
-        La fecha de subida del examen debe ser la fecha de hoy.';  
+        <script>  
+            alert("La fecha de envío del examen debe ser la fecha actual.");   
+            window.location = "./../../docente-evalua.php?codigo=' . $codigo_a . '";
+        </script>';  
     exit(); 
 }
 
@@ -85,8 +88,20 @@ if (!$stmt2) {
 mysqli_stmt_bind_param($stmt2, "iissi", $codigo_a, $id_archivo, $tipo_notificacion, $mensaje, $codigo); 
 $ejecutar = mysqli_stmt_execute($stmt2);  
 
-if ($ejecutar) {  
-    echo 'Examen enviado exitosamente';  
+$query2 = "UPDATE paso_cp SET paso = 12 WHERE id_usuario = '$codigo_a'";
+$stmt3 = mysqli_prepare($conexion, $query2);
+
+if (!$stmt3) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+} 
+$ejecutar2 = mysqli_stmt_execute($stmt3); 
+
+if ($ejecutar and $ejecutar2) {  
+    echo '<script>  
+            alert("El examen fue enviado correctamente.");   
+            window.location = "./../../docente-evalua.php?codigo=' . $codigo_a . '";
+        </script>';  
 } else {  
     echo 'Error al enviar examen. Inténtelo nuevamente';  
     echo "Error: " . mysqli_error($conexion);  
