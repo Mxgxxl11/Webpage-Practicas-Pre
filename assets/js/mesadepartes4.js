@@ -139,3 +139,14 @@ function loadPDF2(event) {
     }  
 }
 
+function loadPDF3(event) {  
+    const file = event.target.files[0];  
+    const fileURL = URL.createObjectURL(file);  
+    const pdfPreview = document.getElementById('pdf-preview4');  
+    const previewContainer = document.getElementById('preview-container4');  
+
+    if (file) {  
+        pdfPreview.src = fileURL;  
+        previewContainer.style.display = 'block'; // Mostrar el contenedor al cargar el PDF  
+    }  
+}
