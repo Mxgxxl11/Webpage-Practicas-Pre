@@ -531,8 +531,25 @@ $(document).ready(function() {
     $('#DocFinal').click(async function() {  
         // Obtener los valores de los inputs  
         var Fechaconstancia = $('#Fechaconstancia').val();  
-        var NumeroLiquidacion = $('#NumeroLiquidacion').val();   
+        var NumeroLiquidacion = $('#NumeroLiquidacion').val();  
+        const inputCarnet = document.getElementById('Fotoscarnet');  
+        const inputEmpresa = document.getElementById('ConsEmpresa');  
+        const inputComprobante = document.getElementById('Comprobante');  
         
+        if (Fechaconstancia.trim() === "") {  
+          alert('Seleccione la fecha.');  
+          return;  
+        } 
+
+        if (NumeroLiquidacion.length !== 10) {  
+          alert('El número de liquidación debe tener exactamente 10 caracteres.');  
+          return;
+        }  
+
+        if (inputCarnet.files.length === 0 || inputEmpresa.files.length === 0 || inputComprobante.files.length === 0) {
+          return;  
+        } 
+
         // Obtener los blobs  
         var blob1 = await fetch(pdfBlobUrl).then(r => r.blob());  
   
@@ -543,7 +560,7 @@ $(document).ready(function() {
         formData.append('blob1', blob1);
   
         const inputs = [document.getElementById('Fotoscarnet'), document.getElementById('ConsEmpresa'), document.getElementById('Comprobante')];  
-  
+
         for (const input of inputs) {  
           if (input.files.length > 0) {  
             formData.append(input.name, input.files[0]); // Asegúrate de que los inputs tengan el atributo name  
