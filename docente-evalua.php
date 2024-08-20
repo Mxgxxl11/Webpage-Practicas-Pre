@@ -173,8 +173,9 @@ try {
             <div class="container2" style="<?php echo $mostrarDiv === 10 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Informe Final Del alumno</h2>
                 <div class="form-group">
+                    <input type="text" id="id_alumno" name="id_alumno" value="<?php echo $codigo ?>" style="display: none;">
                     <div class="buttons">
-                        <button id="(DocFinal)descargar_informe" type="button" class="btn-small">Descargar informe final</button>
+                        <button id="d_i_f" type="button" class="btn-small">Descargar informe final</button>
                     </div>
 
                 </div>
@@ -184,7 +185,7 @@ try {
                     <input type="text" id="calificacion_reporte" name="calificacion_reporte" placeholder="Nota de la evaluacion" required>
                 </div>
 
-                <div class=" btn">
+                <div class="form-group">
                     <button id="envi" type="button" class="btn">Enviar calificación</button>
                 </div>
             </div>
@@ -192,34 +193,33 @@ try {
             <!-- DOCENTE ENVIA PRACTICA AL ALUMNO--->
             <div class="container2" style="<?php echo $mostrarDiv === 11 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Examen de PRACTICA PRE-PROFESIONAL</h2>
-                <form action="assets/controladores/enviar_examen.php" method="post">
-                <div class="form-group">
-                    <label for="fechaExam">Fecha de Examen (Hoy):</label>
-                    <input type="date" id="fechaExam" class="date-picker" required>
-                </div>
-
-                <div class="form-group">
-                    <input id="exam" type="file" accept=".pdf" required>
-                </div>
-
-                <div class=" btn">
-                    <button type="submit" class="btn">Enviar examen</button>
-                </div>
+                <form action="assets/controladores/enviar_examen.php" method="post" enctype="multipart/form-data">
+                    <input type="text" name="codigo_a" id="codigo_a" value="<?php echo $codigo; ?>" style="display: none;">
+                    <div class="form-group">
+                        <label for="fechaExam">Fecha de Examen (Hoy):</label>
+                        <input type="date" name="fechaExam" id="fechaExam" class="date-picker" required>
+                    </div>
+                    <div class="form-group">
+                        <input id="exam" name="exam" type="file" accept=".pdf" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn">Enviar examen</button>
+                    </div>
                 </form>
             </div>
             
             <div id="complete" class="container2" style="<?php echo $mostrarDiv === 12 ? 'display:block;' : 'display:none;'; ?>">
-                <h2>El examen final del alumno aún no está disponible</h2>
+                <h2>El examen final del alumno aún no está disponible para su calificación</h2>
                 <p>*La siguiente pestaña se habilitará cuando el alumno suba su examen final resuelto</p>
             </div>
             <!-- DOCENTE CALIFICA EXAMEN DEL ALUMNO-->
             <div class="container2" style="<?php echo $mostrarDiv === 13 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Calificar examen del alumno</h2>
                 <div class="form-group">
+                    <input type="text" id="id_alumno" name="id_alumno" value="<?php echo $codigo ?>" style="display: none;">
                     <div class="buttons">
-                        <button id="(DocFinal)descargar informe" type="button" class="btn-small">Descargar Examen</button>
+                        <button id="d_e_f_r" name="d_e_f_r" type="button" class="btn-small">Descargar Examen Resuelto</button>
                     </div>
-
                 </div>
 
                 <div class="form-group">
@@ -227,7 +227,7 @@ try {
                     <input type="text" id="nota_e" name="nota_e" placeholder="Nota de la evaluacion" required>
                 </div>
 
-                <div class=" btn">
+                <div class="form-group">
                     <button type="button" id="calificar" name="calificar" class="btn">Calificar examen</button>
                 </div>
             </div>
@@ -240,7 +240,7 @@ try {
                     <input type="text" id="nota_a" name="nota_a" placeholder="Apreciación" required>
                 </div>
 
-                <div class=" btn">
+                <div class="form-group">
                     <button id="apreciacion" class="btn">Enviar nota de apreciación</button>
                 </div>
 
@@ -259,7 +259,7 @@ try {
                     <input type="text" id="comentario" name="comentario" placeholder="Comentario final" required>
                 </div>
 
-                <div class=" btn">
+                <div class="form-group">
                     <button id="e_comentario" class="btn">Enviar comentario</button>
                 </div>
             </div>
