@@ -71,7 +71,7 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
 } else {
     echo'
     <script>
-            alert("No se encontraron datos suficientes para el alumno con código: ' . $codigo_alumno . '");
+            alert("No se encontraron datos suficientes para generar carta de presentación al alumno con código: ' . $codigo_alumno . '");
             window.location = "carpeta_virtual.php"; 
         </script>';
 }

@@ -102,7 +102,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <th>
                             Docente Encargado
                         </th>
-                        <th>
+                        <th colspan="2">
                             Acción
                         </th>
                     </tr>
@@ -225,6 +225,13 @@ if (empty($_SESSION['codigo_institucional'])) {
                                             </div>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div class="tags">
+                                            <div class=' tag tag--dev'>
+                                                <a style='text-decoration:none; color:black;' href='./generar_const_docente.php?codigo=<?php echo $filas["CODIGO_ALUMNO"]; ?>'>Generar Oficio</a>
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php }
                         }
@@ -287,6 +294,14 @@ if (empty($_SESSION['codigo_institucional'])) {
                                             </div>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div class="tags">
+                                            <div class=' tag tag--dev'>
+                                                <a style='text-decoration:none; color:black;' href='./generar_const_docente.php?codigo=<?php echo $filas["CODIGO_ALUMNO"]; ?>'>Generar Oficio</a>
+
+                                            </div>
+                                        </div>
+                                    </td>
                                 </tr>
                     <?php }
                         } else {
@@ -298,7 +313,7 @@ if (empty($_SESSION['codigo_institucional'])) {
             <?php mysqli_close($conexion) ?>
         </article>
     </div>
-    <script src="assets/js/mesadepartes.js"></script>
+    <script src=" assets/js/mesadepartes.js"></script>
 </body>
 
 </html>
