@@ -59,8 +59,16 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                 <h2>SOLICITUD DE CONSTANCIA DE PRACTICAS PRE PROFESIONALES</h2>
                 <p>*Asegurate de haber recibido la nota final antes de completar este formulario</p>
                 <div class="form-group">
-                    <label for="Fechaconstancia">Fecha de Registro:</label>
+                    <label for="Fechaconstancia">Fecha de Solicitud:</label>
                     <input type="date" id="Fechaconstancia" name="Fechaconstancia" class="date-picker" required>
+                    </div>
+                </div>
+
+                <div class="container2" style="border:0">
+                <h2> Formulario Unico de Tramite</h2>
+                <div class="form-group">
+                        <label for="FUTconstancia">Nombre del Documento:</label>
+                        <input type="text" id="FUTconstancia" value="Constancia de Práctica Pre Profesional" readonly>
                     </div>
                     <div class="form-group">
                             <label for="firma">Subir firma:</label>
@@ -69,15 +77,6 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
                                 <img id="imagePreview" src="" alt="Vista previa" style="display: none; max-width:400px; max-height: 300px;"/>  
                             </div>
                         </div>
-                
-            </div>
-
-                <div class="container2" style="border:0">
-                <h2> Formulario Unico de Tramite</h2>
-                <div class="form-group">
-                        <label for="FUTconstancia">Nombre del Documento:</label>
-                        <input type="text" id="FUTconstancia" value="Constancia de Práctica Pre Profesional" readonly>
-                    </div>
                     <div class="form-group">
                         <label for="FUTT">Documento:</label>
                         <p>*Presionar para cargar datos en el FUT</p>
