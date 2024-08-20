@@ -10,7 +10,7 @@ $fechaExam = $_POST['fechaExam'];
 $exam = $_FILES['exam'];
 $fechaHoy = date('Y-m-d');
 $id_archivo = 0;
-$nombre_archivo = "Examen_final";
+$nombre_archivo = "Examen Final";
 
 if($fechaExam !== $fechaHoy){
     echo '  
