@@ -1,12 +1,22 @@
 <?php
 include 'bd.php';
 session_start();
-// NO OLVIDAR LA RUTA DE LA CARPETA
+date_default_timezone_set('America/Lima');
 define('RUTA_DEF_CARPETA', './../carpetas_virtuales/');
 
 $codigo = $_SESSION['codigo_institucional'];
 $exam = $_FILES['examen'];
 $fechaExamen = $_POST['fechaExamen'];
+$fechaHoy = date('Y-m-d');
+
+if($fechaExamen !== $fechaHoy){
+    echo '  
+        <script>  
+            alert("La fecha de envío del examen debe ser la fecha actual.");   
+            window.location = "./../../evaluacion.php";
+        </script>';  
+    exit(); 
+}
 
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");
 $row = mysqli_fetch_assoc($result);
