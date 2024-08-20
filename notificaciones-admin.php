@@ -64,7 +64,7 @@ $codigo_admin = $_SESSION['codigo_institucional'];
                     <td>  
                         <div class="tags">  
                             <div class="tag tag--marketing">  
-                                <a href="ver_usuarios.php" style="text-decoration:none; color:black;">  
+                                <a href="notificaciones-admin.php" style="text-decoration:none; color:black;">  
                                     Mostrar todas las notificaciones  
                                 </a>  
                             </div>  
@@ -81,7 +81,6 @@ $codigo_admin = $_SESSION['codigo_institucional'];
                     <th>Apellido Alumno</th>  
                     <th>Mensaje</th>  
                     <th>Fecha-Hora</th>
-                    <th>Leido</th>    
                 </tr>  
             </thead>  
             <tbody id="team-member-rows">  
@@ -112,7 +111,6 @@ $codigo_admin = $_SESSION['codigo_institucional'];
                                 <td><?php echo $filas['apellido1']; ?></td>  
                                 <td><?php echo $filas['mensaje']; ?></td>  
                                 <td><?php echo $filas['fecha_notificacion']; ?></td> 
-                                <td><?php echo $filas['leido']; ?></td> 
                             </tr>  
                         <?php }  
                     } else {  
@@ -133,7 +131,6 @@ $codigo_admin = $_SESSION['codigo_institucional'];
                             <td><?php echo $filas['apellido1']; ?></td>  
                             <td><?php echo $filas['mensaje']; ?></td>  
                             <td><?php echo $filas['fecha_notificacion']; ?></td>  
-                            <td><?php echo $filas['leido']; ?></td>  
                         </tr>  
                     <?php }  
                 } ?>  
