@@ -30,6 +30,33 @@ if(strlen($codigo) <> 10){
     exit(); 
 }
 
+// Obtén los primeros 4 dígitos del código
+$codigo_anio = substr($codigo, 0, 4);
+
+// Obtiene el año actual
+$anio_actual = date("Y");
+
+// Convierte los dígitos del código a un número entero
+$codigo_anio_entero = intval($codigo_anio);
+
+if (($codigo_anio_entero + 4) > $anio_actual) {
+    echo '  
+        <script>  
+            alert("Debes estar en 5to año para poder registrarte.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';
+    exit();
+}
+
+if ($codigo_anio_entero < 1997) {
+    echo '  
+        <script>  
+            alert("Tu código es inválido.");   
+            window.location = "./../../carta_presentacion.php";
+        </script>';
+    exit();
+}
+
 if(strlen($password) < 6){
     echo '  
         <script>  
