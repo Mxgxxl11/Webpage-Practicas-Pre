@@ -9,6 +9,19 @@ if (empty($_SESSION['codigo_institucional'])) {
     </script>';  
 }  
 $codigo = $_SESSION['codigo_institucional'];
+$id_docente = 0;
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_docente FROM alumno WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($id_docente);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
 ?>  
 <!DOCTYPE html>  
 <html lang="en">  
@@ -51,7 +64,7 @@ $codigo = $_SESSION['codigo_institucional'];
                     SELECT u.nombre1, u.apellido1, n.mensaje, n.fecha_notificacion, n.leido   
                     FROM notificaciones n   
                     JOIN usuario u ON u.codigo = n.id_usuario  
-                    WHERE n.id_usuario = '$codigo' AND id_profesor is NULL";  
+                    WHERE n.id_usuario = '$codigo' AND id_profesor = '$id_docente' AND tipo_notificacion <> 'Examen Final'";  
 
                     $ejecucion = mysqli_query($conexion, $consulta);  
                     
