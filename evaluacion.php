@@ -87,7 +87,7 @@ try {
                 <h2> Subir el Examen Final</h2>
                 <div class="form-group">
                     <div class="buttons">
-                            <button id="d_e_f" type="button" class="btn-small">Descargar Examen Final</button>
+                            <button id="d_e_f" name="d_e_f" type="button" class="btn-small">Descargar Examen Final</button>
                     </div>
                 </div>
                 <div class="form-group">
