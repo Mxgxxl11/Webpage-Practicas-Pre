@@ -1,13 +1,96 @@
 <?php  
 include 'bd.php'; 
 session_start();  
-$codigo = $_SESSION['codigo_institucional'];
+date_default_timezone_set('America/Lima');
+define('RUTA_DEF_CARPETA', './../carpetas_virtuales/'); 
 
+$codigo = $_SESSION['codigo_institucional'];
+$codigo_a = $_POST['codigo_a'];
 $fechaExam = $_POST['fechaExam'];
 $exam = $_FILES['exam'];
+$fechaHoy = date('Y-m-d');
+$id_archivo = 0;
+$nombre_archivo = "Examen_final";
 
-$result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo'");  
+if($fechaExam !== $fechaHoy){
+    echo '  
+        La fecha de subida del examen debe ser la fecha de hoy.';  
+    exit(); 
+}
+
+$result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo_a'");  
 $row = mysqli_fetch_assoc($result);  
 $id_alumno = $row['id_alumno'];
 
+$result2 = mysqli_query($conexion, "SELECT id_carpeta, nombre_carpeta FROM carpeta_virtual WHERE id_alumno = '$id_alumno'");  
+$row2 = mysqli_fetch_assoc($result2);  
+$id_carpeta = $row2['id_carpeta'];
+$nombre_carpeta = trim($row2['nombre_carpeta']); // Eliminar espacios en blanco
+
+// Verifica si el archivo fue subido  
+if ($exam['error'] === UPLOAD_ERR_OK) {
+    // Crear la ruta completa de la carpeta del alumno
+    $ruta_carpeta = RUTA_DEF_CARPETA . $nombre_carpeta;
+
+    // Verificar si la carpeta existe; si no, crearla
+    if (!file_exists($ruta_carpeta)) {
+        echo "LA CARPETA NO EXISTE :("; 
+    }
+
+    // Definir la ruta completa donde se almacenará el archivo
+    $ruta_destino = $ruta_carpeta . "/Examen_final.pdf";
+
+    // Mover el archivo a la carpeta correspondiente
+    if (move_uploaded_file($exam['tmp_name'], $ruta_destino)) {
+        // Preparar la consulta SQL para insertar en la base de datos  
+        $sql = "INSERT INTO archivos (id_carpeta, nombre_archivo, fecha_subida, ruta) VALUES (?, ?, ?, ?)"; 
+        
+        $stmt = $conexion->prepare($sql); 
+
+        // Enlazar parámetros  
+        $stmt->bind_param("isss", $id_carpeta, $nombre_archivo, $fechaExam, $ruta_destino);     
+
+        // Ejecutar la consulta  
+        if ($stmt->execute()) {  
+            echo "Archivo almacenado correctamente en la base de datos.";  
+        } else {  
+            echo "Error al almacenar el archivo: " . $stmt->error;  
+        }  
+
+        // Cerrar el statement  
+        $stmt->close();
+    } else {
+        echo "Error al mover el archivo a la carpeta destino.";
+    }
+} else {  
+    echo "Error al subir el archivo.";  
+} 
+
+// Inserción en la tabla notificaciones
+$query = "INSERT INTO notificaciones (id_usuario, id_archivo, tipo_notificacion, mensaje, id_profesor) VALUES (?, ?, ?, ?, ?)";  
+
+$tipo_notificacion = 'Examen Final';
+$mensaje = 'Subí el examen final';
+
+$result3 = mysqli_query($conexion, "SELECT id_archivo FROM archivos WHERE (nombre_archivo = '$nombre_archivo' AND id_carpeta = '$id_carpeta')");  
+$row3 = mysqli_fetch_assoc($result3);  
+$id_archivo = $row3['id_archivo'];
+
+// Preparar la consulta  
+$stmt2 = mysqli_prepare($conexion, $query);  
+if (!$stmt2) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+}  
+mysqli_stmt_bind_param($stmt2, "iissi", $codigo_a, $id_archivo, $tipo_notificacion, $mensaje, $codigo); 
+$ejecutar = mysqli_stmt_execute($stmt2);  
+
+if ($ejecutar) {  
+    echo 'Examen enviado exitosamente';  
+} else {  
+    echo 'Error al enviar examen. Inténtelo nuevamente';  
+    echo "Error: " . mysqli_error($conexion);  
+} 
+
+mysqli_close($conexion);
 ?>
