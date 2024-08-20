@@ -86,6 +86,11 @@ try {
             <div class="container2" style="<?php echo $mostrarDiv === 12 ? 'display:block;' : 'display:none;'; ?>">
                 <h2> Subir el Examen Final</h2>
                 <div class="form-group">
+                    <div class="buttons">
+                            <button id="d_e_f" type="button" class="btn-small">Descargar Examen Final</button>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="fechaExamen">Fecha de Subida:</label>
                     <input type="date" name="fechaExamen" id="fechaExamen" required>
                 </div>
