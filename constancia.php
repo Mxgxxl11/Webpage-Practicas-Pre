@@ -8,7 +8,19 @@ if (empty($_SESSION['codigo_institucional'])) {
 }
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $nt_fut = 'NT:' . $_SESSION['nt'];
-$mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
+$mostrarDiv = 0;
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT paso FROM paso_cp WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($mostrarDiv);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
 ?>
 
 <!DOCTYPE html>
@@ -31,10 +43,22 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
         <?php include './includes/sidebar.php'; ?>
 
         <main class="main-content">
-        <div id="complete" class="container2" style="<?php echo $mostrarDiv < '15' ? 'display:block;' : 'display:none;' ?>">
+        <div id="complete" class="container2" style="<?php echo $mostrarDiv < 15 ? 'display:block;' : 'display:none;' ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>
-        <div class="container2" style="<?php echo $mostrarDiv >= '15' ? 'display:block;' : 'display:none;'?>">
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === 15 ? 'display:block;' : 'display:none;' ?>">
+                <h2>Aún no puedes continuar</h2>
+                <p>*Tu docente asignado aún no envia su comentario</p>
+            </div>
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === 16 ? 'display:block;' : 'display:none;' ?>">
+                <h2>Aún no puedes continuar</h2>
+                <p>*Tu docente asignado aún no envia su ficha de evaluacion (coordinador)</p>
+            </div>
+            <div id="complete" class="container2" style="<?php echo $mostrarDiv === 17 ? 'display:block;' : 'display:none;' ?>">
+                <h2>Aún no puedes continuar</h2>
+                <p>*Tu docente asignado aún no envia su informe final de evaluación (coordinador)</p>
+            </div>
+        <div class="container2" style="<?php echo $mostrarDiv >= 18 ? 'display:block;' : 'display:none;'?>">
             <div class="container2" style="border: 0;">
                 <input type="text" id="dependencia" value="DECANO DE LA FIEI" style="display: none;">
                 <input type="text" id="nro_tramite" value="Constancia de Practica Pre Profesional" style="display: none;">
