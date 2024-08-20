@@ -51,7 +51,7 @@ $codigo = $_SESSION['codigo_institucional'];
                     SELECT u.nombre1, u.apellido1, n.mensaje, n.fecha_notificacion, n.leido   
                     FROM notificaciones n   
                     JOIN usuario u ON u.codigo = n.id_usuario  
-                    WHERE n.id_usuario = '$codigo'";  
+                    WHERE n.id_usuario = '$codigo' AND id_profesor is NULL";  
 
                     $ejecucion = mysqli_query($conexion, $consulta);  
                     
