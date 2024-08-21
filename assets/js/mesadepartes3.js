@@ -532,13 +532,3 @@ $(document).ready(function() {
       });  
   });  
 }); 
-
-$(document).ready(function() {  
-  $('#d_const').click(function() {  
-      // Obtener los valores de los inputs  
-      var id_alumno = $('#id_alumno').val();  
-      
-      // Redirigir a la URL de descarga  
-      window.location.href = 'assets/controladores/descargar_constancia.php?codigo_a=' + encodeURIComponent(id_alumno);  
-  });  
-});
