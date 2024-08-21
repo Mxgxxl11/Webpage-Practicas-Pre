@@ -19,9 +19,9 @@ $stmt->close();
 if (!$ruta_archivo || !file_exists($ruta_archivo)) {  
     echo '<script>  
             alert("Archivo no encontrado.");  
-            window.location.reload();
+            window.location.href = "./../../descarga_constancia.php";
           </script>';  
-    exit; 
+    exit(); 
 }
 
 // Enviar headers para la descarga  
