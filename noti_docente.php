@@ -9,6 +9,19 @@ if (empty($_SESSION['codigo_institucional'])) {
     </script>';  
 }  
 $codigo = $_SESSION['codigo_institucional'];
+$id_docente = 0;
+try {  
+    // Preparar consulta  
+    $stmt = $conexion->prepare("SELECT id_docente FROM docente WHERE id_usuario = ?");  
+    $stmt->bind_param("i", $codigo); 
+    $stmt->execute();  
+    $stmt->bind_result($id_docente);  
+    $stmt->fetch();  
+    $stmt->close();  
+    
+} catch (Exception $e) {  
+    echo 'Error en la consulta: ' . $e->getMessage();  
+} 
 ?>  
 <!DOCTYPE html>  
 <html lang="en">  
