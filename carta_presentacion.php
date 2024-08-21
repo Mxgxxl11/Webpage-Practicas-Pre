@@ -280,9 +280,11 @@ $codigo = $_SESSION['codigo_institucional'];
                 <p>Realice la solicitud por esta página: <a href="https://tramite.unfv.edu.pe/Solicitud_Tramite/" target="_blank">https://tramite.unfv.edu.pe/Solicitud_Tramite/</a></p>
                 <p>Debe de enviar el archivo PDF antes descargado al link de arriba</p>
                 <input type="text" value="<?php echo $codigo; ?>" name="id_alumno" id="id_alumno" style="display: none;">
+                <div class="form-group">
                 <div class="buttons">
                             <button id="d_c_p" name="d_c_p" type="button" class="btn-small">Descargar Carta de Presentación</button>
                     </div>
+                </div>
                 <div class="form-buttons">
                     <button onclick="closeProfileForm()" class="close-btn">Cerrar</button>
                 </div>
