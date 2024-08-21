@@ -199,6 +199,30 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                             case 11:
                                                 echo "Examen Final";
                                                 break;
+                                            case 12:
+                                                echo "Examen Final Subido por el docente";
+                                                break;
+                                            case 13:
+                                                echo "Examen Final Resuelto";
+                                                break;
+                                            case 14:
+                                                echo "Examen Final Calificado por el docente";
+                                                break;
+                                            case 15:
+                                                echo "Nota de apreciación subida";
+                                                break;
+                                            case 16:
+                                                echo "Docente le envió comentario";
+                                                break;
+                                            case 17:
+                                                echo "Docente envió ficha de evaluación (coordinador)";
+                                                break;
+                                            case 18:
+                                                echo "Docente envió informe final de evaluación (coordinador)";
+                                                break;
+                                            case 19:
+                                                echo "Solicitud de Constancia de Culminación";
+                                                break;
                                         }
                                         ?>
                                     </td>
@@ -212,14 +236,14 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         </div>
                                     </td>
                                     <td>
-                                    <div class="tags">
-                                        <div class="tag tag--dev">
-                                            <a href="generar_carta.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
-                                                Carta de Presentación
-                                            </a>
+                                        <div class="tags">
+                                            <div class="tag tag--dev">
+                                                <a href="generar_carta.php?codigo=<?php echo urlencode($filas['codigo']); ?>&carpeta=<?php echo urlencode($ruta_carpeta); ?>&nombre_carpeta=<?php echo urlencode($filas['nombre_carpeta']); ?>" style="text-decoration:none; color:black">
+                                                    Carta de Presentación
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
                                     <td>
                                         <div class="tags">
                                             <div class="tag tag--dev">
@@ -286,13 +310,37 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                             echo "3er Informe";
                                             break;
                                         case 9:
-                                            echo "Constancia de culminación";
+                                            echo "Constancia de culminación de la empresa";
                                             break;
                                         case 10:
                                             echo "Informe Final";
                                             break;
                                         case 11:
-                                            echo "Examen Final";
+                                            echo "Informe Final Calificado por el docente";
+                                            break;
+                                        case 12:
+                                            echo "Examen Final Subido por el docente";
+                                            break;
+                                        case 13:
+                                            echo "Examen Final Resuelto";
+                                            break;
+                                        case 14:
+                                            echo "Examen Final Calificado por el docente";
+                                            break;
+                                        case 15:
+                                            echo "Nota de apreciación subida";
+                                            break;
+                                        case 16:
+                                            echo "Docente le envió comentario";
+                                            break;
+                                        case 17:
+                                            echo "Docente envió ficha de evaluación (coordinador)";
+                                            break;
+                                        case 18:
+                                            echo "Docente envió informe final de evaluación (coordinador)";
+                                            break;
+                                        case 19:
+                                            echo "Solicitud de Constancia de Culminación";
                                             break;
                                     }
                                     ?>

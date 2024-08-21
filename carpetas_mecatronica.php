@@ -219,6 +219,30 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                             case 11:
                                                 echo "Examen Final";
                                                 break;
+                                            case 12:
+                                                echo "Examen Final Subido por el docente";
+                                                break;
+                                            case 13:
+                                                echo "Examen Final Resuelto";
+                                                break;
+                                            case 14:
+                                                echo "Examen Final Calificado por el docente";
+                                                break;
+                                            case 15:
+                                                echo "Nota de apreciación subida";
+                                                break;
+                                            case 16:
+                                                echo "Docente le envió comentario";
+                                                break;
+                                            case 17:
+                                                echo "Docente envió ficha de evaluación (coordinador)";
+                                                break;
+                                            case 18:
+                                                echo "Docente envió informe final de evaluación (coordinador)";
+                                                break;
+                                            case 19:
+                                                echo "Solicitud de Constancia de Culminación";
+                                                break;
                                         }
                                         ?>
                                     </td>
@@ -326,6 +350,30 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                             break;
                                         case 11:
                                             echo "Examen Final";
+                                            break;
+                                        case 12:
+                                            echo "Examen Final Subido por el docente";
+                                            break;
+                                        case 13:
+                                            echo "Examen Final Resuelto";
+                                            break;
+                                        case 14:
+                                            echo "Examen Final Calificado por el docente";
+                                            break;
+                                        case 15:
+                                            echo "Nota de apreciación subida";
+                                            break;
+                                        case 16:
+                                            echo "Docente le envió comentario";
+                                            break;
+                                        case 17:
+                                            echo "Docente envió ficha de evaluación (coordinador)";
+                                            break;
+                                        case 18:
+                                            echo "Docente envió informe final de evaluación (coordinador)";
+                                            break;
+                                        case 19:
+                                            echo "Solicitud de Constancia de Culminación";
                                             break;
                                     }
                                     ?>
