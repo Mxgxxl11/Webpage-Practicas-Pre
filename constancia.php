@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'assets\controladores\bd.php';
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
