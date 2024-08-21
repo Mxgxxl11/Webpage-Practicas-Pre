@@ -5,6 +5,11 @@ $codigo = $_SESSION['codigo_institucional'];
 $codigo_a = $_POST['codigo_a'];
 $calificacion_reporte = $_POST['calificacion_reporte'];
 
+if ($calificacion_reporte > 20){
+    echo 'Calificacion inválida';
+    exit();
+}
+
 $result = mysqli_query($conexion, "SELECT id_alumno FROM alumno WHERE id_usuario = '$codigo_a'");
 $row = mysqli_fetch_assoc($result);
 $id_alumno = $row['id_alumno'];
