@@ -17,8 +17,12 @@ $stmt->fetch();
 $stmt->close();  
 
 if (!$ruta_archivo || !file_exists($ruta_archivo)) {  
-    exit('Archivo no encontrado.');  
-}  
+    echo '<script>  
+            alert("Archivo no encontrado.");  
+            window.location.reload();
+          </script>';  
+    exit; 
+}
 
 // Enviar headers para la descarga  
 header('Content-Description: File Transfer');
