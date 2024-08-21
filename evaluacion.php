@@ -111,7 +111,7 @@ try {
                 <h2>Aún no puedes continuar</h2>
                 <p>*La siguiente pestaña se habilitará cuando tu profesor encargado suba la nota apreciacion</p>
             </div>
-            <div class="container2" style="<?php echo $mostrarDiv === 15 ? 'display:block;' : 'display:none;'; ?>">
+            <div class="container2" style="<?php echo $mostrarDiv >= 15 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Notas de la evaluación</h2>
                 <div class="form-group">
                     <label for="nota1">Nota de evaluación de informes:</label>
