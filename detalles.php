@@ -63,7 +63,7 @@ try {
                     SELECT u.nombre1, u.apellido1, n.mensaje, n.fecha_notificacion, n.leido   
                     FROM notificaciones n   
                     JOIN usuario u ON u.codigo = n.id_usuario  
-                    WHERE n.id_usuario = '$codigo' AND id_profesor = '$id_docente' AND tipo_notificacion = 'Examen Final'";  
+                    WHERE (n.id_usuario = '$codigo' AND n.id_profesor = '$id_docente' AND n.tipo_notificacion = 'Examen Final')";  
 
                     $ejecucion = mysqli_query($conexion, $consulta);  
                     
