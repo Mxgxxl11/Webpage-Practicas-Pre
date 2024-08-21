@@ -79,13 +79,17 @@ $result3 = mysqli_query($conexion, "SELECT id_archivo FROM archivos WHERE (nombr
 $row3 = mysqli_fetch_assoc($result3);  
 $id_archivo = $row3['id_archivo'];
 
+$result4 = mysqli_query($conexion, "SELECT id_docente FROM docente WHERE id_usuario = '$codigo'");  
+$row4 = mysqli_fetch_assoc($result4);  
+$id_profesor = $row4['id_docente'];
+
 // Preparar la consulta  
 $stmt2 = mysqli_prepare($conexion, $query);  
 if (!$stmt2) {  
     echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
     exit();  
 }  
-mysqli_stmt_bind_param($stmt2, "iissi", $codigo_a, $id_archivo, $tipo_notificacion, $mensaje, $codigo); 
+mysqli_stmt_bind_param($stmt2, "iissi", $codigo_a, $id_archivo, $tipo_notificacion, $mensaje, $id_profesor); 
 $ejecutar = mysqli_stmt_execute($stmt2);  
 
 $query2 = "UPDATE paso_cp SET paso = 12 WHERE id_usuario = '$codigo_a'";
