@@ -50,14 +50,14 @@ mysqli_stmt_bind_param($stmt, "iiisssii", $id_alumno, $id_carpeta, $id_tipoSolic
 // Ejecutar la consulta  
 $ejecutar = mysqli_stmt_execute($stmt);  
 
-// $query2 = "UPDATE paso_cp SET paso = 3 WHERE id_usuario = '$codigo'";
-// $stmt2 = mysqli_prepare($conexion, $query2);
+$query2 = "UPDATE paso_cp SET paso = 19 WHERE id_usuario = '$codigo'";
+$stmt2 = mysqli_prepare($conexion, $query2);
 
-// if (!$stmt2) {  
-//    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
-//    exit();  
-// } 
-// $ejecutar2 = mysqli_stmt_execute($stmt2); 
+if (!$stmt2) {  
+    echo "Error en la preparación de la consulta: " . mysqli_error($conexion);  
+    exit();  
+} 
+$ejecutar2 = mysqli_stmt_execute($stmt2); 
 
 $result4 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_alumno = '$id_alumno' AND id_tipoSolicitud = '$id_tipoSolicitud' AND numero_liquidacion = '$NumeroLiquidacion'");    
 $row = mysqli_fetch_assoc($result4);  
@@ -108,7 +108,7 @@ if ($fut['error'] === UPLOAD_ERR_OK && $fotos_carnet['error'] === UPLOAD_ERR_OK 
     echo "Error al subir los archivos.";  
 }  
 
-if ($ejecutar) {  
+if ($ejecutar and $ejecutar2) {  
 
     // $_SESSION['paso_cp'] = '3'; 
     echo ' Datos almacenados exitosamente ';
