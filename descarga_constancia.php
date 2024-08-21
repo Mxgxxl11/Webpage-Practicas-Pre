@@ -33,11 +33,21 @@ $codigo = $_SESSION['codigo_institucional'];
                 <p>*Si le sale la notificación de archivo no encontrado es porque su constancia aún no esta disponible para su descarga</p>
                 <input type="text" value="<?php echo $codigo; ?>" name="id_alumno" id="id_alumno" style="display: none;">
                 <div class="form-buttons">
-                    <button id="d_const" name="d_const" class="close-btn">Descargar Constancia</button>
+                    <button type="button" id="d_const" name="d_const" class="close-btn">Descargar Constancia</button>
                 </div>
             </div>
         </main>
     </div>
-    <script src="assets/js/mesadepartes3.js"></script>
+    <script>
+        $(document).ready(function() {  
+        $('#d_const').click(function() {  
+        // Obtener los valores de los inputs  
+        var id_alumno = $('#id_alumno').val();  
+        
+        // Redirigir a la URL de descarga  
+        window.location.href = 'assets/controladores/descargar_constancia.php?codigo_a=' + encodeURIComponent(id_alumno);  
+        });  
+        });
+    </script>
 </body>
 </html>
