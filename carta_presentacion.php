@@ -13,6 +13,7 @@ $nombres = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
 $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_guardada'] : '';
 $codigo = $_SESSION['codigo_institucional'];
+$base = substr($codigo, 0, 4); 
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +62,7 @@ $codigo = $_SESSION['codigo_institucional'];
                         </div>
                         <div style="margin-top: 10px;">
                             <label for="base">Base:</label>
-                            <input type="text" id="base" name="base" required/>
+                            <input type="text" id="base" name="base" value="<?php echo $base; ?>" readonly required/>
                         </div>
                         <div>
                             <label for="condicion">Condición:</label>
