@@ -1,12 +1,13 @@
 <?php
+include 'assets/controladores/bd.php';
 session_start();
-include 'assets\controladores\bd.php';
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
     window.location = "login.html"; 
     </script>';
 }
+$codigo = $_SESSION['codigo_institucional'];
 $nombre_fut = $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'] . ' ' . $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $nt_fut = 'NT:' . $_SESSION['nt'];
 $mostrarDiv = 0;
