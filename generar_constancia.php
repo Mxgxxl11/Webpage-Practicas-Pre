@@ -1,5 +1,5 @@
 <?php
-
+//CONSTANCIA DE CULMINACION
 session_start();
 include 'assets\controladores\bd.php'; // Asegúrate de que este archivo establece la conexión a la base de datos correctamente
 
@@ -55,31 +55,56 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
     $templateProcessor->setValue('recibo', $recibo);
     $templateProcessor->setValue('expediente', $nombre_carpeta);
     $templateProcessor->setImageValue('foto_alumno', $foto);
-
+    $ruta_bd = './../carpetas_virtuales/' . $nombre_carpeta . '/CONSTANCIA-CULMINACION-' . $codigo_alumno . '.docx';
     // Guardar el documento modificado
     $pathToSave = $ruta_alumno . '/CONSTANCIA-CULMINACION-' . $codigo_alumno . '.docx'; //si algo no funciona cambiarle el / ACA
     $templateProcessor->saveAs($pathToSave);
+    // Mover el archivo a la carpeta y registrar en la base de datos  
     if (file_exists($pathToSave)) {
-        echo '
-        <script>
-            alert("DOCUMENTO GENERADO CON ÉXITO");
-            window.location = "carpeta_virtual.php"; 
-        </script>
-    ';
+        // Variables para la base de datos  
+        $nombre_archivo = 'CONSTANCIA-CULMINACION-' . $codigo_alumno . '.docx';
+        $nombre_bd = 'CONSTANCIA-CULMINACION';
+        $fechaExam = date("Y-m-d"); // Fecha actual  
+        $traer_id_carpeta = "SELECT id_carpeta FROM carpeta_virtual WHERE nombre_carpeta = '$nombre_carpeta'";
+        $exe = mysqli_query($conexion, $traer_id_carpeta);
+        $row = mysqli_fetch_assoc($exe);
+        $id_carpeta = $row['id_carpeta'];
+
+
+        // Prepare the SQL query to insert into the database  
+        $sql = "INSERT INTO archivos (id_carpeta, nombre_archivo, fecha_subida, ruta) VALUES (?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+
+        // Enlazar parámetros  
+        $stmt->bind_param("isss", $id_carpeta, $nombre_bd, $fechaExam, $ruta_bd);
+
+        // Ejecutar la consulta  
+        if ($stmt->execute()) {
+            echo '  
+            <script>  
+                alert("DOCUMENTO GENERADO Y ALMACENADO EN LA BASE DE DATOS CON ÉXITO");  
+                window.location = "carpeta_virtual.php";   
+            </script>  
+            ';
+        } else {
+            echo '  
+            <script>  
+                alert("DOCUMENTO GENERADO PERO ERROR AL ALMACENAR EN LA BASE DE DATOS: ' . $stmt->error . '");  
+                window.location = "carpeta_virtual.php";   
+            </script>  
+            ';
+        }
+
+        // Cerrar el statement  
+        $stmt->close();
     } else {
-        echo '
-        <script>
-            alert("DOCUMENTO NO GENERADO. PROBLEMAS AL SUBIR GENERAR ARCHIVO");
-            window.location = "carpeta_virtual.php"; 
-        </script>
-    ';
+        echo '  
+        <script>  
+            alert("DOCUMENTO NO GENERADO. PROBLEMAS AL SUBIR GENERAR ARCHIVO");  
+            window.location = "carpeta_virtual.php";   
+        </script>  
+        ';
     }
 } else {
-    echo '
-        <script>
-            alert("No se encontraron datos suficientes para generar constancia de culmininación al alumno con código: ' . $codigo_alumno . '");
-            window.location = "carpeta_virtual.php"; 
-        </script>
-    ';
-    //echo "No se encontraron datos para el alumno con código: $codigo_alumno.";
+    die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
