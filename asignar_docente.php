@@ -23,6 +23,8 @@ if (empty($_SESSION['codigo_institucional'])) {
     <title>Administradores</title>
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
     <link rel="stylesheet" href="assets/css/detalles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
     <style>
         .my-form__button {
             padding: 10px 20px;
@@ -76,6 +78,13 @@ if (empty($_SESSION['codigo_institucional'])) {
                                     </a>
                                 </div>
 
+                        </td>
+                        <td>
+                            <div class="tags">
+                                <div class=' tag tag--dev'>
+                                    <a style='text-decoration:none; color:black;' href='assets/controladores/generate_pdf.php'>Descargar Informe</a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </table>
