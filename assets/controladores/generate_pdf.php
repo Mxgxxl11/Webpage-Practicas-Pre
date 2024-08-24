@@ -29,7 +29,7 @@ $pdf->Cell(40, 10, 'Codigo Docente', 1);
 $pdf->Ln();  
 
 // Conexión a la base de datos  
-$conn = new mysqli("localhost:3060", "bppp", "ScrumMaster", "proyecto_integrador");  
+$conn = new mysqli("localhost:33065", "root", "", "proyecto_integrador");  
 
 // Verifica la conexión  
 if ($conn->connect_error) {  
