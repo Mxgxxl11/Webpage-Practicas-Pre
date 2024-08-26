@@ -82,7 +82,7 @@ if (empty($_SESSION['codigo_institucional'])) {
                         <td>
                             <div class="tags">
                                 <div class=' tag tag--dev'>
-                                    <a style='text-decoration:none; color:black;' href='assets/controladores/generate_pdf.php'>Descargar Informe</a>
+                                    <a style='text-decoration:none; color:black;' href='assets/controladores/generate_pdf.php' target="_blank">Descargar Informe</a>
                                 </div>
                             </div>
                         </td>

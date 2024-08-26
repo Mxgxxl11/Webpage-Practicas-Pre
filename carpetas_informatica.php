@@ -84,7 +84,7 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                         <td>
                             <div class="tags">
                                 <div class=' tag tag--dev'>
-                                    <a style='text-decoration:none; color:black;' href='assets/controladores/#'>Descargar Informe</a>
+                                    <a style='text-decoration:none; color:black;' href='assets/controladores/reporte_informatica.php' target="_blank">Descargar Informe</a>
                                 </div>
                             </div>
                         </td>

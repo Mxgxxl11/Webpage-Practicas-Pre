@@ -84,7 +84,13 @@ $direccion_carpeta = "./assets/carpetas_virtuales/";
                                         Mostrar todos los usuarios
                                     </a>
                                 </div>
-
+                        <td>
+                            <div class="tags">
+                                <div class=' tag tag--dev'>
+                                    <a style='text-decoration:none; color:black;' href='assets/controladores/reporte_electronica.php' target="_blank">Descargar Informe</a>
+                                </div>
+                            </div>
+                        </td>
                         </td>
                     </tr>
                 </table>
