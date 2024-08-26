@@ -2,9 +2,9 @@
 session_start();
 include 'assets\controladores\bd.php'; // Asegúrate de que este archivo establece la conexión a la base de datos correctamente  
 
-// Este archivo es para generar la constancia de culminación de PPP  
+// Este archivo es para generar la carta de presentacion de PPP  
 require_once 'phpoffice\vendor\autoload.php';
-$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('phpoffice\Plantilla_Carta_Presentación.docx');
+$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('phpoffice\Plantilla_Carta_Presentacion.docx');
 
 $codigo_alumno = $_GET['codigo'];
 $ruta_alumno = $_GET['carpeta'];
@@ -12,7 +12,7 @@ $nombre_carpeta = $_GET['nombre_carpeta'];
 
 // Consulta para traer todos los datos  
 $traer_datos = "SELECT u.codigo, CONCAT(u.nombre1,' ',u.nombre2,' ',u.apellido1,' ',u.apellido2) AS nombre_alumno,   
-al.semestre,e.escuela,al.nt,car.nombre_carpeta, sol.fecha_solicitud, emp.representante, emp.nombre_empresa  
+al.semestre,e.escuela,car.nombre_carpeta, sol.fecha_solicitud, emp.representante, emp.nombre_empresa  
 FROM usuario u  
 JOIN alumno al ON al.id_usuario = u.codigo  
 JOIN escuelas e ON e.id_escuela = u.id_escuela  
@@ -31,7 +31,6 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
     $nombre_alumno = $fila['nombre_alumno'];
     $semestre = $fila['semestre'];
     $escuela = $fila['escuela'];
-    $nt = $fila['nt'];
     $fecha_solicitud = $fila['fecha_solicitud'];
     $empresa = $fila['nombre_empresa'];
     $representante = $fila['representante'];
@@ -45,7 +44,6 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
     $templateProcessor->setValue('nombre_alumno', $nombre_alumno);
     $templateProcessor->setValue('codigo', $codigo_alumno);
     $templateProcessor->setValue('ciclo', $semestre);
-    $templateProcessor->setValue('nt', $nt);
     $ruta_bd = './../carpetas_virtuales/' . $nombre_carpeta . '/CARTA_PRESENTACION-' . $codigo_alumno . '.docx';
     // Guardar el documento modificado  
     $pathToSave = $ruta_alumno . '/CARTA_PRESENTACION-' . $codigo_alumno . '.docx';
@@ -55,7 +53,7 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
     if (file_exists($pathToSave)) {
         // Variables para la base de datos  
         $nombre_archivo = 'CARTA_PRESENTACION-' . $codigo_alumno . '.docx';
-        $nombre_bd = 'CARTA_PRESENTACION';
+        $nombre_bd = 'Carta de presentacion';
         $fechaExam = date("Y-m-d"); // Fecha actual  
         $traer_id_carpeta = "SELECT id_carpeta FROM carpeta_virtual WHERE nombre_carpeta = '$nombre_carpeta'";
         $exe = mysqli_query($conexion, $traer_id_carpeta);

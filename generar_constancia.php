@@ -1,11 +1,11 @@
 <?php
 //CONSTANCIA DE CULMINACION
 session_start();
-include 'assets\controladores\bd.php'; // Asegúrate de que este archivo establece la conexión a la base de datos correctamente
+include 'assets/controladores/bd.php'; // Asegúrate de que este archivo establece la conexión a la base de datos correctamente
 
 // Este archivo es para generar la constancia de culminación de PPP
-require_once 'phpoffice\vendor\autoload.php';
-$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('phpoffice\16_CONSTANCIA_PRACTICA-PRE.docx');
+require_once 'phpoffice/vendor/autoload.php';
+$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('phpoffice/16_CONSTANCIA_PRACTICA-PRE.docx');
 
 $codigo_alumno = $_GET['codigo'];
 $ruta_alumno = $_GET['carpeta'];
@@ -63,7 +63,7 @@ if ($ejecutar && mysqli_num_rows($ejecutar) > 0) {
     if (file_exists($pathToSave)) {
         // Variables para la base de datos  
         $nombre_archivo = 'CONSTANCIA-CULMINACION-' . $codigo_alumno . '.docx';
-        $nombre_bd = 'CONSTANCIA-CULMINACION';
+        $nombre_bd = 'Constancia de culminacion';
         $fechaExam = date("Y-m-d"); // Fecha actual  
         $traer_id_carpeta = "SELECT id_carpeta FROM carpeta_virtual WHERE nombre_carpeta = '$nombre_carpeta'";
         $exe = mysqli_query($conexion, $traer_id_carpeta);
