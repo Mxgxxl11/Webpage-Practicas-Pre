@@ -70,6 +70,13 @@ $codigo_admin = $_SESSION['codigo_institucional'];
                                 </div>
                             </div>
                         </td>
+                        <td>
+                            <div class="tags">
+                                <div class=' tag tag--dev'>
+                                    <a style='text-decoration:none; color:black;' href='assets/controladores/reporte_notificaciones.php' target="_blank">Descargar Informe</a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </form>
