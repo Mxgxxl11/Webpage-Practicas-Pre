@@ -1,6 +1,6 @@
 <?php
 //este apartado es para conectarme a la base de datos de login_register_db --> usuarios
-$conexion = mysqli_connect("localhost:3306", "root", "", "proyecto_integrado"); //si no funciona cambiar el localhost.
+$conexion = mysqli_connect("localhost:3306", "root", "", "proyecto_integrador"); //si no funciona cambiar el localhost.
 if (!$conexion) {
     die("Error de conexión: " . mysqli_connect_error());
 }
