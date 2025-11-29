@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '
             <script>
                 alert("Contraseña cambiada con éxito!");
-                window.location = "./../../login.html";
+                window.location = "./../../index.html";
             </script>
         ';
     } else {

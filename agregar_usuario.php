@@ -3,85 +3,80 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
     //Este archivo te sirve para agregar más administradores o docentes
     //al sistema. Pertenece al portal ADMINISTRADOR
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar usuario</title>
+    <title>Agregar Usuario - Administración</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/modern-theme.css">
     <link rel="stylesheet" href="assets/css/mesadepartes.css">
     <style>
-        .profile-form {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-form .form-grid {
+        .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 1.25rem;
+            margin-top: 1.5rem;
         }
 
-        .profile-form .entrada {
+        .form-grid .entrada {
             display: flex;
             flex-direction: column;
         }
 
-        .profile-form label {
-            margin-bottom: 5px;
-            font-weight: bold;
+        .form-grid label {
+            font-weight: 600;
+            color: #2C3E50;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
 
-        .profile-form input[type="text"],
-        .profile-form input[type="number"],
-        .profile-form input[type="password"],
-        .profile-form input[type="email"],
-        .profile-form select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
+        .form-grid input,
+        .form-grid select {
+            padding: 0.875rem 1rem;
+            border: 2px solid #ECF0F1;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background: #f8f9fa;
+            color: #2C3E50;
+            transition: all 0.3s ease;
         }
 
-        .profile-form input[type="text"]:focus,
-        .profile-form input[type="number"]:focus,
-        .profile-form input[type="password"]:focus,
-        .profile-form input[type="email"]:focus,
-        .profile-form select:focus {
-            border-color: #007bff;
+        .form-grid input:focus,
+        .form-grid select:focus {
             outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            border-color: #FFCC00;
+            box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.1);
+            background: #FFFFFF;
         }
 
-        .profile-form .entrada.full-width {
+        .entrada.full-width {
             grid-column: span 2;
         }
 
-        .profile-form .my-form__button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            background-color: coral;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .hidden {
+            display: none !important;
         }
 
-        .profile-form .my-form__button:hover {
-            background-color: #0056b3;
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .entrada.full-width {
+                grid-column: span 1;
+            }
         }
     </style>
 </head>
@@ -90,67 +85,79 @@ if (empty($_SESSION['codigo_institucional'])) {
     <header>
         <?php include './includes/header.php'; ?>
     </header>
-    <div class="container">
-        <?php include './includes/sidebar-admin.php' ?>
-        <main class="main-content">
-            <div class="profile-form">
-                <h1>REGISTRO ROLES</h1>
+    <div class="container" style="display: block;">
+        <main class="main-content" style="max-width: 1200px; margin: 0 auto;">
+            <div class="card">
+                <h2 class="card-title">➕ Registrar Nuevo Usuario</h2>
+                <p style="color: #7F8C8D; margin-bottom: 1.5rem;">Complete el formulario para agregar un nuevo administrador o docente al sistema.</p>
+                
                 <form action="assets/controladores/registro_admin.php" method="post">
-                    <div class="entrada">
-                        <label for="rol">Rol del usuario:</label>
+                    <div class="entrada full-width">
+                        <label for="rol">Rol del Usuario *</label>
                         <select id="rol" name="rol" required>
-                            <option value="" selected disabled>
-                                Seleccione un rol
-                            </option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Docente</option>
+                            <option value="" selected disabled>Seleccione un rol</option>
+                            <option value="1">👨‍💼 Administrador</option>
+                            <option value="2">👨‍🏫 Docente</option>
                         </select>
                     </div>
-                    <br>
+                    
                     <div class="form-grid">
                         <div class="entrada">
-                            <label for="codigo">Código Usuario Villarreal:</label>
-                            <input type="number" id="codigo" name="codigo" maxlength="10" autocomplete="off" title="Recuerda tu codigo son 10 dígitos" required />
+                            <label for="codigo">Código Usuario Villarreal *</label>
+                            <input type="number" id="codigo" name="codigo" maxlength="10" autocomplete="off" 
+                                   title="Recuerda tu código son 10 dígitos" placeholder="Ej: 2019123456" required />
                         </div>
                         <div class="entrada">
-                            <label for="password">Contraseña:</label>
-                            <input type="password" id="password" name="password" autocomplete="off" required />
+                            <label for="password">Contraseña *</label>
+                            <input type="password" id="password" name="password" autocomplete="off" 
+                                   placeholder="Ingrese una contraseña segura" required />
                         </div>
+                        
                         <div class="entrada">
-                            <label for="tipo_documento">Tipo de Documento:</label>
+                            <label for="tipo_documento">Tipo de Documento *</label>
                             <select id="tipo_documento" name="tipo_documento" required onchange="mostrarNumeroDocumento()">
-                                <option value="" selected disabled>
-                                    Seleccione un tipo de documento
-                                </option>
+                                <option value="" selected disabled>Seleccione un tipo de documento</option>
                                 <option value="1">DNI</option>
                                 <option value="2">Pasaporte</option>
                                 <option value="3">Otro</option>
                             </select>
                         </div>
                         <div class="hidden entrada" id="numero_documento_div">
-                            <label for="numero_documento">Número de Documento:</label>
-                            <input type="text" id="numero_documento" name="numero_documento" autocomplete="off" />
+                            <label for="numero_documento">Número de Documento *</label>
+                            <input type="text" id="numero_documento" name="numero_documento" autocomplete="off" 
+                                   placeholder="Ej: 12345678" />
+                        </div>
+                        
+                        <div class="entrada">
+                            <label for="primer_nombre">Primer Nombre *</label>
+                            <input type="text" id="primer_nombre" name="nombre1" autocomplete="off" 
+                                   pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" 
+                                   placeholder="Ej: Juan" required />
                         </div>
                         <div class="entrada">
-                            <label for="primer_nombre">Primer Nombre:</label>
-                            <input type="text" id="primer_nombre" name="nombre1" autocomplete="off" pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" required />
+                            <label for="segundo_nombre">Segundo Nombre</label>
+                            <input type="text" id="segundo_nombre" name="nombre2" autocomplete="off" 
+                                   pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" 
+                                   placeholder="Ej: Carlos" />
+                        </div>
+                        
+                        <div class="entrada">
+                            <label for="primer_apellido">Primer Apellido *</label>
+                            <input type="text" id="primer_apellido" name="apellido1" autocomplete="off" 
+                                   pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" 
+                                   placeholder="Ej: Pérez" required />
                         </div>
                         <div class="entrada">
-                            <label for="segundo_nombre">Segundo Nombre:</label>
-                            <input type="text" id="segundo_nombre" name="nombre2" autocomplete="off" pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" />
+                            <label for="segundo_apellido">Segundo Apellido</label>
+                            <input type="text" id="segundo_apellido" name="apellido2" autocomplete="off" 
+                                   pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" 
+                                   placeholder="Ej: García" />
                         </div>
+                        
                         <div class="entrada">
-                            <label for="primer_apellido">Primer Apellido:</label>
-                            <input type="text" id="primer_apellido" name="apellido1" autocomplete="off" pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" required />
-                        </div>
-                        <div class="entrada">
-                            <label for="segundo_apellido">Segundo Apellido:</label>
-                            <input type="text" id="segundo_apellido" name="apellido2" autocomplete="off" pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+" title="Solo se permiten letras y espacios" />
-                        </div>
-                        <div class="entrada">
-                            <label for="distrito">Distrito:</label>
+                            <label for="distrito">Distrito *</label>
                             <select name="distrito" id="distrito" required>
-                               <option value="" selected disabled>Seleccione un distrito</option>  
+                                <option value="" selected disabled>Seleccione un distrito</option>  
                                 <option value="ANCON">ANCON</option>  
                                 <option value="ATE">ATE</option>  
                                 <option value="BARRANCO">BARRANCO</option>  
@@ -201,24 +208,31 @@ if (empty($_SESSION['codigo_institucional'])) {
                             </select>
                         </div>
                         <div class="entrada">
-                            <label for="direccion">Dirección:</label>
-                            <input type="text" id="direccion" name="direccion" autocomplete="off" required />
+                            <label for="direccion">Dirección *</label>
+                            <input type="text" id="direccion" name="direccion" autocomplete="off" 
+                                   placeholder="Ej: Av. Colonial 123" required />
+                        </div>
+                        
+                        <div class="entrada">
+                            <label for="dpto">Nro Departamento</label>
+                            <input type="number" id="dpto" name="dpto" autocomplete="off" 
+                                   placeholder="Ej: 201" />
                         </div>
                         <div class="entrada">
-                            <label for="dpto">Nro Departamento:</label>
-                            <input type="number" id="dpto" name="dpto" autocomplete="off" />
+                            <label for="correo">Correo Electrónico *</label>
+                            <input type="email" id="correo" name="correo" autocomplete="off" 
+                                   placeholder="Ej: usuario@unfv.edu.pe" required />
+                        </div>
+                        
+                        <div class="entrada">
+                            <label for="celular">Celular *</label>
+                            <input type="tel" id="celular" name="celular" autocomplete="off" maxlength="9"
+                                   title="El celular contiene 9 dígitos" placeholder="Ej: 987654321" required />
                         </div>
                         <div class="entrada">
-                            <label for="correo">Correo Electrónico:</label>
-                            <input type="email" id="correo" name="correo" autocomplete="off" required />
-                        </div>
-                        <div class="entrada">
-                            <label for="celular">Celular:</label>
-                            <input type="text" id="celular" name="celular" autocomplete="off" title="El celular contiene 9 dígitos" required />
-                        </div>
-                        <div class="entrada">
-                            <label for="escuela">Escuela:</label>
+                            <label for="escuela">Escuela *</label>
                             <select id="escuela" name="escuela" required>
+                                <option value="" selected disabled>Seleccione una escuela</option>
                                 <option value="1">Informática</option>
                                 <option value="3">Mecatrónica</option>
                                 <option value="4">Electrónica</option>
@@ -226,13 +240,13 @@ if (empty($_SESSION['codigo_institucional'])) {
                             </select>
                         </div>
                     </div>
-                    <br>
-                    <div class="entrada full-width">
-                        <button type="submit" class="my-form__button">Registrar</button>
+                    
+                    <div class="form-buttons" style="margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary">💾 Registrar Usuario</button>
+                        <button type="button" class="btn btn-outline" onclick="window.location.href='menuadmin.php'">✖️ Cancelar</button>
                     </div>
                 </form>
             </div>
-
         </main>
     </div>
     <script src="assets/js/mesadepartes.js"></script>

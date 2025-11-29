@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
@@ -25,9 +25,8 @@ $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';
 <header>
     <?php include './includes/header.php'; ?>
     </header>
-    <div class="container">
-        <?php include './includes/sidebar.php'; ?>
-        <main class="main-content">
+    <div class="container" style="display: block;">
+        <main class="main-content" style="max-width: 1200px; margin: 0 auto;">
             <div id="complete" class="container2" style="<?php echo $mostrarDiv < '5' ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>

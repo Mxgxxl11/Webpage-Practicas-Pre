@@ -4,7 +4,7 @@ include './assets/controladores/bd.php';
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 $mostrarDiv = 0;
@@ -68,10 +68,8 @@ try {
 <header>
         <?php include './includes/header.php'; ?>
     </header>
-    <div class="container">
-        <?php include './includes/sidebar.php'; ?>
-
-        <main class="main-content">
+    <div class="container" style="display: block;">
+        <main class="main-content" style="max-width: 1200px; margin: 0 auto;">
             <div id="complete" class="container2" style="<?php echo $mostrarDiv < 10 ? 'display:block;' : 'display:none;'; ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>

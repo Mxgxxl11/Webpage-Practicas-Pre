@@ -5,7 +5,7 @@ include './assets/controladores/bd.php';
 if (empty($_SESSION['codigo_institucional'])) {  
     echo '<script>  
     alert("Para continuar debe iniciar sesión");  
-    window.location = "login.html";   
+    window.location = "index.html";   
     </script>';  
 }  
 $codigo = $_SESSION['codigo_institucional'];

@@ -114,7 +114,7 @@ if ($ejecutar and $ejecutar2 and $ejecutar3) {
     echo '
         <script>
             alert("Usuario almacenado exitosamente.");
-            window.location = "./../../login.html";
+            window.location = "./../../index.html";
         </script>';
 } else {
     echo '

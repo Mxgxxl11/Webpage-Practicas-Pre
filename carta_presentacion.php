@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
@@ -13,7 +13,7 @@ $nombres = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'];
 $mostrarDiv = isset($_SESSION['paso_cp']) ? $_SESSION['paso_cp'] : '';  
 $empresa_guardada = isset($_SESSION['empresa_guardada']) ? $_SESSION['empresa_guardada'] : '';
 $codigo = $_SESSION['codigo_institucional'];
-$base = substr($codigo, 0, 4); 
+$base = 2021; 
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +32,8 @@ $base = substr($codigo, 0, 4);
     <header>
         <?php include './includes/header.php'; ?>
     </header>
-    <div class="container">
-        <?php include './includes/sidebar.php'; ?>
-        <main class="main-content">
+    <div class="container" style="display: block;">
+        <main class="main-content" style="max-width: 1200px; margin: 0 auto;">
             <!-- INICIA FORM DE REGISTRO-->
             <div class="profile-form" id="Next-step" style="<?php echo $mostrarDiv === '1' ? 'display:block;' : 'display:none;'; ?>">
                 <form action="assets/controladores/registro_cp.php" method="POST" enctype="multipart/form-data">
@@ -225,6 +224,20 @@ $base = substr($codigo, 0, 4);
         <div class="form-group">
             <label for="emailRepresentante">Email del Representante:</label>
             <input type="email" id="emailRepresentante" name="emailRepresentante" placeholder="Email del representante" required>
+        </div>
+        
+        <h3>DATOS DE LAS PRÁCTICAS</h3>
+        <div class="form-group">
+            <label for="fechaInicioPractica">Fecha de Inicio de Prácticas:</label>
+            <input type="date" id="fechaInicioPractica" name="fechaInicioPractica" required>
+        </div>
+        <div class="form-group">
+            <label for="fechaFinPractica">Fecha de Fin de Prácticas:</label>
+            <input type="date" id="fechaFinPractica" name="fechaFinPractica" required>
+        </div>
+        <div class="form-group">
+            <label for="areaTrabajoPractica">Área de Trabajo:</label>
+            <input type="text" id="areaTrabajoPractica" name="areaTrabajoPractica" placeholder="Área donde realizará las prácticas" required>
         </div>
                 <p>*Si por algún error guardó datos incorrectos, solo corrija y presione modificar</p>
                 <p>*Presionar visualizar para cargar los datos en el FUT antes de continuar</p>

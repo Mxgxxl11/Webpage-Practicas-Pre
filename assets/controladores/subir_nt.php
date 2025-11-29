@@ -4,9 +4,8 @@ session_start();
 $codigo = $_SESSION['codigo_institucional'];
 $nt = $_POST['nt'];
 
-if(strlen($nt) <> 6 || ($nt = 000000)){
-    echo '  
-        Número de tramite invalido.';  
+if(strlen($nt) != 6 || $nt == '000000'){
+    echo 'Número de tramite invalido.';  
     exit(); 
 }
 

@@ -4,19 +4,23 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
   echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mesa de partes</title>
+  <title>Mesa de Partes - Prácticas Pre Profesionales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/modern-theme.css" />
   <link rel="stylesheet" href="assets/css/mesadepartes.css" />
 </head>
 
@@ -24,28 +28,78 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
   <header>
     <?php include './includes/header.php'; ?>
   </header>
-  <div class="container">
-    <?php include './includes/sidebar.php'; ?>
-    <main class="main-content">
-      <div class="profile-form">
-        <p>Bienvenido a nuestro portal para tramitar tus Prácticas Pre Profesionales</p>
-        <p>
-          Estamos aquí para facilitar tu proceso de inserción en el mundo laboral.
-          Sabemos que las prácticas preprofesionales son una etapa crucial en tu
-          formación académica y profesional, por eso, hemos creado este espacio
-          especialmente para ti.
-        </p>
-        <p><strong>(apto para estudiantes de últimos ciclos)</strong></p>
-        <!-- SOLO POR EL RATO -->
-        <svg fill="#000000" viewBox="0 0 24 24" id="work" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-          <g id="SVGRepo_iconCarrier">
-            <path id="secondary" d="M20.81,7.45,19,11.58A4,4,0,0,1,15.36,14H13v1H11V14H8.64A4,4,0,0,1,5,11.58L3.19,7.45A1,1,0,0,0,3,8V20a1,1,0,0,0,1,1H20a1,1,0,0,0,1-1V8A1,1,0,0,0,20.81,7.45Z" style="fill: #2ca9bc; stroke-width: 2;"></path>
-            <path id="primary" d="M11,14H8.64A4,4,0,0,1,5,11.58L3.18,7.43A1,1,0,0,1,4,7H20a1,1,0,0,1,.82.43L19,11.58A4,4,0,0,1,15.36,14H13" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
-            <path id="primary-2" data-name="primary" d="M16,7H8V4A1,1,0,0,1,9,3h6a1,1,0,0,1,1,1Zm5,13V8a1,1,0,0,0-1-1H4A1,1,0,0,0,3,8V20a1,1,0,0,0,1,1H20A1,1,0,0,0,21,20Zm-8-7H11v2h2Z" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path>
-          </g>
-        </svg>
+  <div class="container" style="display: block;">
+    <main class="main-content fade-in" style="max-width: 1400px; margin: 0 auto;">
+      <!-- Card de Bienvenida -->
+      <div class="card" style="padding: 1.5rem;">
+        <h2 class="card-title" style="margin-bottom: 0.75rem;">🎓 Bienvenido al Portal de Prácticas Pre Profesionales</h2>
+        <div class="card-content">
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">
+            Estamos aquí para facilitar tu proceso de inserción en el mundo laboral.
+            Sabemos que las prácticas preprofesionales son una etapa crucial en tu
+            formación académica y profesional.
+          </p>
+          <div class="badge badge-warning">Apto para estudiantes de últimos ciclos</div>
+        </div>
+      </div>
+      
+      <!-- Grid de Información -->
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <a href="ver_perfil.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Mi Perfil</h3>
+            <p class="info-card-description">
+              Actualiza tu información personal y académica.
+            </p>
+          </div>
+        </a>
+        
+        <a href="tramites.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Trámites en Línea</h3>
+            <p class="info-card-description">
+              Realiza tus solicitudes de prácticas pre-profesionales.
+            </p>
+          </div>
+        </a>
+        
+        <a href="constancia.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6zm9-7c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Constancias</h3>
+            <p class="info-card-description">
+              Solicita y descarga tu constancia de prácticas.
+            </p>
+          </div>
+        </a>
+        
+        <a href="noti_docente.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Notificaciones</h3>
+            <p class="info-card-description">
+              Revisa las notificaciones de tu docente supervisor.
+            </p>
+          </div>
+        </a>
       </div>
     </main>
   </div>

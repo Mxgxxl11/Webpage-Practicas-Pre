@@ -91,7 +91,7 @@ if (mysqli_num_rows($resultado) > 0) { //si encuentra un dato que esta en la BD 
     echo '
             <script>
             alert("Correo inválido o contraseña, verifique sus credenciales");
-            window.location = "./../../../login.html"; 
+            window.location = "./../../../index.html"; 
             </script>
         ';
     exit();

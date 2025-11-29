@@ -576,6 +576,7 @@ $(document).ready(function() {
             processData: false, // Importante: desactivamos el procesamiento de datos  
             success: function(response) {  
                 alert(response);  
+                print(response);
                 window.location = "./../../complete.php";   
             },  
             error: function() {  

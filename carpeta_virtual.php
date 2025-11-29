@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 //este archivo pertenece al portal ADMIN
@@ -13,144 +13,80 @@ if (empty($_SESSION['codigo_institucional'])) {
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administrador</title>
+    <title>Carpetas Virtuales - Administración</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/modern-theme.css" />
     <link rel="stylesheet" href="assets/css/mesadepartes.css" />
     <style>
-        * {
-            box-sizing: border-box;
+        .carpetas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
-
-        div.ambos {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        div.desc {
-            display: column;
-            height: 100%;
-        }
-
-        div.gallery {
-            border: 1px solid #ccc;
-            border-radius: 15px;
+        
+        .carpeta-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
             overflow: hidden;
-            width: 100%;
-            max-width: 300px;
-            /* Ajusta este valor según sea necesario */
-            height: 250px;
-            /* Ajusta este valor según sea necesario */
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-
+            border: 2px solid transparent;
         }
-
-        .desc {
-            padding: 15px;
-            background-color: #fff;
+        
+        .carpeta-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border-color: #FFCC00;
+        }
+        
+        .carpeta-icon {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+        
+        .carpeta-icon img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        
+        .carpeta-content {
+            padding: 1.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+        }
+        
+        .carpeta-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin: 0 0 1rem 0;
+            text-align: center;
+        }
+        
+        .carpeta-button {
+            margin-top: auto;
             width: 100%;
         }
-
-        button {
-            background-color: orange;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-
-        #logosidebar {
-            width: 30px;
-            margin-right: 20px;
-        }
-
-        button:hover {
-            background-color: orangered;
-        }
-
-        div.gallery:hover {
-            border: 1px solid #777;
-        }
-
-        div.gallery img {
-            width: 100px;
-            height: 100x;
-            display: block;
-            margin: 0;
-        }
-
-        .responsive {
-            padding: 0 6px;
-            float: left;
-            width: 50%;
-            height: 50%;
-            margin-top: 10px;
-        }
-
-        .clearfix:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        .texto_derecho {
-            margin: 5px 0;
-            text-align: right;
-        }
-
-        .texto_izquierdo {
-            margin: 5px 0;
-            text-align: left;
-        }
-
-        #text1,
-        #text3 {
-            color: rgb(69, 68, 68);
-        }
-
-        #text2 {
-            color: #C0392B;
-        }
-
-        #text1,
-        #text2 {
-            font-size: 15px;
-        }
-
-        #text3 {
-            font-size: 30px;
-        }
-
-        #text4 {
-            font-size: 13px;
-            color: #777;
-        }
-
-        @media only screen and (max-width: 700px) {
-            .responsive {
-                width: 49.99999%;
-                margin: 6px 0;
-            }
-        }
-
-        @media only screen and (max-width: 500px) {
-            .responsive {
-                width: 100%;
+        
+        @media (max-width: 768px) {
+            .carpetas-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -160,52 +96,63 @@ if (empty($_SESSION['codigo_institucional'])) {
     <header>
         <?php include './includes/header.php'; ?>
     </header>
-    <div class="container">
-        <?php include './includes/sidebar-admin.php'; ?>
-        <main class="main-content">
-            <h2>VISUALIZACION DE CARPETAS VIRTUALES SEGUN ESCUELA</h2>
-            <div class="responsive">
-                <div class="gallery">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="carta_presentacion">
-                    <div class="desc">
-                        <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>INFORMÁTICA</strong></p>
-                        </div>
-                        <button onclick="location.href='./carpetas_informatica.php'">Iniciar</button>
+    <div class="container" style="display: block;">
+        <main class="main-content" style="max-width: 1400px; margin: 0 auto;">
+            <div class="card" style="padding: 1.5rem; margin-bottom: 2rem;">
+                <h2 class="card-title">📁 Carpetas Virtuales por Escuela</h2>
+                <p style="color: #7F8C8D; margin-bottom: 0;">Selecciona una escuela para visualizar las carpetas virtuales de los estudiantes.</p>
+            </div>
+            
+            <div class="carpetas-grid">
+                <!-- Informática -->
+                <div class="carpeta-card">
+                    <div class="carpeta-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="Informática">
+                    </div>
+                    <div class="carpeta-content">
+                        <h3 class="carpeta-title">INFORMÁTICA</h3>
+                        <button onclick="location.href='./carpetas_informatica.php'" class="btn btn-primary carpeta-button">
+                            📂 Ver Carpetas
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="responsive">
-                <div class="gallery">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="carta_presentacion">
-                    <div class="desc">
-                        <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>ELECTRÓNICA</strong></p>
-                        </div>
-                        <button onclick="location.href='./carpetas_electronica.php'">Iniciar</button>
-                    </div>
-                </div>
-            </div>
 
-            <div class="responsive">
-                <div class="gallery">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="carta_presentacion">
-                    <div class="desc">
-                        <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>MECATRÓNICA</strong></p>
-                        </div>
-                        <button onclick="location.href='./carpetas_mecatronica.php'">Iniciar</button>
+                <!-- Electrónica -->
+                <div class="carpeta-card">
+                    <div class="carpeta-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="Electrónica">
+                    </div>
+                    <div class="carpeta-content">
+                        <h3 class="carpeta-title">ELECTRÓNICA</h3>
+                        <button onclick="location.href='./carpetas_electronica.php'" class="btn btn-primary carpeta-button">
+                            📂 Ver Carpetas
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="responsive">
-                <div class="gallery">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="carta_presentacion">
-                    <div class="desc">
-                        <div class="ambos">
-                            <p class="texto_izquierdo" id="text3"><strong>TELECOM.</strong></p>
-                        </div>
-                        <button onclick="location.href='./carpetas_telecomunicaciones.php'">Iniciar</button>
+
+                <!-- Mecatrónica -->
+                <div class="carpeta-card">
+                    <div class="carpeta-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="Mecatrónica">
+                    </div>
+                    <div class="carpeta-content">
+                        <h3 class="carpeta-title">MECATRÓNICA</h3>
+                        <button onclick="location.href='./carpetas_mecatronica.php'" class="btn btn-primary carpeta-button">
+                            📂 Ver Carpetas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Telecomunicaciones -->
+                <div class="carpeta-card">
+                    <div class="carpeta-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4706/4706330.png" alt="Telecomunicaciones">
+                    </div>
+                    <div class="carpeta-content">
+                        <h3 class="carpeta-title">TELECOMUNICACIONES</h3>
+                        <button onclick="location.href='./carpetas_telecomunicaciones.php'" class="btn btn-primary carpeta-button">
+                            📂 Ver Carpetas
+                        </button>
                     </div>
                 </div>
             </div>

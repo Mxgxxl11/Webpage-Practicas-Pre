@@ -69,9 +69,18 @@ $id_empresa = mysqli_insert_id($conexion);
 // Asignar valores a las variables de practicas
 $fecha_inicio = $_POST['fecha_inicio'] ?? null;
 $fecha_final = $_POST['fecha_final'] ?? null;
-$horas = $_POST['horas'] ?? null;
-$meses = $_POST['meses'] ?? null;
 $area = $_POST['area_trabajo'] ?? null;
+
+// Calcular horas y meses si se proporcionaron las fechas
+$horas = null;
+$meses = null;
+if ($fecha_inicio && $fecha_final) {
+    $inicio = new DateTime($fecha_inicio);
+    $culminacion = new DateTime($fecha_final);
+    $intervalo = $inicio->diff($culminacion);
+    $meses = $intervalo->y * 12 + $intervalo->m; // Total de meses
+    $horas = ($intervalo->days * 6) + $intervalo->h; // Total de horas (6 horas por día)
+}
 
 // Preparar la consulta para insertar en practicas
 $query2 = "INSERT INTO practicas (id_alumno, id_empresa, area_trabajo, fecha_inicio, fecha_final, horas, meses) 

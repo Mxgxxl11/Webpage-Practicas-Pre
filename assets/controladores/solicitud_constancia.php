@@ -63,62 +63,82 @@ $result4 = mysqli_query($conexion, "SELECT id_solicitud FROM solicitud WHERE id_
 $row = mysqli_fetch_assoc($result4);  
 $id_solicitud = $row['id_solicitud'];
 
-if ($fut['error'] === UPLOAD_ERR_OK && $fotos_carnet['error'] === UPLOAD_ERR_OK && $cons_empresa['error'] === UPLOAD_ERR_OK && $comprobante['error'] === UPLOAD_ERR_OK && $comprobante['error'] === UPLOAD_ERR_OK) {  
-    // Leer el contenido de los archivos  
-    $contenido_fut = file_get_contents($fut['tmp_name']);  
-    $contenido_fotos = file_get_contents($fotos_carnet['tmp_name']);
-    $contenido_cons_empresa = file_get_contents($cons_empresa['tmp_name']);  
-    $contenido_comprobante = file_get_contents($comprobante['tmp_name']); 
-
-    // Preparar la consulta SQL para insertar en la base de datos  
-    $sql = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
-    $sql2 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";
-    $sql3 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";  
-    $sql4 = "INSERT INTO documentos (id_solicitud, nombre_documento, contenido) VALUES (?, ?, ?)";
+if ($fut['error'] === UPLOAD_ERR_OK && $fotos_carnet['error'] === UPLOAD_ERR_OK && $cons_empresa['error'] === UPLOAD_ERR_OK && $comprobante['error'] === UPLOAD_ERR_OK) {  
+    // Definir la carpeta de destino
+    $carpeta_destino = "../documentos_solicitud/";
     
-    $stmt = $conexion->prepare($sql);  
-    $stmt2 = $conexion->prepare($sql2);
-    $stmt3 = $conexion->prepare($sql3);  
-    $stmt4 = $conexion->prepare($sql4);
-
-    $nombre_archivo1 = "FUT";
-    $nombre_archivo2 = "Fotos Carnet";
-    $nombre_archivo3 = "Constancia de la Empresa";
-    $nombre_archivo4 = "Comprobante de pago";
-
-    // Enlazar parámetros  
-    $stmt->bind_param("isi", $id_solicitud, $nombre_archivo1, $contenido_fut);  
-    $stmt2->bind_param("isi", $id_solicitud, $nombre_archivo2, $contenido_fotos);
-    $stmt3->bind_param("isi", $id_solicitud, $nombre_archivo3, $contenido_cons_empresa);  
-    $stmt4->bind_param("isi", $id_solicitud, $nombre_archivo4, $contenido_comprobante);      
-
-    // Ejecutar la consulta  
-    if ($stmt->execute() and $stmt2->execute() and $stmt3->execute() and $stmt4->execute()){  
-        echo "Archivos almacenados correctamente en la base de datos.";  
+    // Crear la carpeta si no existe
+    if (!file_exists($carpeta_destino)) {
+        mkdir($carpeta_destino, 0777, true);
+    }
+    
+    // Generar nombres únicos para los archivos
+    $extension_fut = pathinfo($fut['name'], PATHINFO_EXTENSION);
+    $extension_fotos = pathinfo($fotos_carnet['name'], PATHINFO_EXTENSION);
+    $extension_cons = pathinfo($cons_empresa['name'], PATHINFO_EXTENSION);
+    $extension_comp = pathinfo($comprobante['name'], PATHINFO_EXTENSION);
+    
+    // Si no hay extensión, usar 'pdf' por defecto
+    $extension_fut = !empty($extension_fut) ? $extension_fut : 'pdf';
+    $extension_fotos = !empty($extension_fotos) ? $extension_fotos : 'pdf';
+    $extension_cons = !empty($extension_cons) ? $extension_cons : 'pdf';
+    $extension_comp = !empty($extension_comp) ? $extension_comp : 'pdf';
+    
+    $nombre_fut = $codigo . "_" . $apellidos . "_FUT." . $extension_fut;
+    $nombre_fotos = $codigo . "_" . $apellidos . "_FotosCarnet." . $extension_fotos;
+    $nombre_cons = $codigo . "_" . $apellidos . "_ConstanciaEmpresa." . $extension_cons;
+    $nombre_comp = $codigo . "_" . $apellidos . "_Comprobante." . $extension_comp;
+    
+    // Rutas completas de destino
+    $ruta_fut = $carpeta_destino . $nombre_fut;
+    $ruta_fotos = $carpeta_destino . $nombre_fotos;
+    $ruta_cons = $carpeta_destino . $nombre_cons;
+    $ruta_comp = $carpeta_destino . $nombre_comp;
+    
+    // Mover archivos a la carpeta de destino
+    $mover_fut = move_uploaded_file($fut['tmp_name'], $ruta_fut);
+    $mover_fotos = move_uploaded_file($fotos_carnet['tmp_name'], $ruta_fotos);
+    $mover_cons = move_uploaded_file($cons_empresa['tmp_name'], $ruta_cons);
+    $mover_comp = move_uploaded_file($comprobante['tmp_name'], $ruta_comp);
+    
+    if ($mover_fut && $mover_fotos && $mover_cons && $mover_comp) {
+        // Preparar la consulta SQL para insertar en la base de datos  
+        $sql = "INSERT INTO documentos (id_solicitud, nombre_documento, ruta) VALUES (?, ?, ?)";  
+        
+        $stmt = $conexion->prepare($sql);
+        
+        $nombre_archivo1 = "FUT";
+        $nombre_archivo2 = "Fotos Carnet";
+        $nombre_archivo3 = "Constancia de la Empresa";
+        $nombre_archivo4 = "Comprobante de pago";
+        
+        // Enlazar parámetros y ejecutar para cada archivo
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo1, $ruta_fut);  
+        $stmt->execute();
+        
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo2, $ruta_fotos);
+        $stmt->execute();
+        
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo3, $ruta_cons);  
+        $stmt->execute();
+        
+        $stmt->bind_param("iss", $id_solicitud, $nombre_archivo4, $ruta_comp);      
+        $stmt->execute();
+        
+        // Cerrar el statement  
+        $stmt->close();
+        
+        if ($ejecutar && $ejecutar2) {  
+            echo 'Datos almacenados exitosamente';
+        } else {  
+            echo 'Error al almacenar los datos en la solicitud: ' . mysqli_error($conexion);  
+        }
     } else {  
-        echo "Error al almacenar los archivos: " . $stmt->error;  
-    }  
-
-    // Cerrar el statement  
-    $stmt->close(); 
-    $stmt2->close();
-    $stmt3->close(); 
-    $stmt4->close();
+        echo "Error al mover los archivos al servidor. Verifique los permisos de la carpeta.";  
+    }
 } else {  
-    echo "Error al subir los archivos.";  
-}  
-
-if ($ejecutar and $ejecutar2) {  
-
-    // $_SESSION['paso_cp'] = '3'; 
-    echo ' Datos almacenados exitosamente ';
-
-} else {  
-    echo '  
-            alert("Error al almacenar los datos. Inténtelo nuevamente.");   
-         ';  
-    echo "Error: " . mysqli_error($conexion);  
+    echo "Error al subir los archivos. Verifique que todos los archivos se hayan cargado correctamente.";  
 }  
 
 mysqli_close($conexion);
-?>  
+?>

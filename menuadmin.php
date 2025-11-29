@@ -5,19 +5,23 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
   echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Administradores</title>
+  <title>Administradores - Prácticas Pre Profesionales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/modern-theme.css" />
   <link rel="stylesheet" href="assets/css/mesadepartes.css" />
 </head>
 
@@ -25,53 +29,106 @@ $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'
   <header>
     <?php include './includes/header.php'; ?>
   </header>
-  <div class="container">
-    <?php include './includes/sidebar-admin.php' ?>
-    <main class="main-content">
-      <div class="profile-form">
-        <p style="text-align: justify;"><strong>¡Bienvenido al Portal de Administración de Prácticas Pre Profesionales!</strong></p>
-        <p style="text-align: justify;">
-          Aquí podrás gestionar de manera eficiente y organizada todas las actividades
-          relacionadas con las prácticas, desde la asignación de tutores hasta el seguimiento
-          de los avances de los estudiantes.
-          <br>
-          <br>
-          Nuestro objetivo es brindarte las herramientas
-          ecesarias para asegurar una experiencia enriquecedora y exitosa para todos los involucrados
-        </p>
-        <div style="text-align: center;">
-          <svg height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <g>
-                <path style="fill:#D55400;" d="M433.253,125.646h-68.299c-10.777,0-19.514-8.737-19.514-19.514V82.324 c0-29.59,24.074-53.664,53.664-53.664s53.664,24.074,53.664,53.664v23.807C452.767,116.909,444.031,125.646,433.253,125.646z"></path>
-                <path style="fill:#D55400;" d="M433.253,483.34h-68.299c-10.777,0-19.514-8.737-19.514-19.514v-120.61 c0-10.777,8.737-19.514,19.514-19.514h68.299c10.777,0,19.514,8.737,19.514,19.514v120.61 C452.767,474.604,444.031,483.34,433.253,483.34z"></path>
-              </g>
-              <g>
-                <path style="fill:#E87E04;" d="M147.045,125.646H78.746c-10.777,0-19.514-8.737-19.514-19.514V82.324 c0-29.59,24.074-53.664,53.664-53.664s53.664,24.074,53.664,53.664v23.807C166.56,116.909,157.822,125.646,147.045,125.646z"></path>
-                <path style="fill:#E87E04;" d="M147.045,483.34H78.746c-10.777,0-19.514-8.737-19.514-19.514v-120.61 c0-10.777,8.737-19.514,19.514-19.514h68.299c10.777,0,19.514,8.737,19.514,19.514v120.61 C166.56,474.604,157.822,483.34,147.045,483.34z"></path>
-              </g>
-              <path style="fill:#F2C500;" d="M466.467,362.729H45.533C20.426,362.729,0,342.303,0,317.196V132.15 c0-25.107,20.426-45.533,45.533-45.533h420.934c25.107,0,45.533,20.426,45.533,45.533v185.046 C512,342.303,491.573,362.729,466.467,362.729z"></path>
-              <path style="fill:#F59D00;" d="M466.467,86.617H255.999v276.112h210.466c25.107,0,45.533-20.426,45.533-45.533V132.15 C512,107.043,491.573,86.617,466.467,86.617z"></path>
-              <g>
-                <path style="fill:#808285;" d="M116.532,246.625c-2.036,5.935-15.559,5.491-16.815,0l-4.285-19.534l-4.287,19.534 c-1.274,5.569-14.975,5.854-16.813,0L57.93,196.349c-1.698-5.081,10.836-8.842,12.281-3.791l12.528,42.282l6.511-27.858 c0.998-4.493,11.366-4.49,12.363,0l6.511,27.858l12.528-42.282c1.439-5.04,13.96-1.31,12.281,3.791L116.532,246.625z"></path>
-                <path style="fill:#808285;" d="M157.254,215.305h12.363c5.083,0,5.24,9.891,0,9.891h-12.363v14.011h22.089 c5.096,0,5.255,11.209,0,11.209h-29.341c-2.802,0-5.606-1.319-5.606-3.956v-52.337c0-2.637,2.802-3.956,5.606-3.956h29.341 c5.258,0,5.093,11.209,0,11.209h-22.089V215.305z"></path>
-                <path style="fill:#808285;" d="M201.022,250.416c-2.802,0-5.606-1.319-5.606-3.956v-52.42c0-2.72,3.215-3.873,6.428-3.873 c3.216,0,6.429,1.154,6.429,3.873v45.166h18.791c4.946,0,4.946,11.209,0,11.209h-26.042V250.416z"></path>
-                <path style="fill:#808285;" d="M261.275,201.376c-4.698,0-7.418,2.637-7.418,8.243v21.842c0,5.604,2.72,8.241,7.5,8.241 c6.593,0,7.007-5.028,7.253-8.241c0.247-3.049,3.051-3.874,6.347-3.874c4.451,0,6.511,1.154,6.511,6.1 c0,21.775-40.468,25.498-40.468-2.226v-21.842c0-27.783,40.468-23.656,40.468-3.049c0,4.945-2.061,6.099-6.428,6.099 c-3.462,0-6.265-0.907-6.429-3.874C268.526,206.651,268.28,201.376,261.275,201.376z"></path>
-                <path style="fill:#808285;" d="M293.917,231.46v-21.842c0-14.176,8.819-19.452,20.195-19.452c11.373,0,20.275,5.275,20.275,19.452 v21.842c0,14.176-8.902,19.452-20.275,19.452C302.736,250.911,293.917,245.637,293.917,231.46z M321.526,209.619 c0-5.688-2.801-8.243-7.417-8.243s-7.336,2.555-7.336,8.243v21.842c0,5.686,2.72,8.241,7.336,8.241s7.417-2.555,7.417-8.241 V209.619z"></path>
-                <path style="fill:#808285;" d="M378.236,229.071c-1.841,3.116-6.593,3.32-8.323,0l-7.829-14.342v31.733 c0,5.275-12.859,5.275-12.859,0v-49.865c0-4.698,3.215-6.428,6.429-6.428c4.614,0,6.593,0.494,9.972,6.428l8.49,14.836 l8.489-14.836c3.38-5.935,5.356-6.428,9.973-6.428c3.295,0,6.428,1.73,6.428,6.428v49.865c0,5.275-12.859,5.275-12.859,0v-30.908 L378.236,229.071z"></path>
-                <path style="fill:#808285;" d="M427.363,215.305h12.363c5.083,0,5.24,9.891,0,9.891h-12.363v14.011h22.089 c5.096,0,5.254,11.209,0,11.209h-29.341c-2.802,0-5.606-1.319-5.606-3.956v-52.337c0-2.637,2.802-3.956,5.606-3.956h29.341 c5.256,0,5.094,11.209,0,11.209h-22.089V215.305z"></path>
-              </g>
-              <g>
-                <path style="fill:#6D6E71;" d="M274.954,227.589c-3.291,0-6.101,0.82-6.349,3.877c-0.247,3.213-0.65,8.235-7.246,8.235 c-2.277,0-4.085-0.598-5.36-1.847v12.814c11.526,2.368,25.472-4.189,25.472-16.977 C281.472,228.745,279.403,227.589,274.954,227.589z M255.999,190.433v12.762c1.249-1.224,3.031-1.821,5.269-1.821 c7.012,0,7.259,5.282,7.337,7.415c0.169,2.966,2.966,3.877,6.427,3.877c4.371,0,6.44-1.158,6.44-6.101 C281.472,194.465,267.513,188.052,255.999,190.433z"></path>
-                <path style="fill:#6D6E71;" d="M293.917,231.46v-21.842c0-14.176,8.819-19.452,20.195-19.452c11.373,0,20.275,5.275,20.275,19.452 v21.842c0,14.176-8.902,19.452-20.275,19.452C302.736,250.911,293.917,245.637,293.917,231.46z M321.526,209.619 c0-5.688-2.801-8.243-7.417-8.243s-7.336,2.555-7.336,8.243v21.842c0,5.686,2.72,8.241,7.336,8.241s7.417-2.555,7.417-8.241 V209.619z"></path>
-                <path style="fill:#6D6E71;" d="M378.236,229.071c-1.841,3.116-6.593,3.32-8.323,0l-7.829-14.342v31.733 c0,5.275-12.859,5.275-12.859,0v-49.865c0-4.698,3.215-6.428,6.429-6.428c4.614,0,6.593,0.494,9.972,6.428l8.49,14.836 l8.489-14.836c3.38-5.935,5.356-6.428,9.973-6.428c3.295,0,6.428,1.73,6.428,6.428v49.865c0,5.275-12.859,5.275-12.859,0v-30.908 L378.236,229.071z"></path>
-                <path style="fill:#6D6E71;" d="M427.363,215.305h12.363c5.083,0,5.24,9.891,0,9.891h-12.363v14.011h22.089 c5.096,0,5.254,11.209,0,11.209h-29.341c-2.802,0-5.606-1.319-5.606-3.956v-52.337c0-2.637,2.802-3.956,5.606-3.956h29.341 c5.256,0,5.094,11.209,0,11.209h-22.089V215.305z"></path>
-              </g>
-            </g>
-          </svg>
+  <div class="container" style="display: block;">
+    <main class="main-content fade-in" style="max-width: 1400px; margin: 0 auto;">
+      <!-- Card de Bienvenida -->
+      <div class="card" style="padding: 1.5rem;">
+        <h2 class="card-title" style="margin-bottom: 0.75rem;">👨‍💼 Bienvenido al Portal de Administración</h2>
+        <div class="card-content">
+          <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">
+            Aquí podrás gestionar de manera eficiente y organizada todas las actividades
+            relacionadas con las prácticas, desde la asignación de tutores hasta el seguimiento
+            de los avances de los estudiantes.
+          </p>
+          <div class="badge badge-warning">Panel de Control Administrativo</div>
         </div>
+      </div>
+      
+      <!-- Grid de Administración -->
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <a href="perfil_admin.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Mi Perfil</h3>
+            <p class="info-card-description">
+              Actualiza tu información personal y de contacto.
+            </p>
+          </div>
+        </a>
+        
+        <a href="agregar_usuario.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Agregar Usuario</h3>
+            <p class="info-card-description">
+              Registra nuevos administradores o docentes en el sistema.
+            </p>
+          </div>
+        </a>
+        
+        <a href="ver_usuarios.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Ver Usuarios</h3>
+            <p class="info-card-description">
+              Consulta y gestiona todos los usuarios del sistema.
+            </p>
+          </div>
+        </a>
+        
+        <a href="carpeta_virtual.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Carpetas Virtuales</h3>
+            <p class="info-card-description">
+              Revisa y administra las carpetas de los estudiantes.
+            </p>
+          </div>
+        </a>
+        
+        <a href="asignar_docente.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Asignar Docente</h3>
+            <p class="info-card-description">
+              Asigna docentes supervisores a los estudiantes.
+            </p>
+          </div>
+        </a>
+        
+        <a href="notificaciones-admin.php" style="text-decoration: none;">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+              </svg>
+            </div>
+            <h3 class="info-card-title">Notificaciones</h3>
+            <p class="info-card-description">
+              Envía notificaciones a docentes y estudiantes.
+            </p>
+          </div>
+        </a>
       </div>
     </main>
   </div>

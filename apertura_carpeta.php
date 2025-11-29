@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION['codigo_institucional'])) {
     echo '<script>
     alert("Para continuar debe iniciar sesión");
-    window.location = "login.html"; 
+    window.location = "index.html"; 
     </script>';
 }
 $nombre_completo = $_SESSION['primer_nombre'] . ' ' . $_SESSION['segundo_nombre'] . ' ' . $_SESSION['primer_apellido'] . ' ' . $_SESSION['segundo_apellido'];
@@ -36,9 +36,8 @@ if (date('m') < 9) {
     <header>
         <?php include './includes/header.php'; ?>
     </header>
-    <div class="container">
-        <?php include './includes/sidebar.php'; ?>
-        <main class="main-content">
+    <div class="container" style="display: block;">
+        <main class="main-content" style="max-width: 1200px; margin: 0 auto;">
         <div id="complete" class="container2" style="<?php echo $mostrarDiv < '3' ? 'display:block;' : 'display:none;' ?>">
                 <h2>Necesitas completar el proceso anterior</h2>
             </div>

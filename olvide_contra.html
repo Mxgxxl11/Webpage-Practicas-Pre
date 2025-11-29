@@ -4,19 +4,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reestablecer contraseña</title>
-    <link rel="stylesheet" href="assets/css/olvide_cont.css" />
+    <title>Recuperar Contraseña - UNFV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #2C3E50;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            background: #fff9e6;
+            border-left: 4px solid #FFCC00;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .info-box p {
+            color: #2C3E50;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #2C3E50;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #FFCC00;
+            box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.1);
+        }
+
+        .form-group input::placeholder {
+            text-transform: none;
+            color: #bdc3c7;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FFCC00 0%, #FFB800 100%);
+            color: #2C3E50;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #2C3E50;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .header-icon {
+                font-size: 48px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!--Faltaria agregarle validaciones-->
-    <div class="background"></div>
     <div class="container">
-        <p>Ingresa tu código de usuario:</p>
-        <form action="assets/controladores/validar_codigo.php" method="post">
-            <input type="text" id="codigo" name="codigo" placeholder="Ingresa tu código" required><br><br>
-            <button type="submit">Enviar</button>
+        <div class="header">
+            <div class="header-icon">🔑</div>
+            <h1>¿Olvidaste tu contraseña?</h1>
+            <p>Ingresa tu código institucional para restablecer tu contraseña</p>
+        </div>
+
+        <div class="info-box">
+            <p>💡 <strong>Nota:</strong> Ingrese su código institucional de estudiante o docente para verificar su identidad.</p>
+        </div>
+
+        <form action="assets/controladores/validar_codigo.php" method="post" id="codeForm">
+            <div class="form-group">
+                <label for="codigo">📋 Código Institucional</label>
+                <input 
+                    type="text" 
+                    id="codigo" 
+                    name="codigo" 
+                    placeholder="Ejemplo: 2020123456" 
+                    required
+                    pattern="[0-9]+"
+                    title="Solo números"
+                    minlength="8"
+                >
+            </div>
+
+            <button type="submit" class="submit-btn">Verificar Código</button>
         </form>
+
+        <div class="back-link">
+            <a href="index.html">← Volver al inicio de sesión</a>
+        </div>
     </div>
-    
+
+    <script>
+        document.getElementById('codeForm').addEventListener('submit', function(e) {
+            const codigo = document.getElementById('codigo').value.trim();
+            
+            if (codigo.length < 8) {
+                e.preventDefault();
+                alert('⚠️ El código debe tener al menos 8 caracteres.');
+                return false;
+            }
+
+            if (!/^\d+$/.test(codigo)) {
+                e.preventDefault();
+                alert('⚠️ El código solo debe contener números.');
+                return false;
+            }
+        });
+
+        // Solo permitir números
+        document.getElementById('codigo').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
 </body>
 </html>

@@ -524,7 +524,10 @@ $(document).ready(function() {
       var nombreRepresentante = $('#nombreRepresentante').val(); 
       var cargoRepresentante = $('#cargoRepresentante').val(); 
       var dniRepresentante = $('#dniRepresentante').val(); 
-      var direccionRepresentante = $('#direccionRepresentante').val(); 
+      var direccionRepresentante = $('#direccionRepresentante').val();
+      var fechaInicioPractica = $('#fechaInicioPractica').val();
+      var fechaFinPractica = $('#fechaFinPractica').val();
+      var areaTrabajoPractica = $('#areaTrabajoPractica').val();
   
       var formData = new FormData();  
       formData.append('nombreEmpresa', nombreEmpresa);  
@@ -538,6 +541,9 @@ $(document).ready(function() {
       formData.append('cargoRepresentante', cargoRepresentante);
       formData.append('dniRepresentante', dniRepresentante);
       formData.append('direccionRepresentante', direccionRepresentante);
+      formData.append('fecha_inicio', fechaInicioPractica);
+      formData.append('fecha_final', fechaFinPractica);
+      formData.append('area_trabajo', areaTrabajoPractica);
 
       // Enviar los datos a un script PHP usando AJAX  
       $.ajax({  
@@ -569,7 +575,10 @@ $(document).ready(function() {
       var nombreRepresentante = $('#nombreRepresentante').val(); 
       var cargoRepresentante = $('#cargoRepresentante').val(); 
       var dniRepresentante = $('#dniRepresentante').val(); 
-      var direccionRepresentante = $('#direccionRepresentante').val(); 
+      var direccionRepresentante = $('#direccionRepresentante').val();
+      var fechaInicioPractica = $('#fechaInicioPractica').val();
+      var fechaFinPractica = $('#fechaFinPractica').val();
+      var areaTrabajoPractica = $('#areaTrabajoPractica').val();
   
       var formData = new FormData();  
       formData.append('nombreEmpresa', nombreEmpresa);  
@@ -583,6 +592,9 @@ $(document).ready(function() {
       formData.append('cargoRepresentante', cargoRepresentante);
       formData.append('dniRepresentante', dniRepresentante);
       formData.append('direccionRepresentante', direccionRepresentante);
+      formData.append('fecha_inicio', fechaInicioPractica);
+      formData.append('fecha_final', fechaFinPractica);
+      formData.append('area_trabajo', areaTrabajoPractica);
 
       // Enviar los datos a un script PHP usando AJAX  
       $.ajax({  

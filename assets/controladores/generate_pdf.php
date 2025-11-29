@@ -9,8 +9,8 @@ date_default_timezone_set('America/Lima');
 // Creación de la instancia de FPDF  
 $pdf = new FPDF('L', 'mm', 'A4');
 $pdf->AddPage();
-$pdf->Image('C:\xampp\htdocs\PPP\assets\images\logo_unfv.jpg', 15, 8, 30); // tengo que corregir la ruta en godaddy
-$pdf->Image('C:\xampp\htdocs\PPP\assets\images\FIEI_LOGO-removebg-preview.png', 250, 5, 20); // tengo que corregir la ruta en godaddy
+$pdf->Image(__DIR__ . '/../images/logo_unfv.jpg', 15, 8, 30);
+$pdf->Image(__DIR__ . '/../images/FIEI_LOGO-removebg-preview.png', 250, 5, 20);
 
 // Título del informe  
 $pdf->SetFont('Arial', 'B', 16);
@@ -52,7 +52,7 @@ $pdf->Cell(40, 10, utf8_decode('Código Docente'), 1);
 $pdf->Ln();
 
 // Conexión a la base de datos  
-$conn = new mysqli("localhost:33065", "root", "", "proyecto_integrador");
+$conn = new mysqli("localhost:3306", "root", "", "proyecto_integrador");
 
 // Verifica la conexión  
 if ($conn->connect_error) {
